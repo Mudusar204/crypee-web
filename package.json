@@ -41,15 +41,10 @@
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test",
-        "eject": "react-scripts eject",
-        "lint": "eslint --no-error-on-unmatched-pattern src/**/*.{js,jsx}",
-        "lint:fix": "eslint --fix"
+        "eject": "react-scripts eject"
     },
     "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+        "extends": "react-app/jest"
     },
     "browserslist": {
         "production": [
