@@ -1,8 +1,9 @@
-import { Typography, Box, Button, Stack, LinearProgress } from '@mui/material';
+import { Typography, Box, Button, Stack, LinearProgress, Grid } from '@mui/material';
 
 import portfolioInsightsBg from '../../images/portfolio_insights_bg.png';
-import portfoliobg from '../../images/portfoliobg.png'
+import portfoliobg from '../../images/portfoliobg.png';
 import { AssetsDropdown } from '../../Components/DropdownMenus';
+import portfoliocart from '../../images/portfoliocart.png';
 
 const assetsCategories = ['All time', 'Most Recent', 'Oldest'];
 
@@ -55,66 +56,82 @@ const coinDiversityDetails = [
 const PortfolioInsights = () => {
     return (
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box my={10}>
                 <Typography
                     color={'text.darkblue'}
-                    align="center"
-                    sx={{ my: 4, fontSize: '22px', fontWeight: 600 }}
+                    px={3}
+                    sx={{ my: 4, fontSize: '32px', fontWeight: 700 }}
                 >
                     Portfolio Insights
                 </Typography>
 
-                {/* <Stack direction={'row'} flexWrap={'wrap'} gap={4.2} justifyContent={'center'}>
-                    {insightDetails.map((item, i) => {
-                        return (
-                            <Box
-                                key={i}
-                                sx={{
-                                    backgroundImage: `url(${portfoliobg})`,
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundSize: '100% 100%',
-                                    width: { xs: '280px', md: '343px' },
-                                  
-                                    padding: '1.3rem 1rem',
-                                    borderRadius: '20px',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <Typography
-                                    sx={{ fontSize: '0.687rem', fontWeight: 600, color: 'black' }}
-                                >
-                                    {item.title}
-                                </Typography>
-                                <Typography
-                                    color="text.white"
-                                    sx={{
-                                        fontSize: '0.687rem',
-                                        textAlign: 'center',
-                                        mt: '20px',
-                                        py: '1rem',
-                                    }}
-                                >
-                                    {item.description}
-                                </Typography>
+                
 
-                                <Box
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    <Button
-                                        variant="btn1"
-                                        sx={{ fontSize: '0.67rem', fontWeight: 600 }}
-                                    >
-                                        {item.btnText}
-                                    </Button>
-                                </Box>
-                            </Box>
-                        );
-                    })}
-                </Stack> */}
+                {/* ==============cards===================== */}
+                <Grid container gap={5} justifyContent={'center'} alignItems={'center'}>
+    {insightDetails.map((item, i) => (
+        <Grid item lg={3.5} md={5} xs={12} sm={11} key={i}>
+            <Box
+                sx={{
+                    boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                    border: '2px solid #E7F4FF',
+                    borderRadius: '15px',
+                    background: 'white',
+                    display:'flex',
+                    alignItems:'center',
+                    flexDirection:'column',
+                    justifyContent:'center',
+                 
+                }}
+            >
+                <Box
+                    sx={{
+                        backgroundImage: `url(${portfoliocart})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%',
+                        py: 2,
+                        borderTopLeftRadius: '15px',
+                        borderTopRightRadius: '15px',
+                        width:'100%'
+                    }}
+                >
+                    <Typography  fontSize={'14px'} color={'white'} fontWeight={700} px={2}>
+                        {item.title}
+                    </Typography>
+                </Box>
+                <Typography
+                    fontSize={'12px'}
+                    fontWeight={500}
+                    color={'black'}
+                    textAlign={'center'}
+                    lineHeight={'20px'}
+                    fontStyle={'normal'}
+                    py={3}
+                    width={{lg:'280px',xs:'100%',sm:'100%',md:'300px'}}  
+                >
+                    {item.description}
+                </Typography>
+             
+                <Button
+                
+                    sx={{
+                        color: 'white',
+                        borderRadius: '6px',
+                        background:
+                            'linear-gradient(180deg, #29A3F1 -27.01%, #2896DC 36.23%, #0B7AC1 110.95%)',
+                        boxShadow: '0px 5px 20px 0px #0B7BC3 inset',
+                        my:4
+                    }}
+                >
+                    {item.btnText}
+                </Button>
+           
+              
+            </Box>
+        </Grid>
+    ))}
+</Grid>
+
             </Box>
             <Stack
                 sx={{ mt: '3em' }}
