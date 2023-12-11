@@ -8,12 +8,15 @@ import Assest from './Assest';
 import UserLove from './UserLove';
 import Trackcrypto from './Trackcrypto'
 import Usercointracker from './Usercointracker';
+import Navigation from '../../Components/Navigation';
+
 
 
 const Home = () => {
     return (
         <>
-            <Herosection />
+           
+            <Herosection/>
             <OfficialTax />
             <Automated />
             <SaveMoney />

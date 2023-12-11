@@ -116,11 +116,9 @@ export default function Walletslist() {
                 </Stack>
                 <Box
                     sx={{
-                        background: `url(${bg})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '100% 100%',
-                        backgroundPosition: 'center center',
-                        width: '100%',
+                        boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                        background: 'white',
+                        borderRadius: '15px',
                         my: { xs: 3, md: 5 },
                         px: { xs: 3, sm: 5, md: 7 },
                         py: { xs: 5, sm: 7, md: 10 },
@@ -133,7 +131,13 @@ export default function Walletslist() {
                         gap={2}
                         mb={5}
                     >
-                        <Stack direction="row" gap={{ xs: 2, md: 5 }} flexWrap="wrap">
+                        <Stack
+                        mb={3}
+                            direction="row"
+                            gap={{ xs: 2, md: 5 }}
+                            flexWrap="wrap"
+                            
+                        >
                             <Box>
                                 <Box
                                     sx={{
@@ -142,7 +146,7 @@ export default function Walletslist() {
                                         fontWeight: '600',
                                         fontSize: { xs: '14px', sm: '17px' },
                                         lineHeight: '18px',
-                                        color: '#FFFFFF',
+                                        color: ' var(--Text-Black, #333)',
                                     }}
                                 >
                                     Ethereum Wallet ...0e85ea
@@ -154,7 +158,7 @@ export default function Walletslist() {
                                         fontWeight: '400',
                                         fontSize: '10px',
                                         lineHeight: '18px',
-                                        color: '#FFFFFF',
+                                        color: ' var(--Text-Black, #333)',
                                     }}
                                 >
                                     Updated 17 hours ago
@@ -183,7 +187,7 @@ export default function Walletslist() {
                                 fontWeight: '600',
                                 fontSize: '15px',
                                 lineHeight: '18px',
-                                color: '#F1F0F0',
+                                color: 'var(--Text-Black, #333)',
                                 display: 'flex',
                                 alignItems: 'center',
                             }}
@@ -191,7 +195,8 @@ export default function Walletslist() {
                             PKR528,325.22 <ArrowDropDownIcon />
                         </Box>
                     </Stack>
-                    <Grid container spacing={5}>
+                    <Box sx={{background:'#F9FCFF',borderRadius:'10px',px:2}}>
+                    <Grid container spacing={5} >
                         {data.map((item, i) => (
                             <Grid key={i} item xs={12} md={6}>
                                 <Stack
@@ -216,7 +221,7 @@ export default function Walletslist() {
                                                     fontWeight: '600',
                                                     fontSize: '14px',
                                                     lineHeight: '18px',
-                                                    color: '#F1F0F0',
+                                                    color: ' var(--Text-Black, #333)',
                                                 }}
                                             >
                                                 {item.name}
@@ -228,7 +233,7 @@ export default function Walletslist() {
                                                     fontWeight: '400',
                                                     fontSize: '10px',
                                                     lineHeight: '18px',
-                                                    color: '#F1F0F0',
+                                                    color: ' var(--Text-Black, #333)',
                                                 }}
                                             >
                                                 {item.subName}
@@ -243,7 +248,7 @@ export default function Walletslist() {
                                                 fontWeight: '600',
                                                 fontSize: { xs: '12px', sm: '15px' },
                                                 lineHeight: '18px',
-                                                color: '#F1F0F0',
+                                                color: ' var(--Text-Black, #333)',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                             }}
@@ -257,7 +262,7 @@ export default function Walletslist() {
                                                 fontWeight: '600',
                                                 fontSize: { xs: '12px', sm: '15px' },
                                                 lineHeight: '18px',
-                                                color: '#F1F0F0',
+                                                color: ' var(--Text-Black, #333)',
                                             }}
                                         >
                                             {item.subValue}
@@ -267,6 +272,8 @@ export default function Walletslist() {
                             </Grid>
                         ))}
                     </Grid>
+                    </Box>
+                  
                 </Box>
             </Container>
         </Box>

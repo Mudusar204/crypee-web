@@ -22,29 +22,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWallet }) {
     return (
         <Box>
+
             <Dialog
                 open={AddWallet}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleAddWallet}
                 sx={{
-                    '& .MuiPaper-root': {
-                        background: `url(${bg})`,
-                        backgroundSize: '100% 100%',
-                        backgroundPosition: 'center center',
-                        backgroundRepeat: 'no-repeat',
-                        width: '100%',
-                        borderRadius: '50px',
-                        maxWidth: '500px',
-                        px: { xs: 4, sm: 5, md: 5 },
-                        py: { xs: 5, sm: 5, md: 5 },
-                        boxSizing: 'border-box',
-                    },
+                   boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                   background:'white',
+                   borderRadius:'20px',
                 }}
             >
                 <Box
                     sx={{
-                        overflow: 'auto',
+                        overflow: 'y-axis',
                         '&::-webkit-scrollbar': {
                             width: '1px',
                         },
@@ -57,6 +49,9 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                             borderRadius: '10px',
                         },
                         pr: 1,
+                        px:5,
+                        py:3,
+                       
                     }}
                 >
                     <Stack
@@ -83,7 +78,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                                         fontWeight: '600',
                                         fontSize: '18px',
                                         lineHeight: '18px',
-                                        color: '#FFFFFF',
+                                        color: ' var(--Text-Black, #333)',
                                     }}
                                 >
                                     Add Coinbase Wallet
@@ -101,7 +96,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                             fontWeight: '400',
                             fontSize: { xs: '9px', sm: '12px' },
                             lineHeight: '17px',
-                            color: '#FFFFFF',
+                            color: ' var(--Text-Black, #333)',
                             my: 3,
                         }}
                     >
@@ -115,7 +110,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                             fontWeight: '600',
                             fontSize: { xs: '10px', sm: '12px' },
                             lineHeight: '17px',
-                            color: '#FFFFFF',
+                            color: ' var(--Text-Black, #333)',
                             my: 2,
                         }}
                     >
@@ -127,10 +122,12 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                         minRows={2}
                         placeholder="Public your addresses & xPubs here"
                         sx={{
-                            border: '1px solid #FFFFFF',
+                            border: '1px solid  #D8F0FF',
+                            borderRadius:'5px',
                             width: '100%',
-                            color: '#fff',
+                            color: 'var(--Text-Black, #333)',
                             p: '12px 18px',
+                            background:'#F9FCFF'
                         }}
                     />
                     <Button
@@ -166,7 +163,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                             fontWeight: '400',
                             fontSize: '12px',
                             lineHeight: '18px',
-                            color: '#ffffff',
+                            color: ' var(--Text-Black, #333)',
                             mb: 2,
                         }}
                     >
@@ -193,7 +190,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                         sx={{
                             listStylePosition: 'inside',
                             p: '0px',
-                            color: '#fff',
+                            color: ' var(--Text-Black, #333)',
                             '& li': {
                                 mb: 2,
                                 fontFamily: 'Poppins',

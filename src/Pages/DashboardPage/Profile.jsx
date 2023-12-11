@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, Stack, Typography } from '@mui/material';
 import ReactEcharts from 'echarts-for-react';
 import { graphic } from 'echarts';
 
@@ -7,13 +7,16 @@ const Option = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: ['Jun2021', 'Oct2021', 'Feb2022', 'Jun2021', 'Oct2021', 'Feb2022'],
     },
     yAxis: {
         type: 'value',
         splitLine: {
             show: true,
             lineStyle: { color: 'gray', type: 'dashed', opacity: '0.2' },
+        },
+        axisLabel: {
+            formatter: (value) => `PKR ${value / 1e6}M`,
         },
     },
     series: [
@@ -35,21 +38,26 @@ const Option = {
                     },
                 ]),
             },
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: [0, 10e6, 4e6,30e6, 15e6, 20e6,3e6,20e6,12e6,20e6],
+            tooltip: {
+                formatter: (params) => `PKR ${params.value / 1e6}M`,
+            },
         },
     ],
 };
+
+
 export default function Profile() {
     const [time, settime] = useState(0);
     return (
-        <Box sx={{ border: '1px solid #0B7BC4', p: { xs: 2, md: 5 }, boxSizing: 'border-box' }}>
+        <Box >
             <Stack direction="row" flexWrap="wrap" justifyContent="space-between" gap={3}>
                 <Typography
                     sx={{
                         fontFamily: 'Poppins',
                         fontStyle: 'normal',
                         fontWeight: '700',
-                        fontSize: { xs: '18px', md: '24px' },
+                        fontSize: { xs: '18px', md: '32px' },
                         lineHeight: '24px',
                         color: '#0B7BC4',
                     }}
@@ -83,7 +91,7 @@ export default function Profile() {
                     sx={{
                         fontFamily: 'Poppins',
                         fontStyle: 'normal',
-                        fontWeight: '400',
+                        fontWeight: '700',
                         fontSize: { xs: '18px', sm: '24px', md: '38px' },
                         lineHeight: '24px',
                         color: '#0B7BC4',
@@ -214,12 +222,13 @@ export default function Profile() {
                     </Stack>
                 </Stack>
             </Stack>
-            <Box sx={{ boxShadow: '0px 0px 4px 0.005px #0B7BC4', borderRadius: '10px', mt: 5 }}>
+            <Box  sx={{ boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)', borderRadius: '10px', mt: 5 ,py:6.6}}>
                 <ReactEcharts
                     option={Option}
-                    style={{ width: '100%', height: '300px' }}
+                    style={{ width: '100%', height: '400px' }}
                 ></ReactEcharts>
             </Box>
+         
         </Box>
     );
 }

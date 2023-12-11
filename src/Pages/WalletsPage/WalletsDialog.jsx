@@ -3,6 +3,8 @@ import Slide from '@mui/material/Slide';
 import { Avatar, Box, Dialog, Grid, InputBase, Stack, Typography } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
+import metamask from '../../images/metamask.png';
+import coinbasewallet from '../../images/coinbasewallet.png'
 
 // import bg from '../../images/AddWallet/bg.png';
 import walletcard from '../../images/AddWallet/walletcard.png';
@@ -21,11 +23,8 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                 onClose={handleWallet}
                 sx={{
                     '& .MuiPaper-root': {
-                        bgcolor: 'red',
-                        // background: `url(${bg})`,
-                        backgroundSize: '100% 100%',
-                        backgroundPosition: 'center center',
-                        backgroundRepeat: 'no-repeat',
+                        bgcolor: '#FFF',
+                       boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
                         width: '100%',
                         borderRadius: '50px',
                         maxWidth: '900px',
@@ -47,10 +46,10 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                             fontFamily: 'Poppins',
                             fontStyle: 'normal',
                             fontWeight: '700',
-                            fontSize: { xs: '17px', sm: '22px' },
+                            fontSize: { xs: '17px', sm: '22px',md:'32px' },
                             lineHeight: '22px',
                             textTransform: 'uppercase',
-                            color: '#FFFFFF',
+                            color: '#0B7BC3',
                         }}
                     >
                         Add wallet
@@ -59,26 +58,28 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                         direction="row"
                         alignItems="center"
                         sx={{
-                            border: '1px solid #fff',
-                            borderRadius: '10px',
+                            border: '1px solid #DDF2FF',
+                            borderRadius: '12px',
                             color: '#fff',
                             px: { xs: 1, sm: 2 },
                             py: { xs: 0, sm: 1 },
                             my: { xs: 2, sm: 3, md: 5 },
                         }}
                     >
-                        <SearchIcon sx={{ fontSize: { xs: '26px', sm: '32px' } }} />
+                  
+                       <SearchIcon sx={{ fontSize: { xs: '26px', sm: '32px' }, color:'#A1A1A1'}} />
                         <InputBase
                             sx={{
                                 width: '90%',
                                 fontSize: '15px',
                                 '& input': {
-                                    color: '#fff',
-                                    '&::placeholder': { color: '#fff' },
+                                    color: '#A1A1A1',
+                                    '&::placeholder': { color: '#A1A1A1' },
                                 },
                             }}
                             placeholder="Search for your integration or paste your public address, HD wallet key, or ENS "
                         />
+                     
                     </Stack>
                     <Box
                         sx={{
@@ -111,37 +112,18 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                     justifyContent="center"
                                     alignItems="center"
                                     sx={{
-                                        background: `url(${walletcard})`,
-                                        backgroundSize: '100% 100%',
-                                        backgroundPosition: 'center center',
-                                        backgroundRepeat: 'no-repeat',
-                                        width: '100%',
-                                        // px: { xs: 0, sm: 1, md: 2 },
-                                        py: 1,
-                                        pr: 1,
-                                        cursor: 'pointer',
-                                    }}
+                                        border:'1px solid #0B7BC3',
+                                        background:'#ffff',
+                                        boxShadow:'0px 4px 25px 0px rgba(11, 123, 195, 0.12)',
+                                        borderRadius:'15px',
+                                        py:1
+                                       }}
                                     onClick={() => {
                                         handleAddWallet();
                                         handleWallet();
                                     }}
                                 >
-                                    <Avatar
-                                        sx={{
-                                            width: {
-                                                xs: '20px',
-                                                sm: '30px',
-                                                md: '35px',
-                                                lg: '45px',
-                                            },
-                                            height: {
-                                                xs: '20px',
-                                                sm: '30px',
-                                                md: '35px',
-                                                lg: '45px',
-                                            },
-                                        }}
-                                    />
+                                  <img src={metamask} alt='metamask' ></img>
                                     <Typography
                                         sx={{
                                             fontFamily: 'Poppins',
@@ -149,7 +131,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                             fontWeight: '500',
                                             fontSize: { xs: '8px', sm: '12px' },
                                             lineHeight: '18px',
-                                            color: '#F1F0F0',
+                                            color: ' var(--Text-Black, #333)',
                                         }}
                                     >
                                         Metamask
@@ -162,38 +144,20 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                     gap={{ xs: 1, sm: 2 }}
                                     justifyContent="center"
                                     alignItems="center"
-                                    sx={{
-                                        background: `url(${walletcard})`,
-                                        backgroundSize: '100% 100%',
-                                        backgroundPosition: 'center center',
-                                        backgroundRepeat: 'no-repeat',
-                                        width: '100%',
-                                        // px: { xs: 0, sm: 1, md: 2 },
-                                        py: 1,
-                                        pr: 1,
-                                        cursor: 'pointer',
-                                    }}
+                                   sx={{
+                                    border:'1px solid #0B7BC3',
+                                    background:'#ffff',
+                                    boxShadow:'0px 4px 25px 0px rgba(11, 123, 195, 0.12)',
+                                    borderRadius:'15px',
+                                  
+                                    py:1
+                                   }}
                                     onClick={() => {
                                         handleAddWallet();
                                         handleWallet();
                                     }}
                                 >
-                                    <Avatar
-                                        sx={{
-                                            width: {
-                                                xs: '20px',
-                                                sm: '30px',
-                                                md: '35px',
-                                                lg: '45px',
-                                            },
-                                            height: {
-                                                xs: '20px',
-                                                sm: '30px',
-                                                md: '35px',
-                                                lg: '45px',
-                                            },
-                                        }}
-                                    />
+                                    <img src={coinbasewallet} alt='coinbase'></img>
                                     <Typography
                                         sx={{
                                             fontFamily: 'Poppins',
@@ -201,7 +165,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                             fontWeight: '500',
                                             fontSize: { xs: '8px', sm: '12px' },
                                             lineHeight: '18px',
-                                            color: '#F1F0F0',
+                                            color: ' var(--Text-Black, #333)',
                                         }}
                                     >
                                         Coinbase

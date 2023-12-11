@@ -1,6 +1,7 @@
 import { Typography, Box, Button, Stack, LinearProgress } from '@mui/material';
 
 import portfolioInsightsBg from '../../images/portfolio_insights_bg.png';
+import portfoliobg from '../../images/portfoliobg.png'
 import { AssetsDropdown } from '../../Components/DropdownMenus';
 
 const assetsCategories = ['All time', 'Most Recent', 'Oldest'];
@@ -63,16 +64,17 @@ const PortfolioInsights = () => {
                     Portfolio Insights
                 </Typography>
 
-                <Stack direction={'row'} flexWrap={'wrap'} gap={4.2} justifyContent={'center'}>
+                {/* <Stack direction={'row'} flexWrap={'wrap'} gap={4.2} justifyContent={'center'}>
                     {insightDetails.map((item, i) => {
                         return (
                             <Box
                                 key={i}
                                 sx={{
-                                    backgroundImage: `url(${portfolioInsightsBg})`,
+                                    backgroundImage: `url(${portfoliobg})`,
                                     backgroundRepeat: 'no-repeat',
                                     backgroundSize: '100% 100%',
-                                    width: { xs: '280px', md: '240px' },
+                                    width: { xs: '280px', md: '343px' },
+                                  
                                     padding: '1.3rem 1rem',
                                     borderRadius: '20px',
                                     display: 'flex',
@@ -81,7 +83,7 @@ const PortfolioInsights = () => {
                                 }}
                             >
                                 <Typography
-                                    sx={{ fontSize: '0.687rem', fontWeight: 600, color: 'white' }}
+                                    sx={{ fontSize: '0.687rem', fontWeight: 600, color: 'black' }}
                                 >
                                     {item.title}
                                 </Typography>
@@ -112,7 +114,7 @@ const PortfolioInsights = () => {
                             </Box>
                         );
                     })}
-                </Stack>
+                </Stack> */}
             </Box>
             <Stack
                 sx={{ mt: '3em' }}

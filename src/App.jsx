@@ -84,7 +84,7 @@ const App = () => {
                         />
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route element={<PersistLogin />}>
+                  
                         <Route
                             path="/"
                             element={
@@ -109,7 +109,7 @@ const App = () => {
                         <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
                         <Route path="/crypto-prices" element={<CryptoPrices />} />
                         <Route path="/subscription" element={<ChooseSubscription />} />
-                    </Route>
+                  
 
                     <Route path="*" element={<PageNotExist />}></Route>
                 </Routes>

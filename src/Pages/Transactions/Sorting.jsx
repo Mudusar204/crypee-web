@@ -99,13 +99,10 @@ const Sorting = () => {
             {sortingDisplay ? (
                 <Box
                     sx={{
-                        display: { xs: 'none', md: 'block' },
-                        backgroundImage: `url(${sortingBg})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '100% 100%',
-                        minHeight: '76px',
-                        textAlign: 'center',
-                        my: '1em',
+                       background:'#F9FCFF',
+                       borderRadius:'15px',
+                       border:'1px solid #D8F0FF',
+                       my:5,
                     }}
                 >
                     <Stack direction={'row'} justifyContent={'space-evenly'}>

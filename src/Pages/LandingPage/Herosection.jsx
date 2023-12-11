@@ -6,6 +6,7 @@ import heroright from '../../images/heroright.png';
 import cointracker from '../../images/cointracker.png'
 import herobg from '../../images/herobg.png';
 import Header from '../../Components/Header';
+import Navigation from '../../Components/Navigation';
 
 const Herosection = () => {
     const theme = useTheme();
@@ -18,7 +19,8 @@ const Herosection = () => {
             }}
             py={1}
         >
-            <Header />
+            {/* <Header /> */}
+            <Navigation/>
             <Box>
                 <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 8 }, py: 5 }}>
                     <Grid

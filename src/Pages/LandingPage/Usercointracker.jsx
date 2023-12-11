@@ -48,7 +48,7 @@ const Usercointracker = () => {
                 spacing={5}
             >
                 <Grid item lg={4} md={5.5} xs={10} sm={8}>
-                    <Stack gap={'50px'}>
+                    <Stack spacing={10} >
                         <Box
                             sx={{
                                 background: 'white',
@@ -172,9 +172,9 @@ const Usercointracker = () => {
                     </Stack>
                 </Grid>
                 {/* ==================== */}
-                <Grid item lg={4} md={5.5} xs={10} sm={8}>
-                <Stack spacing={3}>
-                <Box pb={{md:15,xs:0,sm:0}} pl={{md:10,xs:0,sm:0}}>
+                <Grid item lg={4} md={5.5} xs={10} sm={8} >
+                <Stack spacing={10} pb={{md:3,xs:0,sm:0}}>
+                <Box  pl={{md:10,xs:0,sm:0}}>
                       <Box
                             sx={{
                                 background: 'white',
