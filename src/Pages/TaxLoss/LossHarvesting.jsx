@@ -94,11 +94,11 @@ const LossHarvesting = () => {
 
                             <Box
                                 sx={{
-                                    border: '2px solid #5BACDE',
+                                    border: '2px solid #E7F4FF',
                                     p: { xs: 2, md: 5 },
-                                    background:
-                                        'linear-gradient(180deg, rgba(11, 123, 196, 0.1) 0%, rgba(91, 172, 222, 0.1) 100%)',
-                                    borderRadius: '12px',
+                                    background:'white',
+                                    boxShadow:' 0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                                    borderRadius: '15px',
                                     mt: 3,
                                 }}
                             >

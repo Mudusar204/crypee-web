@@ -13,6 +13,7 @@ import {
 import DoneIcon from '@mui/icons-material/Done';
 
 import Plans from '../../images/TaxPlans/plans.png';
+import cardbgc from '../../images/TaxPlans/taxxsoftcards.png'
 import LossDialogBox from '../../images/TaxPlans/lossDialog.png';
 
 const PlansCard = ({ plansCard, introDetails }) => {
@@ -104,7 +105,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
 
                                 justifyContent={'space-between'}
                                 sx={{
-                                    backgroundImage: `url(${Plans})`,
+                                    backgroundImage: `url(${cardbgc})`,
                                     backgroundSize: '100%  100%',
                                     backgroundPosition: 'center',
                                     backgroundRepeat: 'no-repeat',
@@ -121,7 +122,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                         fontSize={'17px'}
                                         fontStyle={'normal'}
                                         textAlign={'center'}
-                                        color={theme.palette.text.white}
+                                        color={theme.palette.text.darkblue}
                                     >
                                         {item.plans}
                                     </Typography>
@@ -135,13 +136,13 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                         }
                                         fontStyle={'normal'}
                                         textAlign={'center'}
-                                        color={theme.palette.text.white}
+                                        color={theme.palette.text.black}
                                     >
                                         <sup
                                             style={{
                                                 fontFamily: 'Poppins',
                                                 fontSize: '10px',
-                                                color: `${theme.palette.text.white}`,
+                                                color: `${theme.palette.text.black}`,
                                             }}
                                         >
                                             {item.type}
@@ -151,7 +152,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                             style={{
                                                 fontFamily: 'Poppins',
                                                 fontSize: '10px',
-                                                color: `${theme.palette.text.white}`,
+                                                color: `${theme.palette.text.black}`,
                                             }}
                                         >
                                             {item.validity}
@@ -165,7 +166,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                         fontSize={'12px'}
                                         fontStyle={'normal'}
                                         textAlign={'center'}
-                                        color={theme.palette.text.white}
+                                        color={theme.palette.text.black}
                                         mt={3}
                                     >
                                         {item.heading}
@@ -196,7 +197,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                                             fontSize={'14px'}
                                                             fontStyle={'normal'}
                                                             textAlign={'justify'}
-                                                            color={theme.palette.text.white}
+                                                            color={theme.palette.text.black}
                                                             mt={1}
                                                         >
                                                             {detail}
@@ -211,7 +212,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                                 fontSize={'14px'}
                                                 fontStyle={'normal'}
                                                 textAlign={'justify'}
-                                                color={theme.palette.text.white}
+                                                color={theme.palette.text.black}
                                                 mt={2}
                                             >
                                                 {item.text}
@@ -221,7 +222,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 </Box>
                                 <Stack justifyContent={'flex-end'} alignItems={'center'}>
                                     <Typography
-                                        color={theme.palette.text.white}
+                                        color={theme.palette.text.black}
                                         fontSize={'12px'}
                                         fontWeight={500}
                                         textAlign={'center'}
@@ -261,17 +262,15 @@ const PlansCard = ({ plansCard, introDetails }) => {
                     sx={{
                         '.MuiDialog-paperScrollPaper': {
                             borderRadius: '10px',
-                            background: '#59AFEA',
+                            background: 'white',
                             p: 2,
                         },
                     }}
                 >
                     <Box
                         sx={{
-                            backgroundImage: `url(${LossDialogBox})`,
-                            backgroundSize: '100% 100%',
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
+                           boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                           borderRadius:'15px',
                             px: { md: 4, xs: 2 },
                             py: 7,
                         }}
@@ -281,7 +280,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 fontSize: '23px',
                                 fontWeight: 600,
                                 fontFamily: 'Poppins',
-                                color: `${theme.palette.text.white}`,
+                                color: `${theme.palette.text.darkblue}`,
                                 textTransform: 'uppercase',
                             }}
                         >
@@ -297,7 +296,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 sx={{
                                     fontSize: '15px',
                                     fontFamily: 'Poppins',
-                                    color: `${theme.palette.text.white}`,
+                                    color: `${theme.palette.text.black}`,
                                 }}
                             >
                                 Billed monthly, 30-day money-back guarantee
@@ -307,7 +306,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                     fontSize: '20px',
                                     fontWeight: 600,
                                     fontFamily: 'Poppins',
-                                    color: `${theme.palette.text.white}`,
+                                    color: `${theme.palette.text.black}`,
                                 }}
                             >
                                 PKR2,248.00
@@ -319,7 +318,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 fontSize: '15px',
                                 fontWeight: 500,
                                 fontFamily: 'Poppins',
-                                color: `${theme.palette.text.white}`,
+                                color: `${theme.palette.text.black}`,
                                 mb: 1.3,
                                 mt: 3,
                             }}
@@ -345,12 +344,12 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 type="number"
                                 sx={{
                                     '& input::placeholder': {
-                                        color: 'white', // replace with desired color
+                                        color: '#A1A1A1', // replace with desired color
                                         opacity: 1,
                                     },
                                 }}
                             />
-                            <Typography fontSize={'15px'} color={'#EBEBEB'}>
+                            <Typography fontSize={'15px'} color={'#A1A1A1'}>
                                 MM / YY / CVC
                             </Typography>
                         </Box>
@@ -359,7 +358,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             sx={{
                                 fontSize: '15px',
                                 fontFamily: 'Poppins',
-                                color: `${theme.palette.text.white}`,
+                                color: `${theme.palette.text.black}`,
                                 mt: 2,
                             }}
                         >
@@ -367,13 +366,14 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             <br /> Your first payment will process on Mar 21, 2023.
                         </Typography>
 
-                        <Button variant="btn1" sx={{ mt: 3, px: 2.5, py: 1.4 }}>
+                        <Button variant="btn1" sx={{ mt: 3, px: 2.5, py: 1.4 , color: `${theme.palette.text.white}`}} >
                             Start free trial
                         </Button>
                         <Button
                             variant="btn3"
-                            sx={{ mt: 3, px: 4, py: 1.4, ml: 4 }}
+                            sx={{ mt: 3, px: 4, py: 1.4, ml: 4 , color: `${theme.palette.text.black}`}}
                             onClick={handleClose}
+                            
                         >
                             Cancel
                         </Button>

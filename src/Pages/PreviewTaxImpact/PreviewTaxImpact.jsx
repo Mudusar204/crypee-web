@@ -21,7 +21,7 @@ const PreviewTaxImpact = () => {
                         textTransform: 'uppercase',
                     }}
                 >
-                    Preview Tax Impact
+                    Review tax Impact 
                 </Typography>
                 <Box mt={3} mb={6}>
                     <Button variant="btn1">beta</Button>
@@ -89,8 +89,10 @@ const PreviewTaxImpact = () => {
                     <Box
                         my={2}
                         sx={{
+                            border:'1px solid #D8F0FF',
+                            borderRadius:"12px",
                             background:
-                                'linear-gradient(180deg, rgba(11, 123, 196, 0.2) 0%, rgba(91, 172, 222, 0.2) 100%)',
+                                '#F9FCFF',
                             padding: '1.5rem',
                             maxWidth: '691px',
                             width: '100%',

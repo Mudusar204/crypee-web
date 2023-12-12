@@ -181,53 +181,53 @@ function ComparePlans() {
                 <Table
                     sx={{
                         background:
-                            'linear-gradient(180deg, rgba(11, 123, 196, 0.1) 0%, rgba(91, 172, 222, 0.1) 100%)',
+                            '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                     }}
                 >
                     <TableHead>
-                        <TableRow>
+                        <TableRow   sx={{
+                                background: 'linear-gradient(180deg, #4FA9E3 0%, #A1DAFD 100%)',
+                            }}>
                             <TableCell sx={{ minWidth: '150px' }} />
                             <TableCell
-                                sx={{ color: `${theme.palette.text.darkblue}` }}
+                                sx={{ color: `${theme.palette.text.white}` }}
                                 align="center"
                             >
                                 Free
                             </TableCell>
                             <TableCell
                                 align="center"
-                                sx={{ color: `${theme.palette.text.darkblue}` }}
+                                sx={{ color: `${theme.palette.text.white}` }}
                             >
                                 Hobbyist
                             </TableCell>
                             <TableCell
                                 align="center"
-                                sx={{ color: `${theme.palette.text.darkblue}` }}
+                                sx={{ color: `${theme.palette.text.white}` }}
                             >
                                 Premium
                             </TableCell>
                             <TableCell
                                 align="center"
-                                sx={{ color: `${theme.palette.text.darkblue}` }}
+                                sx={{ color: `${theme.palette.text.white}` }}
                             >
                                 Unlimited
                             </TableCell>
                         </TableRow>
                         <TableRow
-                            sx={{
-                                background: 'linear-gradient(180deg, #4FA9E3 0%, #A1DAFD 100%)',
-                            }}
+                          
                         >
                             <TableCell align="center" />
-                            <TableCell align="center" sx={{ color: 'white' }}>
+                            <TableCell align="center" sx={{ color: 'black' }}>
                                 25 Transactions
                             </TableCell>
-                            <TableCell align="center" sx={{ color: 'white' }}>
+                            <TableCell align="center" sx={{ color: 'black' }}>
                                 100 Transactions
                             </TableCell>
-                            <TableCell align="center" sx={{ color: 'white' }}>
+                            <TableCell align="center" sx={{ color: 'black' }}>
                                 1000 Transactions
                             </TableCell>
-                            <TableCell align="center" sx={{ color: 'white' }}>
+                            <TableCell align="center" sx={{ color: 'black' }}>
                                 Unlimited Transactions
                             </TableCell>
                         </TableRow>

@@ -39,7 +39,7 @@ const Navigation = () => {
             name: 'Portfolio',
             items: [
                 { itemName: 'Performance', link: '/performance' },
-                { itemName: 'Past Performance', link: '/performance' },
+                { itemName: 'Past Performance', link: '/pastperformance' },
                 { itemName: 'Career', link: '/career' },
                 { itemName: 'Preview Tax Impact', link: '/previewtaximpact' },
             ],

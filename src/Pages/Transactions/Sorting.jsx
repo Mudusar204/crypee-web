@@ -3,7 +3,7 @@ import { Typography, Button, Stack, Box, useMediaQuery } from '@mui/material';
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import sortingBg from '../../images/sorting_bg.png';
-import { SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
+import {  SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
 
 const sortingItems = [
     {
@@ -65,7 +65,7 @@ const Sorting = () => {
                 <Stack direction={'row'} alignItems={'center'} justifyContent={{ xs: 'center' }}>
                     <Typography
                         sx={{ fontSize: { xs: '.5rem', sm: '.9rem', md: 'initial' } }}
-                        color="text.darkblue"
+                        color="black"
                     >
                         Sort by
                     </Typography>

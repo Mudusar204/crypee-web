@@ -310,7 +310,7 @@ const Career = () => {
                                 padding: { md: '3rem', sm: '2rem', xs: '1rem' },
                                 marginTop: '5rem',
                                 background:
-                                    'linear-gradient(180deg, rgba(11, 123, 196, 0.1) 0%, rgba(91, 172, 222, 0.1) 100%)',
+                                    '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                 borderRadius: '12px',
                             }}
                         >

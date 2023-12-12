@@ -214,7 +214,7 @@ export const SortByNewest = ({ categories }) => {
                 sx={{
                     fontWeight: 600,
                     fontSize: { xs: '0.7rem', md: '1rem' },
-                    color: 'text.darkblue',
+                    color: 'black',
                 }}
                 variant="text"
                 endIcon={<ExpandMoreIcon />}
@@ -324,3 +324,5 @@ export const AssetsDropdown = ({ categories }) => {
         </>
     );
 };
+
+

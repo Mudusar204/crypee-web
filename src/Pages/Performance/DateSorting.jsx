@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, ButtonGroup, Box, Grid, Divider } from '@mui/material';
+import { Typography, Button, Stack, ButtonGroup, Box, Grid, Divider, Container } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import pastdayBg from '../../images/pastday_bg.png';
@@ -81,19 +81,20 @@ const DateSorting = () => {
                         sx={{
                             width: { xs: '140px', sm: 'unset' },
                             height: { xs: '26px', sm: 'unset' },
+                            
                         }}
-                        disabled
+                       
                     >
                         <Button
-                            sx={{ fontSize: { xs: '7.4px', sm: '13px' } }}
+                            sx={{ fontSize: { xs: '7.4px', sm: '13px' },color:'#0B7BC3' }}
                             endIcon={<DateRange />}
                         >
                             Date
                         </Button>
-                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } }}>
+                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } ,color:'#0B7BC3'}}>
                             All Time <ArrowDropDownIcon />
                         </Button>
-                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } }} endIcon={<Share />}>
+                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } ,color:'#0B7BC3'}} endIcon={<Share />}>
                             Share
                         </Button>
                     </ButtonGroup>
@@ -152,6 +153,7 @@ const DateSorting = () => {
             </Grid>
 
             <Box
+          
                 sx={{
                     borderRadius: '15px',
                     boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
@@ -160,6 +162,7 @@ const DateSorting = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    
                 }}
             >
                 <Stack
@@ -177,14 +180,14 @@ const DateSorting = () => {
                             fontFamily: 'Poppins',
                             fontStyle: 'normal',
                             fontWeight: '700',
-                            fontSize: { xs: '18px', md: '32px' },
+                            fontSize: { xs: '18px', lg: '32px',sm:'22px',md:'30px' },
                             lineHeight: '24px',
                             color: '#0B7BC4',
                         }}
                     >
                         Your Portfolio
                     </Typography>
-                    <Stack direction="row" gap={1} alignItems="center">
+                    <Stack direction="row" gap={1} alignItems="center" fontSize={'12px'} overflow={'auto'}>
                         {['1D', '1W', '1M', '3M', '1Y', 'All'].map((val, i) => (
                             <Button
                                 key={i}
@@ -221,13 +224,12 @@ const DateSorting = () => {
                         color={'var(--Text-Black, #333)'}
                         fontSize={'12px'}
                         textAlign={'center'}
+                        py={2}
                     >
                         Select a higher portfolio plan in order to access investment performance{' '}
                         <br></br>
                         for timeframes other than all.
                     </Typography>
-
-
                     <Button
                     
                     sx={{

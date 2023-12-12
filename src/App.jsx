@@ -30,6 +30,7 @@ import Signup from './Pages/SignUp/SignUp';
 import PersistLogin from './Components/persistLogin';
 import PageNotExist from './Pages/404/404';
 import './app.css';
+import Pastperformance from './Pages/Performance/Pastperformance';
 const App = () => {
     const [mode, setMode] = useState('light');
     const [loader, setLoader] = useState(false);
@@ -104,6 +105,7 @@ const App = () => {
                         <Route path="/cointracker" element={<Cointracker />} />
                         <Route path="/transactions" element={<Transactions />} />
                         <Route path="/performance" element={<Performance />} />
+                        <Route path='/pastperformance' element={<Pastperformance/>} />
                         <Route path="/pricing-details" element={<SeePricing />} />
                         <Route path="/career" element={<Career />} />
                         <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />

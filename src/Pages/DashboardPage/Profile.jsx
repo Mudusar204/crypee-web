@@ -64,7 +64,7 @@ export default function Profile() {
                 >
                     Your Portfolio
                 </Typography>
-                <Stack direction="row" gap={1} alignItems="center">
+                <Stack direction="row" gap={1} alignItems="center" overflow={'auto'}>
                     {['1D', '1W', '1M', '3M', '1Y', 'All'].map((val, i) => (
                         <Button
                             key={i}

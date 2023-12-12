@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 import StyledAccordian from './StyledAccordian';
-import CustomPlan from '../../images/TaxPlans/customPlanBg.png';
+import CustomPlan from '../../images/TaxPlans/customplanbg.png';
 // import qusendbg from '../../images/qusendbg.png';
 
 const TaxQuestion = () => {
@@ -100,7 +100,7 @@ const TaxQuestion = () => {
                     fontFamily={'Poppins'}
                     fontWeight={600}
                     fontSize={'15px'}
-                    color={theme.palette.text.white}
+                    color={theme.palette.text.darkblue}
                     textAlign={'center'}
                     pt={3}
                 >
@@ -110,7 +110,7 @@ const TaxQuestion = () => {
                     fontFamily={'Orbitron'}
                     fontWeight={800}
                     fontSize={'25px'}
-                    color={theme.palette.text.white}
+                    color={theme.palette.text.darkblue}
                     textAlign={'center'}
                     mt={'6px'}
                     textTransform={'uppercase'}
@@ -120,7 +120,7 @@ const TaxQuestion = () => {
                 <Typography
                     fontFamily={'Poppins'}
                     fontSize={'15px'}
-                    color={theme.palette.text.white}
+                    color={theme.palette.text.black}
                     textAlign={'center'}
                     mt={'6px'}
                 >

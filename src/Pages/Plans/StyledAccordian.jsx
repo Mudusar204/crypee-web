@@ -18,7 +18,7 @@ const StyledAccordian = ({ item, i }) => {
                 onChange={handleChange(`panel${i}`)}
                 sx={{
                     background:
-                        'linear-gradient(180deg, rgba(11, 123, 196, 0.1) 0%, rgba(91, 172, 222, 0.1) 100%)',
+                        'white',
                     borderRadius: '10px',
                     border: '1px solid #4FA9E3',
                     p: 1,
