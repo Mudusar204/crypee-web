@@ -4,7 +4,6 @@ import Navigation from '../../Components/Navigation';
 import SearchSection from './SearchSection';
 import CoinsPrices from './CoinsPrices';
 import History from '../Transactions/History';
-
 import tetherImg from '../../images/coins/tether_img.png';
 import bitcoinImg from '../../images/coins/bitcoin_img.png';
 import etherImg from '../../images/coins/ether_img.png';
@@ -18,6 +17,7 @@ import solanaImg from '../../images/coins/solana_img.png';
 import froggiesImg from '../../images/coins/froggies_img.png';
 import maticImg from '../../images/coins/matic_img.png';
 import bnbImg from '../../images/coins/bnb_img.png';
+import CoinTable from './Cryptohistory';
 
 const historyDetails = [
     {
@@ -129,12 +129,12 @@ const historyDetails = [
 const CryptoPrices = () => {
     return (
         <>
-            <Navigation />
+            <Navigation/>
             <Container maxWidth="xl">
                 <Box px={{ xs: 0, md: 10 }}>
                     <SearchSection />
                     <CoinsPrices />
-                    <History forTransactionsPage={false} historyDetails={historyDetails} />
+                    <CoinTable data={historyDetails} />
                 </Box>
             </Container>
         </>

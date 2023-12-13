@@ -34,16 +34,15 @@ const Herosection = () => {
                             <Box height="100%">
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Orbitron',
-                                        fontWeight: 800,
+                                        fontFamily: 'Gmarket',
+                                        fontWeight: 700,
                                         fontSize: { md: '50px', sm: '35px', xs: '20px' },
-                                        // color: 'red',
                                         color: `${theme.palette.text.darkblue}`,
                                         textTransform: 'uppercase',
                                         mb: 0.5,
                                     }}
                                 >
-                                    Crypto & NFT <br /> Taxes done fast
+                                    Crypto & NFT  Taxes <br/> done fast
                                 </Typography>
                                 <Typography
                                     sx={{

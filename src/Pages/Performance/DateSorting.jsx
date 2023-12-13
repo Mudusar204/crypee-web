@@ -18,6 +18,7 @@ import note from '../../images/note.png';
 import dollar from '../../images/dollar.png';
 import { useState } from 'react';
 import subscribe from '../../images/subscribe.png';
+import { useNavigate } from 'react-router';
 
 const balanceDetails = [
     {
@@ -48,8 +49,13 @@ const balanceDetails = [
 
 const performances = ['Unrealized Performance', 'Total Performance'];
 
+
 const DateSorting = () => {
     const [time, settime] = useState(0);
+    const navigate = useNavigate();
+    const handleSubscriptionPlans = () => {
+        navigate('/subscription')
+      };
     return (
         <>
             <Stack
@@ -231,8 +237,9 @@ const DateSorting = () => {
                         for timeframes other than all.
                     </Typography>
                     <Button
-                    
+                    onClick={handleSubscriptionPlans}
                     sx={{
+                        
                         background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
                         color: 'white',
                         borderRadius: '6px',

@@ -17,8 +17,9 @@ import {
 import { styled } from '@mui/material/styles';
 import { url } from '../../URL';
 
-import receiveIcon from '../../images/receive_icon.png';
+
 import sendIcon from '../../images/send_icon.png';
+import receiveIcon from '../../images/receive_icon.png'
 // import ethIcon from '../../images/eth_icon.png';
 // import usdtIcon from '../../images/usdt_icon.png';
 
@@ -92,7 +93,11 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                     <Table sx={{ mt: '1.5rem' }}>
                         <TableHead
                             sx={{
-                                background: 'linear-gradient(180deg, #4FA9E3 0%, #A1DAFD 100%)',
+                                boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                                border:'2px solid #E7F4FF',
+                                borderRadius:'15px',
+                                background:"white",
+                                
                             }}
                         >
                             <TableRow
@@ -354,7 +359,8 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                         </TableHead>
                         <TableBody
                             sx={{
-                                bgcolor: '#e8f3f9',
+                                bgcolor: 'white',
+                                boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                 '&:last-of-type tr:last-of-type td:first-of-type': {
                                     borderBottomLeftRadius: '17px',
                                 },

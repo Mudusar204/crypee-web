@@ -21,6 +21,7 @@ import { KeyboardArrowDown, MoreVert, GroupAdd } from '@mui/icons-material';
 import CapitalBg from '../../images/Taxes/capitalBg.png';
 import GainText from '../../images/Taxes/gainBg.png';
 import Navigation from '../../Components/Navigation';
+import Capitalgainbg from '../../images/Taxes/capitalgainbg.png'
 
 import TaxAbleIcome from './TaxAbleIcome';
 
@@ -71,10 +72,12 @@ const Taxes = () => {
                     alignItems={'center'}
                     justifyContent={'space-between'}
                     flexDirection={{ xs: 'column', md: 'row' }}
+                    mb={20}
                 >
                     <Stack
                         alignItems={{ xs: 'center', md: 'flex-start' }}
                         justifyContent={'center'}
+                      
                     >
                         <Typography
                             sx={{
@@ -126,46 +129,47 @@ const Taxes = () => {
                     <Grid item xs={12} md={6}>
                         <Box
                             sx={{
-                                backgroundImage: `url(${CapitalBg})`,
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: '100% 100%',
-                                backgroundPosition: 'center',
-                                py: 1.5,
-                                px: { xs: 1.3, sm: 1.5, md: 1.2 },
+                               boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                               background:'white',
+                               borderRadius:'15px',
+                               border:'2px solid #E7F4FF',
+                               
+                               
                             }}
                         >
                             <Box
                                 sx={{
-                                    backgroundImage: `url(${GainText})`,
+                                    backgroundImage: `url(${Capitalgainbg})`,
                                     backgroundRepeat: 'no-repeat',
                                     backgroundSize: '100% 100%',
                                     backgroundPosition: 'center',
-                                    p: { xs: 1.5, md: 2.7 },
-                                    width: { xs: '50%', sm: '35%', md: '200px' },
-                                    borderRadius: '7px',
-                                    mt: { xs: '3px', md: '1px' },
+                                    borderTopRightRadius:'15px',
+                                    borderTopLeftRadius:'15px',
+                                    py:3
+                                    
                                 }}
                             >
                                 <Typography
                                     fontSize={{ xs: '7px', md: '14px' }}
                                     fontFamily={'Poppins'}
                                     color={theme.palette.text.white}
+                                    px={2}
                                 >
                                     Capital gains
                                 </Typography>
                             </Box>
 
                             <TableContainer>
-                                <Table aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <StyledTableCell align="left">
+                                <Table aria-label="simple table" >
+                                    <TableHead >
+                                        <TableRow >
+                                            <StyledTableCell align="left" sx={{color:'black'}}>
                                                 Gain Type
                                             </StyledTableCell>
-                                            <StyledTableCell align="right">
+                                            <StyledTableCell align="right" sx={{color:'black'}}>
                                                 Short Term
                                             </StyledTableCell>
-                                            <StyledTableCell align="right">
+                                            <StyledTableCell align="right" sx={{color:'black'}}>
                                                 Long Term
                                             </StyledTableCell>
                                         </TableRow>
@@ -180,13 +184,13 @@ const Taxes = () => {
                                                     },
                                                 }}
                                             >
-                                                <StyledTableCell component="th" scope="row">
+                                                <StyledTableCell component="th" scope="row" sx={{color:'black'}}>
                                                     {item.type}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="right">
+                                                <StyledTableCell align="right" sx={{color:'black'}}>
                                                     {item.shortTerm}
                                                 </StyledTableCell>
-                                                <StyledTableCell align="right">
+                                                <StyledTableCell align="right" sx={{color:'black'}}>
                                                     {item.longTerm}
                                                 </StyledTableCell>
                                             </TableRow>
@@ -228,30 +232,28 @@ const Taxes = () => {
 
                         <Box
                             sx={{
-                                backgroundImage: `url(${CapitalBg})`,
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: '100% 100%',
-                                backgroundPosition: 'center',
-                                py: { xs: 1.3, md: 1.8 },
-                                px: { xs: 1, sm: 1.5, md: 1.2 },
+                                boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                               background:'white',
+                               borderRadius:'15px',
+                               border:'2px solid #E7F4FF',
                             }}
                         >
                             <Box
                                 sx={{
-                                    backgroundImage: `url(${GainText})`,
+                                    backgroundImage: `url(${Capitalgainbg})`,
                                     backgroundRepeat: 'no-repeat',
                                     backgroundSize: '100% 100%',
                                     backgroundPosition: 'center',
-                                    p: { xs: 1.5, md: 2.7 },
-                                    width: { xs: '50%', sm: '35%', md: '250px' },
-                                    borderRadius: '7px',
-                                    mt: { xs: '3px', md: '1px' },
+                                    borderTopRightRadius:'15px',
+                                    borderTopLeftRadius:'15px',
+                                    py:3
                                 }}
                             >
                                 <Typography
                                     fontSize={{ xs: '7px', md: '14px' }}
                                     fontFamily={'Poppins'}
                                     color={theme.palette.text.white}
+                                    px={2}
                                 >
                                     Transaction history
                                 </Typography>
@@ -259,7 +261,7 @@ const Taxes = () => {
                             <Typography
                                 fontFamily="Poppins"
                                 fontSize="15px"
-                                color={theme.palette.text.white}
+                                color={theme.palette.text.black}
                                 fontWeight={600}
                                 textAlign="center"
                                 mt={6}

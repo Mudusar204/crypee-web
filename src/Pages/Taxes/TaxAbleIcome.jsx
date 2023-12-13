@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { styled } from '@mui/material/styles';
+import Capitalgainbg from '../../images/Taxes/capitalgainbg.png'
 import { useTheme } from '@emotion/react';
 import ReportTaxBg from '../../images/Taxes/taxReportBg.png';
 import GainText from '../../images/Taxes/gainBg.png';
@@ -117,7 +118,7 @@ const TaxAbleIcome = () => {
         fontFamily: 'Poppins',
         fontSize: matches ? '14px' : '8px',
 
-        color: `${theme.palette.text.white}`,
+        color: `${theme.palette.text.balck}`,
         fontWeight: 500,
         [`&.${tableCellClasses.head}`]: {
             border: 0,
@@ -146,33 +147,39 @@ const TaxAbleIcome = () => {
                     xs={12}
                     md={6}
                     sx={{
-                        background:
-                            'linear-gradient(180deg, rgba(11, 123, 196, 0.1) 0%, rgba(91, 172, 222, 0.1) 100%)',
-                        borderRadius: '17px',
-                        border: '2px solid #4FA9E3',
-                        mt: 5,
-                        pb: 5,
-                    }}
+                        boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                        background:'white',
+                        borderRadius:'15px',
+                        border:'2px solid #E7F4FF',
+                        
+                        
+                     }}
                 >
                     <Typography
-                        sx={{
-                            fontSize: { xs: '10px', md: '17px' },
-                            fontWeight: 700,
-                            fontFamily: 'Poppins',
-                            textAlign: 'center',
-                            color: `${theme.palette.text.darkblue}`,
-                            my: 2,
-                        }}
+                     sx={{
+                        backgroundImage: `url(${Capitalgainbg})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '100% 100%',
+                        backgroundPosition: 'center',
+                        borderTopRightRadius:'15px',
+                        borderTopLeftRadius:'15px',
+                      px:2,
+                      py:3,
+                        fontSize: { xs: '10px', md: '17px' },
+                        fontWeight: 700,
+                        fontFamily: 'Poppins',
+                      
+                        color: `${theme.palette.text.white}`,
+                      
+                    }}
+                       
                     >
                         Taxable income
                     </Typography>
-                    <TableContainer>
-                        <Table aria-label="simple table">
+                    <TableContainer >
+                        <Table aria-label="simple table" >
                             <TableHead
-                                sx={{
-                                    background: 'linear-gradient(180deg, #4FA9E3 0%, #A1DAFD 100%)',
-                                    borderRadius: '0px',
-                                }}
+                             
                             >
                                 <TableRow>
                                     <StyledTableCell>Taxable income</StyledTableCell>
@@ -196,7 +203,7 @@ const TaxAbleIcome = () => {
                                         <StyledTableCell2 component="th" scope="row">
                                             {item.income}
                                         </StyledTableCell2>
-                                        <StyledTableCell2 align="left" sx={{ fontWeight: 600 }}>
+                                        <StyledTableCell2 align="left" sx={{ fontWeight: 600 }} >
                                             {item.amount}
                                         </StyledTableCell2>
                                         <StyledTableCell2 align="left">
@@ -268,31 +275,36 @@ const TaxAbleIcome = () => {
                     </TabPanel>
 
                     <Box
-                        sx={{
-                            backgroundImage: `url(${ReportTaxBg})`,
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: '100% 100%',
-                            backgroundPosition: 'center',
-                            py: { xs: 3, md: 4 },
-                            px: { xs: 1.8, sm: 2, md: 2 },
-                        }}
+                     
+                            sx={{
+                                boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                                background:'white',
+                                borderRadius:'15px',
+                                border:'2px solid #E7F4FF',
+                                
+                                
+                             }}
+                      
                     >
                         <Box
-                            sx={{
-                                backgroundImage: `url(${GainText})`,
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: '100% 100%',
-                                backgroundPosition: 'center',
-                                p: { xs: 1.5, md: 2.7 },
-                                width: { xs: '50%', sm: '35%', md: '200px' },
-                                borderRadius: '7px',
-                                mt: { xs: '3px', md: '1px' },
-                            }}
+                         
+                                sx={{
+                                    backgroundImage: `url(${Capitalgainbg})`,
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundSize: '100% 100%',
+                                    backgroundPosition: 'center',
+                                    borderTopRightRadius:'15px',
+                                    borderTopLeftRadius:'15px',
+                                    py:3
+                                    
+                                }}
+                       
                         >
                             <Typography
                                 fontSize={{ xs: '7px', md: '14px' }}
                                 fontFamily={'Poppins'}
                                 color={theme.palette.text.white}
+                                px={2}
                             >
                                 Tax reports
                             </Typography>
@@ -301,7 +313,7 @@ const TaxAbleIcome = () => {
                             sx={{
                                 fontSize: { xs: '7px', md: '12px' },
                                 fontFamily: 'Poppins',
-                                color: `${theme.palette.text.white}`,
+                                color: `${theme.palette.text.black}`,
                                 fontWeight: 400,
                                 p: 1.5,
                             }}
@@ -314,7 +326,7 @@ const TaxAbleIcome = () => {
                             sx={{
                                 fontSize: { xs: '9px', md: '15px' },
                                 fontFamily: 'Poppins',
-                                color: `${theme.palette.text.white}`,
+                                color: `${theme.palette.text.black}`,
                                 p: 1.5,
                                 fontWeight: 600,
                             }}
@@ -330,9 +342,10 @@ const TaxAbleIcome = () => {
                         >
                             <Box
                                 sx={{
-                                    background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
+                                    background: '#F9FCFF',
+                                    border:' 1px solid #D8F0FF',
                                     width: '35%',
-                                    borderRadius: '3px',
+                                    borderRadius: '5px',
                                     p: 2,
                                     minHeight: { xs: '100px', md: '115px' },
                                 }}
@@ -341,7 +354,7 @@ const TaxAbleIcome = () => {
                                     sx={{
                                         fontSize: { xs: '6px', md: '10px' },
                                         fontFamily: 'Poppins',
-                                        color: `${theme.palette.text.white}`,
+                                        color: `${theme.palette.text.black}`,
                                         fontWeight: 600,
                                         textAlign: 'center',
                                     }}
@@ -364,12 +377,11 @@ const TaxAbleIcome = () => {
                             </Box>
                             <Box
                                 sx={{
-                                    background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
-                                    // opacity: 0.2,
-                                    // position: 'relative',
-                                    borderRadius: '3px',
+                                    background: '#F9FCFF',
+                                    border:' 1px solid #D8F0FF',
+                                    width: '35%',
+                                    borderRadius: '5px',
                                     p: 2,
-                                    width: '50%',
                                     minHeight: { xs: '100px', md: '115px' },
                                 }}
                             >
@@ -377,25 +389,14 @@ const TaxAbleIcome = () => {
                                     sx={{
                                         fontSize: { xs: '6px', md: '10px' },
                                         fontFamily: 'Poppins',
-                                        color: `${theme.palette.text.white}`,
+                                        color: `${theme.palette.text.black}`,
                                         fontWeight: 600,
                                         textAlign: 'center',
                                     }}
                                 >
                                     Capital Gains CSV
                                 </Typography>
-                                <Typography
-                                    sx={{
-                                        fontSize: { xs: '5px', md: '7px' },
-                                        fontFamily: 'Poppins',
-                                        color: `${theme.palette.text.white}`,
-                                        fontWeight: 400,
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Review the tax checklist and transaction history below before
-                                    downloading tax reports
-                                </Typography>
+                               
                                 <Box
                                     display="flex"
                                     alignItems="center"
