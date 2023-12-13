@@ -51,7 +51,7 @@ const TaxQuestion = () => {
                     textAlign={'center'}
                     fontSize={'15px'}
                     fontWeight={600}
-                    fontFamily={'Poppins'}
+                    fontFamily={'Gmarket'}
                     mt={9}
                 >
                     KNOWLEDGE BASE
@@ -69,7 +69,7 @@ const TaxQuestion = () => {
                 <Typography
                     textAlign={'center'}
                     fontSize={'15px'}
-                    fontFamily={'Poppins'}
+                    fontFamily={'Gmarket'}
                     color={'theme.lightbrown'}
                 >
                     Get advice and answers from the crypee(Tax Software) team.
@@ -107,7 +107,7 @@ const TaxQuestion = () => {
                     FOR POWER USERS
                 </Typography>
                 <Typography
-                    fontFamily={'Orbitron'}
+                    fontFamily={'Gmarket'}
                     fontWeight={800}
                     fontSize={'25px'}
                     color={theme.palette.text.darkblue}
@@ -118,7 +118,7 @@ const TaxQuestion = () => {
                     Looking for a custom plan?
                 </Typography>
                 <Typography
-                    fontFamily={'Poppins'}
+                    fontFamily={'Gmarket'}
                     fontSize={'15px'}
                     color={theme.palette.text.black}
                     textAlign={'center'}

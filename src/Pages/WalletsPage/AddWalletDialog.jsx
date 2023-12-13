@@ -73,7 +73,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                                 <img src={chainIcon} alt="" />
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontStyle: 'normal',
                                         fontWeight: '600',
                                         fontSize: '18px',
@@ -91,7 +91,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Stack>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '400',
                             fontSize: { xs: '9px', sm: '12px' },
@@ -105,7 +105,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Typography>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '600',
                             fontSize: { xs: '10px', sm: '12px' },
@@ -145,7 +145,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Button>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '600',
                             fontSize: '12px',
@@ -158,7 +158,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Typography>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '400',
                             fontSize: '12px',
@@ -174,7 +174,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Typography>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '600',
                             fontSize: '12px',
@@ -193,7 +193,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                             color: ' var(--Text-Black, #333)',
                             '& li': {
                                 mb: 2,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 fontStyle: 'normal',
                                 fontWeight: '400',
                                 fontSize: '12px',
@@ -221,7 +221,7 @@ export default function AddWalletDialog({ handleAddWallet, AddWallet, handleWall
                     </Box>
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '500',
                             fontSize: '12px',

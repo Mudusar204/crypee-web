@@ -22,10 +22,11 @@ const Trackcrypto = () => {
                     <Typography
                         pb={'20px'}
                         color={'#0B7BC3'}
-                        fontSize={{ xs: '18px', lg: '30px' ,sm:'14px',md:'28px'}}
+                        fontSize={{ xs: '18px', lg: '30px' ,sm:'24px',md:'28px'}}
                         fontWeight={700}
-                        fontFamily={'Gmarket Sans TTF'}
+                        fontFamily={'Gmarket'}
                         textTransform={'capitalize'}
+                    lineHeight={{lg:'50px',md:'40px',sm:'35px',xs:'25px'}}
                     >
                         Track your crypto portfolio on the go
                     </Typography>
@@ -39,6 +40,8 @@ const Trackcrypto = () => {
                             fontSize={{ xs: '14px', lg: '18px' ,md:'15px',sm:'13px'}}
                             fontWeight={500}
                             py={3}
+                            fontFamily={'Gmarket'}
+                            lineHeight={{xs:'20px',sm:'25px',md:'30px',lg:'35px'}}
                         >
                             Our mobile app empowers users to keep an eye on their portfolio and
                             crypto prices. Never lose track of your assets, no matter where you are.

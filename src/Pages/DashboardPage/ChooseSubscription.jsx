@@ -4,7 +4,7 @@ const ChooseSubscription = () => {
     return (
         <Container>
             <Stack sx={{py:'2em'}} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                <Typography sx={{fontSize:'1.5rem', color:''}}>Your Portfolio</Typography>
+                <Typography sx={{fontSize:'1.5rem',}}>Your Portfolio</Typography>
                 <Stack direction={'row'} gap={2}>
                     <Button>1D</Button>
                     <Button>1W</Button>

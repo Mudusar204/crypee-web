@@ -39,7 +39,7 @@ const StyledAccordian = ({ item, i }) => {
                     <Typography
                         sx={{
                             fontSize: { xs: '10px', md: '15px' },
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontWeight: 500,
                             color: '#585858',
                         }}

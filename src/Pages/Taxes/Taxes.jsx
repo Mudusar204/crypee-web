@@ -48,7 +48,7 @@ const Taxes = () => {
     const matches = useMediaQuery('(min-width:600px)');
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        fontFamily: 'Poppins',
+        fontFamily: 'Gmarket',
         fontSize: matches ? '14px' : '8px',
         padding: '1.2rem',
 
@@ -85,7 +85,7 @@ const Taxes = () => {
                                 alignItems: 'center',
                                 fontSize: '25px',
                                 fontWeight: 800,
-                                fontFamily: 'Orbitron',
+                                fontFamily: 'Gmarket',
                                 color: `${theme.palette.text.darkblue}`,
                                 textTransform: 'uppercase',
                             }}
@@ -210,7 +210,7 @@ const Taxes = () => {
                         >
                             <Box>
                                 <Typography
-                                    fontFamily="Poppins"
+                                     fontFamily={'Gmarket'}
                                     fontSize={{ xs: '8px', md: '14px' }}
                                     fontWeight={600}
                                     color={theme.palette.text.darkblue}
@@ -218,7 +218,7 @@ const Taxes = () => {
                                     Free tax plan
                                 </Typography>
                                 <Typography
-                                    fontFamily="Poppins"
+                                      fontFamily={'Gmarket'}
                                     fontSize={{ xs: '8px', md: '14px' }}
                                     color={theme.palette.text.lightbrown}
                                 >
@@ -251,7 +251,7 @@ const Taxes = () => {
                             >
                                 <Typography
                                     fontSize={{ xs: '7px', md: '14px' }}
-                                    fontFamily={'Poppins'}
+                                    fontFamily={'Gmarket'}
                                     color={theme.palette.text.white}
                                     px={2}
                                 >
@@ -259,7 +259,7 @@ const Taxes = () => {
                                 </Typography>
                             </Box>
                             <Typography
-                                fontFamily="Poppins"
+                                 fontFamily={'Gmarket'}
                                 fontSize="15px"
                                 color={theme.palette.text.black}
                                 fontWeight={600}

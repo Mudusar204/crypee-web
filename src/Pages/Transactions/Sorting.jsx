@@ -53,7 +53,7 @@ const Sorting = () => {
                     color="text.darkblue"
                     sx={{
                         display: { xs: 'none', sm: 'unset' },
-                        fontFamily: 'Orbitron, sans-serif',
+                        fontFamily: 'Gmarket',
                         fontWeight: 800,
                         fontSize: { xs: '1.2rem', md: '1.875rem' },
                         textTransform: 'uppercase',

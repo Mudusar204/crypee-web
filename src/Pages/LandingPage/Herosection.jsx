@@ -36,7 +36,7 @@ const Herosection = () => {
                                     sx={{
                                         fontFamily: 'Gmarket',
                                         fontWeight: 700,
-                                        fontSize: { md: '50px', sm: '35px', xs: '20px' },
+                                        fontSize: { lg: '50px', sm: '35px', xs: '20px',md:'35px' },
                                         color: `${theme.palette.text.darkblue}`,
                                         textTransform: 'uppercase',
                                         mb: 0.5,
@@ -48,7 +48,7 @@ const Herosection = () => {
                                     sx={{
                                         fontSize: { md: '16px', xs: '13px' },
                                         mb: 3,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         color: `${theme.palette.text.lightbrown}`,
                                     }}
                                 >

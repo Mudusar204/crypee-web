@@ -138,7 +138,7 @@ function ComparePlans() {
                 color={theme.palette.text.darkblue}
                 textAlign={'center'}
                 fontSize="1rem"
-                fontFamily={'Poppins'}
+                fontFamily={'Gmarket'}
                 fontWeight="600"
                 mt={11}
                 textTransform="uppercase"
@@ -162,7 +162,7 @@ function ComparePlans() {
                 color={theme.palette.text.lightbrown}
                 textAlign={'center'}
                 fontSize="1rem"
-                fontFamily={'Poppins'}
+                fontFamily={'Gmarket'}
                 mt={1}
                 mb={8}
             >

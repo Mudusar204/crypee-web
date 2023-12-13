@@ -9,7 +9,7 @@ const OffersCards = ({ plansCard }) => {
                 color="text.darkblue"
                 textAlign={'center'}
                 fontSize={{ xs: '25px', md: '30px' }}
-                fontFamily={'Orbitron'}
+                fontFamily={'Gmarket'}
                 fontWeight="800"
                 textTransform="uppercase"
                 mt={10}

@@ -28,8 +28,8 @@ const Assest = () => {
         <Box my={5}>
             <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 }, py: 5 }}>
                 <Typography
+                    fontFamily={'Gmarket'}
                     sx={{
-                        fontFamily: 'Orbitron',
                         fontSize: { md: '30px', sm: '25px', xs: '20px' },
                         fontWeight: 800,
                         color: `${theme.palette.text.darkblue}`,
@@ -47,9 +47,14 @@ const Assest = () => {
                     alignItems={'center'}
                     fontSize={{ md: '16px', xs: '12px', sm: '14px' }}
                     gap={'3px'}
+                    fontFamily={'Gmarket'}
                 >
                     We support 500+ exchanges, wallets and blockchains. See them all{' '}
-                    <Typography color={'#0B7BC3'} fontSize={{ md: '16px', xs: '12px', sm: '14px' }}>
+                    <Typography
+                        fontFamily={'Gmarket'}
+                        color={'#0B7BC3'}
+                        fontSize={{ md: '16px', xs: '12px', sm: '14px' }}
+                    >
                         {' '}
                         here
                     </Typography>
@@ -90,6 +95,7 @@ const Assest = () => {
                                 fontSize={{ md: '30px', xs: '12px', sm: '14px' }}
                                 fontWeight={700}
                                 textTransform={'capital'}
+                                fontFamily={'Gmarket'}
                             >
                                 We support 10,000+ crypto assets
                             </Typography>

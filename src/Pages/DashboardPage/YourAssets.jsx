@@ -78,8 +78,9 @@ export default function YourAssets() {
                 <Container maxWidth="lg">
                     <Stack direction="row" gap={2} justifyContent="space-between">
                         <Typography
+                           fontFamily={'Gmarket'}
                             sx={{
-                                fontFamily: 'Orbitron',
+                              
                                 fontStyle: 'normal',
                                 fontWeight: '800',
                                 fontSize: { xs: '16px', md: '20px' },
@@ -91,8 +92,9 @@ export default function YourAssets() {
                             Your assets
                         </Typography>
                         <Typography
+                           fontFamily={'Gmarket'}
                             sx={{
-                                fontFamily: 'Poppins',
+                               
                                 fontStyle: 'normal',
                                 fontWeight: '500',
                                 fontSize: { xs: '13px', md: '15px' },
@@ -113,8 +115,9 @@ export default function YourAssets() {
                                     <TableRow sx={{ '& th': { border: 'none' } }}>
                                         <TableCell align="left">
                                             <Box
+                                               fontFamily={'Gmarket'}
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                
                                                     fontStyle: 'normal',
                                                     fontWeight: '500',
                                                     fontSize: '15px',
@@ -131,7 +134,7 @@ export default function YourAssets() {
                                         <TableCell align="left">
                                             <Box
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '500',
                                                     fontSize: '15px',
@@ -148,7 +151,7 @@ export default function YourAssets() {
                                         <TableCell align="left">
                                             <Box
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '500',
                                                     fontSize: '15px',
@@ -165,7 +168,7 @@ export default function YourAssets() {
                                         <TableCell align="right">
                                             <Box
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '500',
                                                     fontSize: '15px',
@@ -202,7 +205,7 @@ export default function YourAssets() {
                                                     <Box>
                                                         <Box
                                                             sx={{
-                                                                fontFamily: 'Poppins',
+                                                                fontFamily: 'Gmarket',
                                                                 fontStyle: 'normal',
                                                                 fontWeight: '600',
                                                                 fontSize: '12px',
@@ -230,7 +233,7 @@ export default function YourAssets() {
                                             <TableCell>
                                                 <Box
                                                     sx={{
-                                                        fontFamily: 'Poppins',
+                                                        fontFamily: 'Gmarket',
                                                         fontStyle: 'normal',
                                                         fontWeight: '500',
                                                         fontSize: '13px',
@@ -256,7 +259,7 @@ export default function YourAssets() {
                                                 </Box>
                                                 <Box
                                                     sx={{
-                                                        fontFamily: 'Poppins',
+                                                        fontFamily: 'Gmarket',
                                                         fontStyle: 'normal',
                                                         fontWeight: '400',
                                                         fontSize: '15px',
@@ -272,7 +275,7 @@ export default function YourAssets() {
                                                 <Box
                                                     sx={{
                                                         mt: 1,
-                                                        fontFamily: 'Poppins',
+                                                        fontFamily: 'Gmarket',
                                                         fontStyle: 'normal',
                                                         fontWeight: '500',
                                                         fontSize: '13px',

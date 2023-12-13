@@ -115,7 +115,7 @@ const TaxAbleIcome = () => {
     };
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        fontFamily: 'Poppins',
+        fontFamily: 'Gmarket',
         fontSize: matches ? '14px' : '8px',
 
         color: `${theme.palette.text.balck}`,
@@ -128,7 +128,7 @@ const TaxAbleIcome = () => {
         },
     }));
     const StyledTableCell2 = styled(TableCell)(({ theme }) => ({
-        fontFamily: 'Poppins',
+        fontFamily: 'Gmarket',
         fontSize: matches ? '14px' : '7px',
         color: `${theme.palette.text.lightbrown}`,
         fontWeight: 500,
@@ -167,7 +167,7 @@ const TaxAbleIcome = () => {
                       py:3,
                         fontSize: { xs: '10px', md: '17px' },
                         fontWeight: 700,
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Gmarket',
                       
                         color: `${theme.palette.text.white}`,
                       
@@ -302,7 +302,7 @@ const TaxAbleIcome = () => {
                         >
                             <Typography
                                 fontSize={{ xs: '7px', md: '14px' }}
-                                fontFamily={'Poppins'}
+                                fontFamily={'Gmarket'}
                                 color={theme.palette.text.white}
                                 px={2}
                             >
@@ -325,7 +325,7 @@ const TaxAbleIcome = () => {
                         <Typography
                             sx={{
                                 fontSize: { xs: '9px', md: '15px' },
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 color: `${theme.palette.text.black}`,
                                 p: 1.5,
                                 fontWeight: 600,
@@ -388,7 +388,7 @@ const TaxAbleIcome = () => {
                                 <Typography
                                     sx={{
                                         fontSize: { xs: '6px', md: '10px' },
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         color: `${theme.palette.text.black}`,
                                         fontWeight: 600,
                                         textAlign: 'center',
@@ -421,7 +421,7 @@ const TaxAbleIcome = () => {
                     sx={{
                         fontSize: { xs: '10px', md: '20px' },
                         fontWeight: 700,
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Gmarket',
                         textAlign: 'center',
                         color: `${theme.palette.text.darkblue}`,
                         mb: 2,
@@ -462,7 +462,7 @@ const TaxAbleIcome = () => {
                                         sx={{
                                             fontSize: { md: '17px', sm: '13px', xs: '12px' },
                                             fontWeight: 600,
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Gmarket',
                                             mt: 4,
                                             textAlign: 'center',
                                             color: `${theme.palette.text.darkblue}`,
@@ -475,7 +475,7 @@ const TaxAbleIcome = () => {
                                         sx={{
                                             fontSize: { md: '13px', sm: '9px', xs: '8px' },
                                             fontWeight: 600,
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Gmarket',
                                             mt: 4,
                                             textAlign: 'center',
                                         }}

@@ -89,7 +89,7 @@ export default function Walletslist() {
                     <Button
                         variant="btn2"
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '600',
                             fontSize: '16px',
@@ -141,7 +141,7 @@ export default function Walletslist() {
                             <Box>
                                 <Box
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontStyle: 'normal',
                                         fontWeight: '600',
                                         fontSize: { xs: '14px', sm: '17px' },
@@ -153,7 +153,7 @@ export default function Walletslist() {
                                 </Box>
                                 <Box
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontStyle: 'normal',
                                         fontWeight: '400',
                                         fontSize: '10px',
@@ -166,7 +166,7 @@ export default function Walletslist() {
                             </Box>
                             <Box
                                 sx={{
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     fontStyle: 'normal',
                                     fontWeight: '500',
                                     fontSize: '15px',
@@ -182,7 +182,7 @@ export default function Walletslist() {
                         </Stack>
                         <Box
                             sx={{
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 fontStyle: 'normal',
                                 fontWeight: '600',
                                 fontSize: '15px',
@@ -216,7 +216,7 @@ export default function Walletslist() {
                                         <Box>
                                             <Box
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '600',
                                                     fontSize: '14px',
@@ -228,7 +228,7 @@ export default function Walletslist() {
                                             </Box>
                                             <Box
                                                 sx={{
-                                                    fontFamily: 'Poppins',
+                                                    fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '400',
                                                     fontSize: '10px',
@@ -243,7 +243,7 @@ export default function Walletslist() {
                                     <Box>
                                         <Box
                                             sx={{
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                                 fontStyle: 'normal',
                                                 fontWeight: '600',
                                                 fontSize: { xs: '12px', sm: '15px' },
@@ -257,7 +257,7 @@ export default function Walletslist() {
                                         </Box>
                                         <Box
                                             sx={{
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                                 fontStyle: 'normal',
                                                 fontWeight: '600',
                                                 fontSize: { xs: '12px', sm: '15px' },

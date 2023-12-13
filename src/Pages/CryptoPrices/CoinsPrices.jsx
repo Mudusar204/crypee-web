@@ -37,7 +37,7 @@ const CoinsPrices = () => {
                         color={'text.darkblue'}
                         sx={{
                             textAlign: { xs: 'center', md: 'unset' },
-                            fontFamily: 'Orbitron, sans-serif',
+                            fontFamily: 'Gmarket',
                             fontWeight: 800,
                             fontSize: { xs: '1rem', sm: '1.5rem', md: '1.875rem' },
                             // width: '50%',

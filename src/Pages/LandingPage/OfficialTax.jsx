@@ -52,7 +52,7 @@ const OfficialTax = () => {
             <Typography
                 sx={{
                     fontSize: { md: '30px', sm: '25px', xs: '20px' },
-                    fontFamily: ' Orbitron',
+                    fontFamily: ' Gmarket',
                     fontWeight: 800,
                     textAlign: 'center',
                     color: `${theme.palette.text.darkblue}`,
@@ -94,7 +94,7 @@ const OfficialTax = () => {
       <Typography
         sx={{
           fontSize: { md: '14px', sm: '13px', xs: '12px' },
-          fontFamily: 'Gmarket Sans TTF',
+          fontFamily: 'Gmarket',
           fontWeight: 500,
           color: '#888',
           lineHeight: '24px',
@@ -106,10 +106,10 @@ const OfficialTax = () => {
           <Box display="flex" flexDirection="row" alignItems="center" gap={'10px'} pt={'35px'}>
             <img src={card.card1img} alt={`card${index + 1}img`}  width={'50px'}/>
             <Stack >
-              <Typography fontSize={'12px'} fontFamily={'Gmarket Sans TT'} fontWeight={700}>
+              <Typography fontSize={'12px'} fontFamily={'Gmarket'} fontWeight={700}>
                 {card.imgtitle}
               </Typography>
-              <Typography fontSize={'12px'} color={'#888'} fontFamily={'Gmarket Sans TTF'} fontWeight={300}>{card.subtitile}</Typography>
+              <Typography fontSize={'12px'} color={'#888'} fontFamily={'Gmarket'} fontWeight={300}>{card.subtitile}</Typography>
             </Stack>
           </Box>
         </Box>
@@ -124,7 +124,7 @@ const OfficialTax = () => {
                         fontSize: { md: '30px', sm: '25px', xs: '20px' },
                         color: `${theme.palette.text.darkblue}`,
                         fontWeight: 800,
-                        fontFamily: 'Orbitron',
+                        fontFamily: 'Gmarket',
                         textAlign: 'center',
                         textTransform: 'uppercase',
                     }}

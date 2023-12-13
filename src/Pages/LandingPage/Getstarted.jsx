@@ -21,6 +21,7 @@ const Getstarted = () => {
                 fontWeight={700}
                 textTransform={'capitalize'}
                sx={{color: `${theme.palette.text.darkblue}`}}
+               fontFamily={'Gmarket'}
             >
                 Get Easily Started
             </Typography>
@@ -30,6 +31,7 @@ const Getstarted = () => {
                 alignItems={'center'}
                 justifyContent={'center'}
                 gap={'5px'}
+                fontFamily={'Gmarket'}
             >
                 <LockIcon sx={{ color: '#0B7BC3' ,width:'24px'}} />
                 <Typography display={'flex'} fontSize={{lg:'16px',md:'14px',sm:'13px',xs:'12px'}}>
@@ -56,7 +58,7 @@ const Getstarted = () => {
                             px: 10,
                         }}
                     >
-                        <Typography sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
+                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
                         Connect Wallets &<br></br>
 Exchanges
                         </Typography>
@@ -73,7 +75,7 @@ Exchanges
                             fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}
                         }}
                     >
-                        <Typography sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
+                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
                         Review <br></br>
 Transactions
                         </Typography>
@@ -88,6 +90,7 @@ Transactions
                             py: 10,
                             px: 10,
                         }}
+                        fontFamily={'Gmarket'}
                     >
                         <Typography sx={{  fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
                             Get portfolio insights<br></br>& tax reports

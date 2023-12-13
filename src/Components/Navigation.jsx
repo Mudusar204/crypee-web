@@ -98,7 +98,7 @@ const Navigation = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     color: `${theme.palette.text.lightblue}`,
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     fontWeight: '500',
 
                                     cursor: 'pointer',

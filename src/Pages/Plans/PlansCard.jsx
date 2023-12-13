@@ -34,7 +34,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                     color={theme.palette.text.darkblue}
                     textAlign={'center'}
                     fontSize={{ xs: '25px', md: '30px' }}
-                    fontFamily={'Orbitron'}
+                    fontFamily={'Gmarket'}
                     mt={3}
                     textTransform="uppercase"
                 >
@@ -45,7 +45,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                     color={theme.palette.text.lightbrown}
                     textAlign={'center'}
                     fontSize="1rem"
-                    fontFamily={'Poppins'}
+                    fontFamily={'Gmarket'}
                     fontWeight="600"
                     mt={1}
                     textTransform="uppercase"
@@ -59,7 +59,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                     color={theme.palette.text.darkblue}
                     textAlign={'center'}
                     fontSize={{ xs: '25px', md: '30px' }}
-                    fontFamily={'Orbitron'}
+                    fontFamily={'Gmarket'}
                     fontWeight="800"
                     textTransform="uppercase"
                     mt={1}
@@ -73,7 +73,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                     color={theme.palette.text.lightbrown}
                     textAlign={'center'}
                     fontSize="1rem"
-                    fontFamily={'Poppins'}
+                    fontFamily={'Gmarket'}
                     mt={1}
                 >
                     {introDetails.status}
@@ -83,7 +83,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
             {!introDetails ? (
                 <Typography
                     sx={{
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Gmarket',
                         fontSize: { xs: '15px', md: '18px' },
                         fontWeight: 500,
                         lineHeight: '24px',
@@ -117,7 +117,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             >
                                 <Box>
                                     <Typography
-                                        fontFamily={'Poppins'}
+                                        fontFamily={'Gmarket'}
                                         fontWeight={700}
                                         fontSize={'17px'}
                                         fontStyle={'normal'}
@@ -127,7 +127,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                         {item.plans}
                                     </Typography>
                                     <Typography
-                                        fontFamily={'Poppins'}
+                                        fontFamily={'Gmarket'}
                                         fontWeight={500}
                                         fontSize={
                                             item.amount?.toLowerCase() == 'priced individually'
@@ -140,7 +140,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                     >
                                         <sup
                                             style={{
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                                 fontSize: '10px',
                                                 color: `${theme.palette.text.black}`,
                                             }}
@@ -150,7 +150,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                         {item.amount}
                                         <span
                                             style={{
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                                 fontSize: '10px',
                                                 color: `${theme.palette.text.black}`,
                                             }}
@@ -192,7 +192,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                                         />
                                                         <Typography
                                                             component="div"
-                                                            fontFamily={'Poppins'}
+                                                            fontFamily={'Gmarket'}
                                                             // fontWeight={400}
                                                             fontSize={'14px'}
                                                             fontStyle={'normal'}
@@ -207,7 +207,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                             })
                                         ) : (
                                             <Typography
-                                                fontFamily={'Poppins'}
+                                                fontFamily={'Gmarket'}
                                                 // fontWeight={400}
                                                 fontSize={'14px'}
                                                 fontStyle={'normal'}
@@ -279,7 +279,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             sx={{
                                 fontSize: '23px',
                                 fontWeight: 600,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 color: `${theme.palette.text.darkblue}`,
                                 textTransform: 'uppercase',
                             }}
@@ -295,7 +295,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             <Typography
                                 sx={{
                                     fontSize: '15px',
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     color: `${theme.palette.text.black}`,
                                 }}
                             >
@@ -305,7 +305,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                                 sx={{
                                     fontSize: '20px',
                                     fontWeight: 600,
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     color: `${theme.palette.text.black}`,
                                 }}
                             >
@@ -317,7 +317,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                             sx={{
                                 fontSize: '15px',
                                 fontWeight: 500,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 color: `${theme.palette.text.black}`,
                                 mb: 1.3,
                                 mt: 3,
@@ -357,7 +357,7 @@ const PlansCard = ({ plansCard, introDetails }) => {
                         <Typography
                             sx={{
                                 fontSize: '15px',
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 color: `${theme.palette.text.black}`,
                                 mt: 2,
                             }}

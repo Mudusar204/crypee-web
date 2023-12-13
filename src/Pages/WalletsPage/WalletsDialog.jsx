@@ -1,7 +1,6 @@
 import React from 'react';
 import Slide from '@mui/material/Slide';
 import { Avatar, Box, Dialog, Grid, InputBase, Stack, Typography } from '@mui/material';
-
 import SearchIcon from '@mui/icons-material/Search';
 import metamask from '../../images/metamask.png';
 import coinbasewallet from '../../images/coinbasewallet.png'
@@ -43,7 +42,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                     <Typography
                         sx={{
                             textAlign: 'center',
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '700',
                             fontSize: { xs: '17px', sm: '22px',md:'32px' },
@@ -126,7 +125,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                   <img src={metamask} alt='metamask' ></img>
                                     <Typography
                                         sx={{
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Gmarket',
                                             fontStyle: 'normal',
                                             fontWeight: '500',
                                             fontSize: { xs: '8px', sm: '12px' },
@@ -160,7 +159,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                                     <img src={coinbasewallet} alt='coinbase'></img>
                                     <Typography
                                         sx={{
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Gmarket',
                                             fontStyle: 'normal',
                                             fontWeight: '500',
                                             fontSize: { xs: '8px', sm: '12px' },

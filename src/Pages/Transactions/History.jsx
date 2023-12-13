@@ -114,7 +114,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                     <>
                                         <StyledHeadCell
                                             sx={{
-                                                fontFamily: 'Orbitron, sans-serif',
+                                                fontFamily: 'Gmarket',
                                                 fontSize: '1rem',
                                                 fontWeight: '800',
                                                 textTransform: 'uppercase',

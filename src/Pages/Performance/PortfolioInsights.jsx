@@ -156,6 +156,7 @@ const PortfolioInsights = () => {
                             fontSize: '15px',
                             margin: '0.812em 0 2.06em 0',
                             textAlign: { xs: 'center', md: 'unset' },
+                            fontFamily: 'Gmarket',
                         }}
                     >
                         Add some wallets or transactions to display the summary
@@ -208,6 +209,7 @@ const PortfolioInsights = () => {
                                                 xs: '9px',
                                                 sm: 'unset',
                                                 marginRight: '1em',
+                                                fontFamily: 'Gmarket',
                                             },
                                         }}
                                     >

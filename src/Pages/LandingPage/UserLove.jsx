@@ -6,9 +6,9 @@ import Slider from 'react-slick';
 import './userlove.css';
 
 import userimg1 from '../../images/userimg1.png';
-import garry1 from '../../images/garry1.png'
-import garry2 from '../../images/garry2.png'
-import garry3 from '../../images/garry3.png'
+import garry1 from '../../images/garry1.png';
+import garry2 from '../../images/garry2.png';
+import garry3 from '../../images/garry3.png';
 
 import leftarrow from '../../images/leftarrow.png';
 import rightarrow from '../../images/rightarrow.png';
@@ -86,52 +86,51 @@ const TeamPrevArrow = ({ onClick }) => {
 };
 const userReviews = [
     {
-      id: 1,
-      image: garry1,
-      twitter: true,
-      linkedIn: true,
-      text:' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
-      name: 'Garry',
-      handle: '@garrytan',
+        id: 1,
+        image: garry1,
+        twitter: true,
+        linkedIn: true,
+        text: ' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
+        name: 'Garry',
+        handle: '@garrytan',
     },
     {
         id: 2,
         image: garry2,
         twitter: true,
         linkedIn: true,
-        text:' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
+        text: ' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
         name: 'Garry',
         handle: '@garrytan',
-      },
-      {
+    },
+    {
         id: 3,
         image: garry3,
         twitter: true,
         linkedIn: true,
-        text:' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
+        text: ' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
         name: 'Garry',
         handle: '@garrytan',
-      },
-      {
+    },
+    {
         id: 4,
         image: garry1,
         twitter: true,
         linkedIn: true,
-        text:' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
+        text: ' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
         name: 'Garry',
         handle: '@garrytan',
-      },
-      {
+    },
+    {
         id: 5,
         image: garry2,
         twitter: true,
         linkedIn: true,
-        text:' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
+        text: ' Strong background in Digital Marketing and Sales at both the business and consumer level. Strives to bring integrity and  structure to Defi in order to achieve sustainability and   fair chance profits for investors',
         name: 'Garry',
         handle: '@garrytan',
-      },
-    
-  ];
+    },
+];
 const UserLove = () => {
     const theme = useTheme();
     // const matchesMeida = useMediaQuery('(max-width: 900px)');
@@ -177,8 +176,8 @@ const UserLove = () => {
         <Box my={13}>
             <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 8 } }}>
                 <Typography
+                    fontFamily={'Gmarket'}
                     sx={{
-                        fontFamily: 'Orbitron',
                         fontSize: { md: '30px', sm: '25px', xs: '20px' },
                         fontWeight: 800,
                         color: `${theme.palette.text.darkblue}`,
@@ -190,93 +189,93 @@ const UserLove = () => {
                     Users love crypee (Tax Software)
                 </Typography>
                 <Typography
+                    fontFamily={'Gmarket'}
                     sx={{
-                        fontFamily: 'Poppins',
                         fontSize: '15px',
                         fontWeight: 500,
                         mt: 0.5,
                         textAlign: 'center',
                         color: `${theme.palette.text.lightbrown}`,
+                        px:4,
+
                     }}
                 >
                     See what cryptocurrency users around the world are saying about us
                 </Typography>
                 <Box mt={10}>
-                <Slider {...settings} style={{ height: '100%' }}>       
-                      {userReviews.map((user, index) => (
-          <Box
-            py={20}
-            px={2}
-            sx={{
-              background:
-                ' linear-gradient(180deg, #2091DA 0%, #9AD9FF 100%)',
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.25)',
-              borderRadius: '36px',
-              maxWidth: '402px',
-              width: '100%',
-              minHeight: '274px',
-              height: '100%',
-              padding: { md: '1.5rem', xs: '1rem' },
-              color: '#ffffff',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            key={index}
-          >
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap:'20px',}}>
-              <Box
-                component="img"
-                sx={{ marginTop: '-3.5rem' }}
-                src={user.image}
-                alt={`userimg${user.id}`}
-              />
-            </Box>
-            <Box textAlign="end" sx={{ marginTop: '-4rem' }}>
-              {user.twitter && <Twitter sx={{ marginRight: '0.5rem' }} />}
-              {user.linkedIn && <LinkedIn />}
-            </Box>
+                    <Slider {...settings} style={{ height: '100%' }}>
+                        {userReviews.map((user, index) => (
+                            <Box
+                                py={20}
+                                px={2}
+                                sx={{
+                                    background:
+                                        ' linear-gradient(180deg, #2091DA 0%, #9AD9FF 100%)',
+                                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.25)',
+                                    borderRadius: '36px',
+                                    maxWidth: '402px',
+                                    width: '100%',
+                                    minHeight: '274px',
+                                    height: '100%',
+                                    padding: { md: '1.5rem', xs: '1rem' },
+                                    color: '#ffffff',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                                key={index}
+                            >
+                                <Box
+                                    sx={{ display: 'flex', justifyContent: 'center', gap: '20px' }}
+                                >
+                                    <Box
+                                        component="img"
+                                        sx={{ marginTop: '-3.5rem' }}
+                                        src={user.image}
+                                        alt={`userimg${user.id}`}
+                                    />
+                                </Box>
+                                <Box textAlign="end" sx={{ marginTop: '-4rem' }}>
+                                    {user.twitter && <Twitter sx={{ marginRight: '0.5rem' }} />}
+                                    {user.linkedIn && <LinkedIn />}
+                                </Box>
 
-            <Typography
-              sx={{
-                fontFamily: 'Poppins',
-                fontSize: '12px',
-                fontWeight: 400,
-                mt: 5,
-                textAlign: 'center',
-              }}
-            >
-              {user.text}
-            </Typography>
+                                <Typography
+                                    fontFamily={'Gmarket'}
+                                    sx={{
+                                        fontSize: '12px',
+                                        fontWeight: 400,
+                                        mt: 5,
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    {user.text}
+                                </Typography>
 
-            <Typography
-              sx={{
-                fontFamily: 'Poppins',
-                fontSize: '20px',
-                fontWeight: 700,
-                mt: 3,
-                textAlign: 'center',
-              }}
-            >
-              {user.name}
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: 'Poppins',
-                fontSize: '14px',
-                fontWeight: 400,
-                mt: 1,
-                textAlign: 'center',
-              }}
-            >
-              {user.handle}
-            </Typography>
-          </Box>
-        ))}
-                               
-                                
-                            
-                  
+                                <Typography
+                                    fontFamily={'Gmarket'}
+                                    sx={{
+                                        fontSize: '20px',
+                                        fontWeight: 700,
+                                        mt: 3,
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    {user.name}
+                                </Typography>
+                                <Typography
+                                    fontFamily={'Gmarket'}
+                                    sx={{
+                                        fontSize: '14px',
+                                        fontWeight: 400,
+                                        mt: 1,
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    {user.handle}
+                                </Typography>
+                            </Box>
+                        ))}
                     </Slider>
                 </Box>
             </Container>

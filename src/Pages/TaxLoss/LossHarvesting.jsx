@@ -64,10 +64,10 @@ const LossHarvesting = () => {
                                     color: `${theme.palette.text.darkblue}`,
                                     fontStyle: 'normal',
                                     fontWeight: 800,
-                                    fontSize: { xs: '23px', md: '30px' },
+                                    fontSize: { xs: '18px', md: '30px' },
                                     py: { xs: 1.3, md: 4 },
-                                    fontFamily: 'Orbitron',
-                                    lineHeight: '22px',
+                                    fontFamily: 'Gmarket',
+
                                     textAlign: { xs: 'center', md: 'left' },
                                     textTransform: 'uppercase',
                                 }}
@@ -80,6 +80,7 @@ const LossHarvesting = () => {
                                 fontWeight={600}
                                 color={theme.palette.text.darkblue}
                                 textAlign={{ xs: 'center', md: 'left' }}
+                                fontFamily={'Gmarket'}
                             >
                                 Save up to 0.00 PKR in taxes
                             </Typography>
@@ -87,6 +88,7 @@ const LossHarvesting = () => {
                                 fontSize={{ xs: '11px', md: '15px' }}
                                 fontStyle={'normal'}
                                 textAlign={{ xs: 'center', md: 'left' }}
+                                fontFamily={'Gmarket'}
                             >
                                 Get a Pro portfolio subscription to <br /> unlock tax-loss
                                 harvesting
@@ -96,8 +98,8 @@ const LossHarvesting = () => {
                                 sx={{
                                     border: '2px solid #E7F4FF',
                                     p: { xs: 2, md: 5 },
-                                    background:'white',
-                                    boxShadow:' 0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                                    background: 'white',
+                                    boxShadow: ' 0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                     borderRadius: '15px',
                                     mt: 3,
                                 }}

@@ -17,7 +17,7 @@ const SaveMoney = () => {
                       sx={{  color: `${theme.palette.text.darkblue}`}}
                         fontSize={{xs:'20px',sm:'22px',md:'28px',lg:'30px'}}
                         fontWeight={700}
-                        fontFamily={'Gmarket Sans TTF'}
+                        fontFamily={'Gmarket'}
                     >
                         Save money year-round
                     </Typography>
@@ -25,8 +25,10 @@ const SaveMoney = () => {
                     <Box width={{ xs: '100%', lg: '540px',md:'540px' }}>
             <Typography
               color="var(--Text-Black, #333)"
-              fontSize={{ xs: '14px', lg: '18px' ,sm:'16px',md:'18px'}}
+              fontSize={{ xs: '13px', lg: '18px' ,sm:'14px',md:'16px'}}
               fontWeight={500}
+              fontFamily={'Gmarket'}
+              lineHeight={{xs:'20px',sm:'25px',md:'30px',lg:'35px'}}
             >
               Crypee(Tax Software) automatically optimizes cost basis accounting methods and enables you to tax-loss harvest your portfolio to save thousands per year. Additional visibility into tax lots helps you make better trades.
             </Typography>

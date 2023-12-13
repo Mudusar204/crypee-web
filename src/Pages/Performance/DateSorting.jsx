@@ -67,7 +67,7 @@ const DateSorting = () => {
                 my={2}
                     color="text.darkblue"
                     sx={{
-                        fontFamily: 'Orbitron, sans-serif',
+                         fontFamily: 'Gmarket',
                         fontWeight: 800,
                         fontSize: { xs: '1.687rem', md: '1.875rem' },
                         textTransform: 'uppercase',
@@ -183,7 +183,7 @@ const DateSorting = () => {
                 >
                     <Typography
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '700',
                             fontSize: { xs: '18px', lg: '32px',sm:'22px',md:'30px' },

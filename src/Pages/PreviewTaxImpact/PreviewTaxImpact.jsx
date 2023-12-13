@@ -16,7 +16,7 @@ const PreviewTaxImpact = () => {
                     sx={{
                         fontSize: { md: '30px', sm: '25px', xs: '20px' },
                         fontWeight: 800,
-                        fontFamily: 'Orbitron',
+                        fontFamily: 'Gmarket',
                         color: `${theme.palette.text.darkblue}`,
                         textTransform: 'uppercase',
                     }}
@@ -31,7 +31,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}
@@ -43,7 +43,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}
@@ -55,7 +55,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}
@@ -67,7 +67,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}
@@ -78,7 +78,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}
@@ -102,7 +102,7 @@ const PreviewTaxImpact = () => {
                             sx={{
                                 fontSize: { md: '17px', sm: '13px', xs: '11px' },
                                 fontWeight: 600,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 my: 1,
                                 color: `${theme.palette.text.darkblue}`,
                             }}
@@ -114,7 +114,7 @@ const PreviewTaxImpact = () => {
                             sx={{
                                 fontSize: { md: '14px', sm: '12px', xs: '10px' },
                                 fontWeight: 400,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 mt: 1.5,
                                 color: `${theme.palette.text.lightbrown}`,
                             }}
@@ -129,7 +129,7 @@ const PreviewTaxImpact = () => {
                                 sx={{
                                     fontSize: { md: '14px', sm: '12px', xs: '10px' },
                                     fontWeight: 400,
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     mt: 1.5,
                                     color: `${theme.palette.text.lightbrown}`,
                                 }}
@@ -143,7 +143,7 @@ const PreviewTaxImpact = () => {
                         sx={{
                             fontSize: { md: '17px', sm: '13px', xs: '11px' },
                             fontWeight: 400,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             mt: 2,
                             color: `${theme.palette.text.lightbrown}`,
                         }}

@@ -68,7 +68,7 @@ const rtransactiondata = [
         title2: 'Feb 21 2020',
         title1value: '$20,012.64',
         title2value: '$$2.242.31',
-        icon1: <CardGiftcardIcon/>,
+        icon1: <CardGiftcardIcon />,
         style: {
             background: '#D8EDFF',
             width: '24px',
@@ -77,7 +77,7 @@ const rtransactiondata = [
             justifyContent: 'center',
             px: 3,
             py: 1,
-            borderRadius: '3px', 
+            borderRadius: '3px',
         },
     },
 ];
@@ -101,20 +101,20 @@ export default function Index() {
                         background: 'white',
                         boxSizing: 'border-box',
                         boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
-                        my:6
+                        my: 6,
                     }}
                 >
                     <Grid container spacing={{ xs: 3, md: 5 }} px={3} py={3}>
                         <Grid item xs={12} md={8.5}>
-                            <Profile/>
+                            <Profile />
                         </Grid>
                         <Grid item xs={12} md={3.5}>
                             <Box>
                                 <Stack direction="row" justifyContent="center" gap={5} mb={5}>
                                     <Button
+                                        fontFamily={'Gmarket'}
                                         variant="btn2"
                                         sx={{
-                                            fontFamily: 'Poppins',
                                             fontStyle: 'normal',
                                             fontWeight: '600',
                                             fontSize: '16px',
@@ -147,11 +147,11 @@ export default function Index() {
                                 >
                                     <Stack direction="row" justifyContent="space-between">
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Orbitron',
                                                 fontStyle: 'normal',
                                                 fontWeight: '800',
-                                                fontSize: '11px',
+                                                fontSize: '12px',
                                                 lineHeight: '22px',
                                                 textAlign: 'center',
                                                 textTransform: 'uppercase',
@@ -161,12 +161,13 @@ export default function Index() {
                                             Crypto taxes
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
                                                 width: 'max-content',
-                                                fontFamily: 'Gmarket Sans TTF',
+
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 textAlign: 'center',
                                                 color: '#333',
@@ -178,11 +179,11 @@ export default function Index() {
                                     </Stack>
                                     <Stack direction="row" justifyContent="space-between" mt={5}>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '14px',
+                                                fontSize: '12px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -190,11 +191,11 @@ export default function Index() {
                                             Tax year
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '14px',
+                                                fontSize: '12px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -202,11 +203,11 @@ export default function Index() {
                                             Cap.gains
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '14px',
+                                                fontSize: '12px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -216,11 +217,11 @@ export default function Index() {
                                     </Stack>
                                     <Stack direction="row" justifyContent="space-between" mt={5}>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '15px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                                 textAlign: 'center !important',
@@ -229,11 +230,11 @@ export default function Index() {
                                             2023
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -241,11 +242,11 @@ export default function Index() {
                                             +PKR4****
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '700',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -255,11 +256,11 @@ export default function Index() {
                                     </Stack>
                                     <Stack direction="row" justifyContent="space-between" mt={5}>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '15px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -267,11 +268,11 @@ export default function Index() {
                                             2022
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -283,7 +284,7 @@ export default function Index() {
                                                 fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '700',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -293,11 +294,11 @@ export default function Index() {
                                     </Stack>
                                     <Stack direction="row" justifyContent="space-between" mt={5}>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '15px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -305,11 +306,11 @@ export default function Index() {
                                             2021
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '400',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                                 textAlign: 'center',
@@ -318,11 +319,11 @@ export default function Index() {
                                             +PKR4****
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Poppins',
                                                 fontStyle: 'normal',
                                                 fontWeight: '700',
-                                                fontSize: '14px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 color: '#333',
                                             }}
@@ -335,7 +336,7 @@ export default function Index() {
                                 {/* -----recent-------- */}
                                 <Box
                                     sx={{
-                                        my:3,
+                                        my: 3,
                                         background: 'white',
                                         boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)',
                                         borderRadius: '15px',
@@ -345,8 +346,8 @@ export default function Index() {
                                 >
                                     <Stack direction="row" justifyContent="space-between" py={3}>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
-                                                fontFamily: 'Orbitron',
                                                 fontStyle: 'normal',
                                                 fontWeight: '800',
                                                 fontSize: '11px',
@@ -359,12 +360,13 @@ export default function Index() {
                                             Recent Transactions
                                         </Typography>
                                         <Typography
+                                            fontFamily={'Gmarket'}
                                             sx={{
                                                 width: 'max-content',
-                                                fontFamily: 'Gmarket Sans TTF',
+
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '14px',
+                                                fontSize: '8px',
                                                 lineHeight: '16px',
                                                 textAlign: 'center',
                                                 color: '#333',
@@ -374,39 +376,57 @@ export default function Index() {
                                             See details
                                         </Typography>
                                     </Stack>
-                                    {rtransactiondata.map((transaction,index)=>
-                                       <Box key={index} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                       <Box display={'flex'} gap='10px' my={1}>
-                                           <Box sx={transaction.style}>{transaction.icon1}</Box>
-                                           <Stack>
-                                               <Typography fontSize={'13px'} fontWeight={500}>{transaction.title1}</Typography>
-                                               <Typography fontSize={'10px'} fontWeight={300}>{transaction.title2}</Typography>
-                                           </Stack>
-                                       </Box>
-                                       <Stack>
-                                           <Typography fontSize={'13px'} fontWeight={700}>{transaction.title1value}</Typography>
-                                           <Typography fontSize={'10px'} fontStyle={'normal'} fontWeight={300}>{transaction.title2value}</Typography>
-                                       </Stack>
-                                   </Box>
-                                    )}
-                                  
+                                    {rtransactiondata.map((transaction, index) => (
+                                        <Box
+                                            key={index}
+                                            display={'flex'}
+                                            justifyContent={'space-between'}
+                                            alignItems={'center'}
+                                        >
+                                            <Box display={'flex'} gap="10px" my={1}>
+                                                <Box sx={transaction.style}>
+                                                    {transaction.icon1}
+                                                </Box>
+                                                <Stack>
+                                                    <Typography  fontFamily={'Gmarket'} fontSize={'10px'} fontWeight={500}>
+                                                        {transaction.title1}
+                                                    </Typography>
+                                                    <Typography  fontFamily={'Gmarket'} fontSize={'8px'} fontWeight={300}>
+                                                        {transaction.title2}
+                                                    </Typography>
+                                                </Stack>
+                                            </Box>
+                                            <Stack>
+                                                <Typography  fontFamily={'Gmarket'} fontSize={'10px'} fontWeight={700}>
+                                                    {transaction.title1value}
+                                                </Typography>
+                                                <Typography
+                                                    fontSize={'8px'}
+                                                    fontStyle={'normal'}
+                                                    fontWeight={300}
+                                                    fontFamily={'Gmarket'}
+                                                >
+                                                    {transaction.title2value}
+                                                </Typography>
+                                            </Stack>
+                                        </Box>
+                                    ))}
                                 </Box>
                             </Box>
                         </Grid>
                     </Grid>
-
-
-                 
                 </Container>
-                <Container  sx={{
-                    boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
-                    background:'white',
-                    borderRadius:'15px',
-                    width: '100%',
-                    py: { xs: 5, md: 5 },
-                    px: { xs: 2, sm: 5, md: 3 },
-                    my: { xs: 5, md: 8 },
-                }} >
+                <Container
+                    sx={{
+                        boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                        background: 'white',
+                        borderRadius: '15px',
+                        width: '100%',
+                        py: { xs: 5, md: 5 },
+                        px: { xs: 2, sm: 5, md: 3 },
+                        my: { xs: 5, md: 8 },
+                    }}
+                >
                     <YourAssets />
                 </Container>
             </Box>
