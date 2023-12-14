@@ -231,6 +231,7 @@ const Login = () => {
                         px: 3,
                         borderRadius: '15px',
                         width: 'fit-content',
+                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                         
                         
                     }} >
@@ -239,6 +240,7 @@ const Login = () => {
                             md={6}
                             xs={12}
                             sm={11}
+                            lg={6}
                             // sx={{ display: { md: 'block', xs: 'none' }, marginRight: '-1.2rem' }}
                         >
                             <Box
@@ -264,7 +266,7 @@ const Login = () => {
                                 <img src={crplogo} alt="logo" width={'150px'}></img>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Orbitron',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 800,
                                         fontSize: { md: '30px', xs: '20px' },
                                         textAlign: 'center',
@@ -277,7 +279,7 @@ const Login = () => {
                                 </Typography>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 400,
                                         fontSize: '13px',
                                         textAlign: 'center',
@@ -290,7 +292,10 @@ const Login = () => {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Grid item md={5} sm={11} xs={12}>
+                        <Grid item  md={6}
+                            xs={12}
+                            sm={11}
+                            lg={6}>
                             <Box
                             // sx={{
                             //     background: `url(${login})`,
@@ -304,6 +309,7 @@ const Login = () => {
                             //         xs: '2rem 2rem',
                             //     },
                             // }}
+                            px={2}
                             >
                                 <Box mt={4}>
                                     <CustomTextField
@@ -374,7 +380,7 @@ const Login = () => {
                                                 fontSize: '12px',
                                                 color: 'black',
                                                 fontWeight: '400',
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                             }}
                                         >
                                             Remember me
@@ -386,7 +392,7 @@ const Login = () => {
                                             fontSize: '12px',
                                             color: 'black',
                                             fontWeight: '400',
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Gmarket',
                                         }}
                                     >
                                         <u> Forget Password</u>
@@ -430,7 +436,7 @@ const Login = () => {
 
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 400,
                                         fontSize: '20px',
                                         textAlign: 'center',
