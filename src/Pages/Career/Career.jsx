@@ -197,7 +197,7 @@ const Career = () => {
                     sx={{
                         fontSize: { md: { md: '30px', xs: '20px' }, sm: '25px', xs: '20px' },
                         fontWeight: 800,
-                        fontFamily: 'Orbitron',
+                        fontFamily: 'Gmarket',
                         color: `${theme.palette.text.darkblue}`,
                         textAlign: 'center',
                         textTransform: 'uppercase',
@@ -209,7 +209,7 @@ const Career = () => {
                     sx={{
                         fontSize: { md: '15px', sm: '13px', xs: '12px' },
                         fontWeight: 400,
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Gmarket',
                         mt: 2,
                         textAlign: 'center',
                         color: `${theme.palette.text.lightbrown}`,
@@ -239,7 +239,7 @@ const Career = () => {
                                             sx={{
                                                 fontSize: { md: '15px', sm: '13px', xs: '12px' },
                                                 fontWeight: 600,
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Gmarket',
                                                 mt: 4,
                                                 textAlign: 'center',
                                                 color: `${theme.palette.text.darkblue}`,
@@ -274,7 +274,7 @@ const Career = () => {
                             sx={{
                                 fontSize: { md: '20px', sm: '17px', xs: '14px' },
                                 fontWeight: 600,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 mt: 10,
                                 textAlign: 'center',
                                 color: `${theme.palette.text.darkblue}`,
@@ -287,7 +287,7 @@ const Career = () => {
                             sx={{
                                 fontSize: { md: '15px', sm: '13px', xs: '10px' },
                                 fontWeight: 400,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Gmarket',
                                 mt: 4,
                                 textAlign: 'center',
                                 color: `${theme.palette.text.lightbrown}`,
@@ -318,7 +318,7 @@ const Career = () => {
                                 sx={{
                                     fontSize: { md: '20px', sm: '17px', xs: '15px' },
                                     fontWeight: 600,
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     mt: 1,
                                     textAlign: 'center',
                                     color: `${theme.palette.text.darkblue}`,
@@ -330,7 +330,7 @@ const Career = () => {
                                 sx={{
                                     fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                     fontWeight: 400,
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Gmarket',
                                     mt: 4,
                                     color: '#585858',
                                     textAlign: 'jsutify',
@@ -347,7 +347,7 @@ const Career = () => {
                                     sx={{
                                         fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                         fontWeight: 400,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
 
                                         color: '#585858',
                                         
@@ -365,7 +365,7 @@ const Career = () => {
                                     sx={{
                                         fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                         fontWeight: 400,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
 
                                         color: '#585858',
                                     }}
@@ -382,7 +382,7 @@ const Career = () => {
                                     sx={{
                                         fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                         fontWeight: 400,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
 
                                         color: '#585858',
                                     }}
@@ -398,7 +398,7 @@ const Career = () => {
                                     sx={{
                                         fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                         fontWeight: 400,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
 
                                         color: '#585858',
                                     }}
@@ -415,7 +415,7 @@ const Career = () => {
                                     sx={{
                                         fontSize: { md: '15px', sm: '12px', xs: '9px' },
                                         fontWeight: 400,
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
 
                                         color: '#585858',
                                     }}

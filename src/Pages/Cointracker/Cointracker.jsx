@@ -48,7 +48,7 @@ const Cointracker = () => {
                                 </Box>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Orbitron',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 800,
                                         fontSize: '30px',
                                         textAlign: 'center',
@@ -60,7 +60,7 @@ const Cointracker = () => {
                                 </Typography>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 400,
                                         fontSize: '13px',
                                         textAlign: 'center',
@@ -85,7 +85,7 @@ const Cointracker = () => {
                                 </Box>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 600,
                                         fontSize: '15px',
                                         textAlign: 'center',
@@ -97,7 +97,7 @@ const Cointracker = () => {
                                 </Typography>
                                 <Typography
                                     sx={{
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Gmarket',
                                         fontWeight: 400,
                                         fontSize: '11px',
                                         textAlign: 'center',
