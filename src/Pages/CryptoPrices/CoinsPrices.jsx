@@ -49,7 +49,7 @@ const CoinsPrices = () => {
                     <Typography
                         sx={{ textAlign: { xs: 'center', md: 'unset' } }}
                         fontWeight={'500'}
-                        color={'text.darkblue'}
+                        color={'text.black'}
                     >
                         Updated 19 minutes ago
                     </Typography>
