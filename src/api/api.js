@@ -1,6 +1,7 @@
 // api.js
-import { REACT_APP_BASE_URL } from '../../public/.';
+
 import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../config';
 
 export const loginHandle = async (data) => {
     try {
