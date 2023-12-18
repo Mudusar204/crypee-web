@@ -80,18 +80,21 @@ const Login = () => {
         }
     
         try {
-            const response = await loginHandle(data);
+            const formData = new FormData();
+            formData.append('email', data.email);
+            formData.append('password', data.password);
+            const response = await loginHandle(formData);
             if (response?.data?.status === 'success') {
                 
-                sessionStorage.setItem('refreshToken-dai214', response?.data?.refreshToken);
-                console.log('Refresh Token:', response?.data?.refreshToken);
+                sessionStorage.setItem('refreshToken-dai214', response?.data?.data?.token);
+                console.log('Refresh Token:', response?.data?.data?.token);
 
                 dispatch(
                     setUserData({
-                        accessToken: response?.data?.accessToken,
-                        id: response?.data.id,
-                        email: response?.data?.userEmail,
-                        name: response?.data?.username,
+                        accessToken: response?.data?.data?.user?.token,
+                        id: response?.data.data?.user?.id,
+                        email: response?.data?.data?.user?.email,
+                        name: response?.data?.data?.user?.name,
                     }),
                 );
                 makeToast('User Login Successfully', 'success', 3);
