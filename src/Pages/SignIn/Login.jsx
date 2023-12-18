@@ -85,7 +85,7 @@ const Login = () => {
             formData.append('password', data.password);
             const response = await loginHandle(formData);
             console.log('response', response.data.data);
-            if (response?.data?.data?.status == true) {
+            if (response?.data?.status == true) {
                 
                 sessionStorage.setItem('refreshToken-dai214', response?.data?.data?.token);
                 console.log('Refresh Token:', response?.data?.data?.token);
