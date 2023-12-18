@@ -12,9 +12,9 @@ import {
 } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 
-import Plans from '../../images/TaxPlans/plans.png';
+// import Plans from '../../images/TaxPlans/customplanbg.png';
 import cardbgc from '../../images/TaxPlans/taxxsoftcards.png'
-import LossDialogBox from '../../images/TaxPlans/lossDialog.png';
+// import LossDialogBox from '../../images/TaxPlans/lossDialog.png';
 
 const PlansCard = ({ plansCard, introDetails }) => {
     const theme = useTheme();
