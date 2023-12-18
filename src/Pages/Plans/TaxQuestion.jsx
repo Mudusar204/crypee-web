@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 import StyledAccordian from './StyledAccordian';
-import CustomPlan from './../../images/TaxPlans/customplanbg.png';
+import CustomPlan from '../../images/TaxPlans/customPlanBg.png';
 // import qusendbg from '../../images/qusendbg.png';
 
 const TaxQuestion = () => {
