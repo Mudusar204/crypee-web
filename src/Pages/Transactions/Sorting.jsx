@@ -2,7 +2,7 @@ import { Typography, Button, Stack, Box, useMediaQuery } from '@mui/material';
 
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import sortingBg from '../../images/sorting_bg.png';
+// import sortingBg from '../../images/sorting_bg.png';
 import {  SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
 
 const sortingItems = [

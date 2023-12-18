@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Container, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Container, Grid,  Typography, useTheme } from '@mui/material';
 import Marquee from 'react-fast-marquee';
 
 import coinbase from '../../images/coinbase.png';
@@ -12,13 +12,12 @@ import asset2 from '../../images/asset2.png';
 import asset3 from '../../images/asset3.png';
 import asset4 from '../../images/asset4.png';
 import asset5 from '../../images/asset5.png';
-import asset6 from '../../images/asset5.png';
 import asset7 from '../../images/asset7.png';
 import asset8 from '../../images/asset8.png';
 import asset9 from '../../images/asset9.png';
 import asset10 from '../../images/asset10.png';
 
-const logos1 = [asset1, asset2, asset3, asset4, asset5, asset6, asset7, asset8, asset9, asset10];
+const logos1 = [asset1, asset2, asset3, asset4, asset5,  asset7, asset8, asset9, asset10];
 
 const logo = [coinbase, binance, Kroken, bitfinix];
 

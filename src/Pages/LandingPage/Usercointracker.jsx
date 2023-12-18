@@ -2,7 +2,6 @@ import { Box, Grid, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import usermapbg from '../../images/usermapbg.png';
 import ariana from '../../images/ariana.png';
-import ali from '../../images/ali.png';
 import forth from '../../images/forth.png';
 import third from '../../images/third.png';
 import secondcard from '../../images/secondcard.png';
@@ -77,7 +76,7 @@ const Usercointracker = () => {
                                 >
                                     For those who asked about my crypto taxes - ended up going w
                                     @cointracker_io. Best UX I found after looking at a number of
-                                    options! (FWIW I'm not an investor in the company, nor is anyone
+                                    options! (FWIW I m not an investor in the company, nor is anyone
                                     paying me).
                                 </Typography>
                             </Box>
@@ -139,7 +138,7 @@ const Usercointracker = () => {
                                     >
                                         For those who asked about my crypto taxes - ended up going w
                                         @cointracker_io. Best UX I found after looking at a number
-                                        of options! (FWIW I'm not an investor in the company, nor is
+                                        of options! (FWIW I am not an investor in the company, nor is
                                         anyone paying me).
                                     </Typography>
                                 </Box>
@@ -208,7 +207,7 @@ const Usercointracker = () => {
                                     >
                                         For those who asked about my crypto taxes - ended up going w
                                         @cointracker_io. Best UX I found after looking at a number
-                                        of options! (FWIW I'm not an investor in the company, nor is
+                                        of options! (FWIW I am not an investor in the company, nor is
                                         anyone paying me).
                                     </Typography>
                                 </Box>
@@ -273,7 +272,7 @@ const Usercointracker = () => {
                                     >
                                         For those who asked about my crypto taxes - ended up going w
                                         @cointracker_io. Best UX I found after looking at a number
-                                        of options! (FWIW I'm not an investor in the company, nor is
+                                        of options! (FWIW I am not an investor in the company, nor is
                                         anyone paying me).
                                     </Typography>
                                 </Box>

@@ -4,62 +4,57 @@ import {
     Stack,
     ButtonGroup,
     Box,
-    Grid,
-    Divider,
-    Container,
+  
 } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import pastdayBg from '../../images/pastday_bg.png';
-import netFiatBg from '../../images/netFiat_bg.png';
-import costBasisBg from '../../images/costBasis_bg.png';
-import returnBg from '../../images/return_bg.png';
+// import pastdayBg from '../../images/pastday_bg.png';
+// import netFiatBg from '../../images/netFiat_bg.png';
+// import costBasisBg from '../../images/costBasis_bg.png';
+// import returnBg from '../../images/return_bg.png';
 // import portfolio from '../../images/portfolio_img.png';
 import { SortByNewest, UnrealizedPerformanceDropdown } from '../../Components/DropdownMenus';
 import Profile from '../DashboardPage/Profile';
 import { DateRange, Share } from '@mui/icons-material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import costbasis from '../../images/costbasis.png';
-import upicon from '../../images/upicon.png';
-import note from '../../images/note.png';
-import dollar from '../../images/dollar.png';
-import { useState } from 'react';
-import subscribe from '../../images/subscribe.png';
 
-const balanceDetails = [
-    {
-        img: returnBg,
-        title: 'Unrealized Return',
-        price: ' 0.00',
-        icon: upicon,
-    },
-    {
-        img: pastdayBg,
-        title: 'Past Day',
-        price: ' 0.00',
-        icon: note,
-    },
-    {
-        img: costBasisBg,
-        title: 'Cost Basis',
-        price: ' 0.00',
-        icon: costbasis,
-    },
-    {
-        img: netFiatBg,
-        title: 'Net Fiat Invested',
-        price: ' 0.00',
-        icon: dollar,
-    },
-];
+// import costbasis from '../../images/costbasis.png';
+// import upicon from '../../images/upicon.png';
+// import note from '../../images/note.png';
+// import dollar from '../../images/dollar.png';
+
+
+// const balanceDetails = [
+//     {
+//         img: returnBg,
+//         title: 'Unrealized Return',
+//         price: ' 0.00',
+//         icon: upicon,
+//     },
+//     {
+//         img: pastdayBg,
+//         title: 'Past Day',
+//         price: ' 0.00',
+//         icon: note,
+//     },
+//     {
+//         img: costBasisBg,
+//         title: 'Cost Basis',
+//         price: ' 0.00',
+//         icon: costbasis,
+//     },
+//     {
+//         img: netFiatBg,
+//         title: 'Net Fiat Invested',
+//         price: ' 0.00',
+//         icon: dollar,
+//     },
+// ];
 
 const performances = ['Unrealized Performance', 'Total Performance'];
 const sortByNewest = ['Newest', 'Oldest'];
 
 const Pastdatesorting = () => {
-    const [time, settime] = useState(0);
+
     return (
         <>
             <Stack

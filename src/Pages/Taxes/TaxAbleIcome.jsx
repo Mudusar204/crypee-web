@@ -20,8 +20,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Capitalgainbg from '../../images/Taxes/capitalgainbg.png'
 import { useTheme } from '@emotion/react';
-import ReportTaxBg from '../../images/Taxes/taxReportBg.png';
-import GainText from '../../images/Taxes/gainBg.png';
+
 import careercard from '../../images/careercard.png';
 
 const taxAbleIncome = [
@@ -147,7 +146,7 @@ const TaxAbleIcome = () => {
                     xs={12}
                     md={6}
                     sx={{
-                        boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                         background:'white',
                         borderRadius:'15px',
                         border:'2px solid #E7F4FF',
@@ -277,7 +276,7 @@ const TaxAbleIcome = () => {
                     <Box
                      
                             sx={{
-                                boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                                boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                 background:'white',
                                 borderRadius:'15px',
                                 border:'2px solid #E7F4FF',

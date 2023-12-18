@@ -1,10 +1,8 @@
 import React from 'react';
 
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
-
-import trackerbg from '../../images/trackerbg.png';
+import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
-import logo2 from './../../images/logo2.png';
 import Header from '../../Components/Header';
 
 const Cointracker = () => {
@@ -19,16 +17,23 @@ const Cointracker = () => {
         >
             <Header />
             <Container maxWidth="lg">
-                <Box pt={{ md: 15, xs: 4 }}>
-                    <Grid container spacing={{ md: 0, xs: 2 }}>
-                        <Grid item md={6} xs={12} mx="auto">
-                            <Box
+                <Box
+                    pt={{ md: 15, xs: 4 }}
+                   
+                >
+                    <Grid container spacing={{ md: 0, xs: 2 }} >
+                        <Grid item md={6} xs={12} mx="auto" >
+                        <Box  sx={{
+                        background: 'white',
+                        boxShadow: ' 0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                        borderRadius: '15px',
+                       px:2,
+                       py:2
+                    }}>
+                          <Box
                                 sx={{
-                                    background: `url(${trackerbg})`,
-                                    backgroundSize: '100% 100%',
-                                    backgroundRepeat: 'no-repeat',
-                                    width: '100%',
-                                    height: 'auto',
+                                    background: '#F2FAFF',
+                                    borderRadius: '6px',
                                     padding: {
                                         md: '3rem 6rem ',
                                         sm: '3rem 4rem ',
@@ -40,7 +45,7 @@ const Cointracker = () => {
                                 <Box textAlign="center">
                                     <Box
                                         component="img"
-                                        src={logo2}
+                                        src={crplogo}
                                         alt="logo2"
                                         maxWidth="137px"
                                         width="100%"
@@ -52,7 +57,7 @@ const Cointracker = () => {
                                         fontWeight: 800,
                                         fontSize: '30px',
                                         textAlign: 'center',
-                                        color: '#ffffff',
+                                        color: '#00000',
                                         mt: 3,
                                     }}
                                 >
@@ -64,7 +69,7 @@ const Cointracker = () => {
                                         fontWeight: 400,
                                         fontSize: '13px',
                                         textAlign: 'center',
-                                        color: '#ffffff',
+                                        color: '#00000',
                                         mt: 1,
                                     }}
                                 >
@@ -89,7 +94,7 @@ const Cointracker = () => {
                                         fontWeight: 600,
                                         fontSize: '15px',
                                         textAlign: 'center',
-                                        color: '#ffffff',
+                                        color: '#00000',
                                         mt: 3,
                                     }}
                                 >
@@ -101,7 +106,7 @@ const Cointracker = () => {
                                         fontWeight: 400,
                                         fontSize: '11px',
                                         textAlign: 'center',
-                                        color: '#ffffff',
+                                        color: '#00000',
                                         mt: 3,
                                     }}
                                 >
@@ -109,6 +114,8 @@ const Cointracker = () => {
                                     Terms and Privacy Policy.
                                 </Typography>
                             </Box>
+                    </Box>
+                          
                         </Grid>
                     </Grid>
                 </Box>

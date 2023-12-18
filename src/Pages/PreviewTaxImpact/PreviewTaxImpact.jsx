@@ -90,7 +90,7 @@ const PreviewTaxImpact = () => {
                         my={2}
                         sx={{
                             border:'1px solid #D8F0FF',
-                            borderRadius:"12px",
+                            borderRadius:'12px',
                             background:
                                 '#F9FCFF',
                             padding: '1.5rem',

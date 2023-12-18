@@ -5,7 +5,7 @@ import { Twitter, LinkedIn } from '@mui/icons-material';
 import Slider from 'react-slick';
 import './userlove.css';
 
-import userimg1 from '../../images/userimg1.png';
+
 import garry1 from '../../images/garry1.png';
 import garry2 from '../../images/garry2.png';
 import garry3 from '../../images/garry3.png';

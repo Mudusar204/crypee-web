@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { Box, Container, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 
-import img1 from '../../images/img1.png';
-import getbg from '../../images/getbg.png';
-import img2 from '../../images/img2.png';
-import img3 from '../../images/img3.png';
+
 import LockIcon from '@mui/icons-material/Lock';
 import startcard3 from '../../images/startcard3.png';
 import startcard1 from '../../images/startcard1.png';
@@ -58,7 +55,7 @@ const Getstarted = () => {
                             px: 10,
                         }}
                     >
-                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
+                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:'12px',sm:'14px',md:'16px'}}}>
                         Connect Wallets &<br></br>
 Exchanges
                         </Typography>
@@ -72,10 +69,10 @@ Exchanges
                             backgroundSize: 'contain',
                             py: 10,
                             px: 10,
-                            fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}
+                            fontSize:{lg:'18px',xs:'12px',sm:'14px',md:'16px'}
                         }}
                     >
-                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
+                        <Typography     fontFamily={'Gmarket'} sx={{fontSize:{lg:'18px',xs:'12px',sm:'14px',md:'16px'}}}>
                         Review <br></br>
 Transactions
                         </Typography>
@@ -92,7 +89,7 @@ Transactions
                         }}
                         fontFamily={'Gmarket'}
                     >
-                        <Typography sx={{  fontSize:{lg:'18px',xs:"12px",sm:'14px',md:'16px'}}}>
+                        <Typography sx={{  fontSize:{lg:'18px',xs:'12px',sm:'14px',md:'16px'}}}>
                             Get portfolio insights<br></br>& tax reports
                         </Typography>
                     </Box>

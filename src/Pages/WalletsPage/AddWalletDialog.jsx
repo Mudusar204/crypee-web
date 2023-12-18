@@ -13,7 +13,7 @@ import {
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import bg from '../../images/AddWallet/bg.png';
+// import bg from '../../images/AddWallet/bg.png';
 import chainIcon from '../../images/AddWallet/CoinBaseWallet.svg';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

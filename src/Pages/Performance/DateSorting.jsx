@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, ButtonGroup, Box, Grid, Divider, Container } from '@mui/material';
+import { Typography, Button, Stack, ButtonGroup, Box, Grid, Divider } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import pastdayBg from '../../images/pastday_bg.png';
@@ -7,11 +7,9 @@ import costBasisBg from '../../images/costBasis_bg.png';
 import returnBg from '../../images/return_bg.png';
 // import portfolio from '../../images/portfolio_img.png';
 import { UnrealizedPerformanceDropdown } from '../../Components/DropdownMenus';
-import Profile from '../DashboardPage/Profile';
+
 import { DateRange, Share } from '@mui/icons-material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+
 import costbasis from '../../images/costbasis.png';
 import upicon from '../../images/upicon.png';
 import note from '../../images/note.png';

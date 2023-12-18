@@ -3,7 +3,6 @@ import { Box, Container } from '@mui/material';
 import Navigation from '../../Components/Navigation';
 import SearchSection from './SearchSection';
 import CoinsPrices from './CoinsPrices';
-import History from '../Transactions/History';
 import tetherImg from '../../images/coins/tether_img.png';
 import bitcoinImg from '../../images/coins/bitcoin_img.png';
 import etherImg from '../../images/coins/ether_img.png';

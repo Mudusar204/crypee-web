@@ -6,15 +6,16 @@ import { handleRefresh } from '../api/api';
 import { setUserData } from '../redux/slices/userSlice';
 import Loading from '../Pages/Loading/loading';
 
-
 const PersistLogin = () => {
     const [loading, setLoading] = useState(true);
     const [show, setShow] = useState(false);
     const users = useSelector((state) => state?.users);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const callPersist = async () => {
-        const rememberMe = localStorage.getItem('persistMe-sf3e');
+        const rememberMe = sessionStorage.getItem('persistMe-sf3e');
+        console.log('sessionstorage',rememberMe)
         if (rememberMe || users?.accessToken) {
             if (!users?.accessToken) {
                 const response = await handleRefresh();
@@ -32,14 +33,14 @@ const PersistLogin = () => {
                 } else {
                     dispatch(setUserData({}));
                     setLoading(false);
-                    // call logout api here
+                  
                     navigate('/landing');
                 }
             }
         } else {
             dispatch(setUserData({}));
             setLoading(false);
-            // callLogout API here
+          
             navigate('/landing');
         }
     };

@@ -1,12 +1,12 @@
 import React from 'react';
 import Slide from '@mui/material/Slide';
-import { Avatar, Box, Dialog, Grid, InputBase, Stack, Typography } from '@mui/material';
+import {  Box, Dialog, Grid, InputBase, Stack, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import metamask from '../../images/metamask.png';
 import coinbasewallet from '../../images/coinbasewallet.png'
 
 // import bg from '../../images/AddWallet/bg.png';
-import walletcard from '../../images/AddWallet/walletcard.png';
+// import walletcard from '../../images/AddWallet/walletcard.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -23,7 +23,7 @@ export default function WalletsDialog({ handleWallet, wallet, handleAddWallet })
                 sx={{
                     '& .MuiPaper-root': {
                         bgcolor: '#FFF',
-                       boxShadow:"0px 0px 60px 0px rgba(0, 0, 0, 0.05)",
+                       boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                         width: '100%',
                         borderRadius: '50px',
                         maxWidth: '900px',

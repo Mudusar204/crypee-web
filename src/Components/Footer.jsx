@@ -92,25 +92,25 @@ const Footer = () => {
                                         <StyledLink to="/loss-harvesting">Pricing</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/tax-plans"> Crypto Prices</StyledLink>
+                                        <StyledLink to="/crypto-prices"> Crypto Prices</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/tax-plans"> Integration</StyledLink>
+                                        <StyledLink to="/integration"> Integration</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/taxes">Terms of Use</StyledLink>
+                                        <StyledLink to="/Termsofservices">Terms of Use</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/dashboard"> Privacy Policy</StyledLink>
+                                        <StyledLink to="/Privacypolicy"> Privacy Policy</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/wallets">Disclaimer</StyledLink>
+                                        <StyledLink to="/disclaimer">Disclaimer</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/cointracker">Security</StyledLink>
+                                        <StyledLink to="/security">Security</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/transactions">Status</StyledLink>
+                                        <StyledLink to="/careers">Status</StyledLink>
                                     </li>
                                 </Box>
                             </Box>
@@ -140,10 +140,10 @@ const Footer = () => {
                                     }}
                                 >
                                     <li>
-                                        <StyledLink to="/performance">About</StyledLink>
+                                        <StyledLink to="/about">About</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/career"> Careers</StyledLink>
+                                        <StyledLink to="/careers"> Careers</StyledLink>
                                     </li>
                                     <li>
                                         <StyledLink to="/pricing-details">Press</StyledLink>
@@ -152,11 +152,11 @@ const Footer = () => {
                                         <StyledLink to="/previewtaximpact">Deals</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink to="/crypto-prices">For tax</StyledLink>
+                                        <StyledLink to="/taxes">For tax</StyledLink>
                                     </li>
                                 </Box>
                             </Box>
-                        </Box>
+                        </Box> 
                     </Grid>
                     <Grid item xs={4} sm={4} md={3}>
                         <Box
@@ -183,16 +183,16 @@ const Footer = () => {
                                     }}
                                 >
                                     <li>
-                                        <StyledLink>Crypto tax guide</StyledLink>
+                                        <StyledLink to='/Taxguide'>Crypto tax guide</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink>Blog</StyledLink>
+                                        <StyledLink to='/blog'>Blog</StyledLink>
                                     </li>
                                     <li>
                                         <StyledLink>Support</StyledLink>
                                     </li>
                                     <li>
-                                        <StyledLink>Donate</StyledLink>
+                                        <StyledLink to='/cointracker'>Donate</StyledLink>
                                     </li>
                                 </Box>
                             </Box>

@@ -22,8 +22,8 @@ import {
     AccountCircle,
 } from '@mui/icons-material';
 
-import logincart from '../../images/loginstar.png';
-import login from '../../images/login.png';
+// import logincart from '../../images/loginstar.png';
+// import login from '../../images/login.png';
 import loginbg from '../../images/loginbg.png';
 import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
@@ -103,6 +103,7 @@ const Signup = () => {
 
     async function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
+        console.log('accesToken',accessToken)
         try {
             const response = await handleRegister({ googleToken: accessToken });
 

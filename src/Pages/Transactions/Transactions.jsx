@@ -1,13 +1,13 @@
 import { Box, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import {  useState } from 'react';
+// import axios from 'axios';
 import usdtIcon from '../../images/usdt_icon.png'
 import ethIcon from '../../images/eth_icon.png'
 import Navigation from '../../Components/Navigation';
 import Sorting from './Sorting';
 import History from './History';
-import { url } from '../../utils/utils';
-import sendIcon from '../../images/send_icon.png';
+// import { url } from '../../utils/utils';
+// import sendIcon from '../../images/send_icon.png';
 import receiveIcon from '../../images/receive_icon.png'
 
 const transactionDetails = [

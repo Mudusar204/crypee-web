@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, useTheme, useMediaQuery, styled } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, styled } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
 const CoinTable = ({ data }) => {
     const columns = ['Coin', 'Price (PKR)', '1-Day Change', 'Market Cap', '1-Day Volume', 'Supply'];
-    const theme = useTheme();
+
     const [page, setPage] = useState(1);
     const rowsPerPage = 13;
-
-    const isMobile = useMediaQuery('(max-width: 900px)');
 
     const PaginationWrapper = styled(Box)({
         display: 'flex',

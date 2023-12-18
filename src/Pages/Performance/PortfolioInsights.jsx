@@ -1,7 +1,7 @@
 import { Typography, Box, Button, Stack, LinearProgress, Grid } from '@mui/material';
 
-import portfolioInsightsBg from '../../images/portfolio_insights_bg.png';
-import portfoliobg from '../../images/portfoliobg.png';
+// import portfolioInsightsBg from '../../images/portfolio_insights_bg.png';
+// import portfoliobg from '../../images/portfoliobg.png';
 import { AssetsDropdown } from '../../Components/DropdownMenus';
 import portfoliocart from '../../images/portfoliocart.png';
 

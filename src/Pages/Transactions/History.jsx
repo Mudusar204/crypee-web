@@ -96,7 +96,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                 boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                 border:'2px solid #E7F4FF',
                                 borderRadius:'15px',
-                                background:"white",
+                                background:'white',
                                 
                             }}
                         >

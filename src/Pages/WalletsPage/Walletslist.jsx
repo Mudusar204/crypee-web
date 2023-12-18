@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Box, Button, Container, Grid, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import bg from '../../images/dashboard/assertsbg.png';
+// import bg from '../../images/dashboard/assertsbg.png';
 import nft from '../../images/wallets/linknft.png';
 import eth from '../../images/wallets/eth.png';
 import obot from '../../images/wallets/obot.png';

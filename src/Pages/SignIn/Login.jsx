@@ -15,7 +15,7 @@ import {
 import { Check, Email, Facebook, Google, Lock } from '@mui/icons-material';
 
 import loginbg from '../../images/loginbg.png';
-import login from '../../images/login.png';
+// import login from '../../images/login.png';
 
 import signinbg from './../../images/signinbg.png';
 import Header from '../../Components/Header';
@@ -74,16 +74,18 @@ const Login = () => {
 
     const handleLogin = async () => {
         if (rememberMe) {
-            localStorage.setItem('persistMe-sf3e', rememberMe);
+            sessionStorage.setItem('persistMe-sf3e', rememberMe);
         } else {
-            localStorage.removeItem('persistMe-sf3e');
+            sessionStorage.removeItem('persistMe-sf3e');
         }
-
+    
         try {
             const response = await loginHandle(data);
-            if (response?.data?.status == 'success') {
-                console.log(response);
-                Cookies.set('refreshToken-dai214', response?.data?.refreshToken, 1);
+            if (response?.data?.status === 'success') {
+                
+                sessionStorage.setItem('refreshToken-dai214', response?.data?.refreshToken);
+                console.log('Refresh Token:', response?.data?.refreshToken);
+
                 dispatch(
                     setUserData({
                         accessToken: response?.data?.accessToken,
@@ -102,7 +104,8 @@ const Login = () => {
             console.log('errrrrr', err);
         }
     };
-
+    
+    
     const handleChange = (event) => {
         setData({ ...data, [event.target.name]: event.target.value });
     };

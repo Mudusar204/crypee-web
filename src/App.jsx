@@ -21,7 +21,7 @@ import Taxes from './Pages/Taxes/Taxes';
 import Cointracker from './Pages/Cointracker/Cointracker';
 import Performance from './Pages/Performance/Performance';
 import SeePricing from './Pages/Plans/SeePricing';
-import Career from './Pages/Career/Career';
+
 import PreviewTaxImpact from './Pages/PreviewTaxImpact/PreviewTaxImpact';
 import CryptoPrices from './Pages/CryptoPrices/CryptoPrices';
 import ChooseSubscription from './Pages/DashboardPage/ChooseSubscription';
@@ -31,6 +31,17 @@ import PersistLogin from './Components/persistLogin';
 import PageNotExist from './Pages/404/404';
 import './app.css';
 import Pastperformance from './Pages/Performance/Pastperformance';
+import Aboutus from './Pages/Footerpages/Aboutus';
+import Disclaimer from './Pages/Footerpages/Disclaimer';
+import Termsofservices from './Pages/Footerpages/Termsofservices';
+import Privacypolicy from './Pages/Footerpages/Privacypolicy';
+import Taxguide from './Pages/Footerpages/Taxguide';
+import Integration from './Pages/Footerpages/Integration';
+import Blog from './Pages/Footerpages/Blog';
+import Security from './Pages/Footerpages/Security';
+import Careers from './Pages/Footerpages/Careers';
+import Career from './Pages/Career/Career';
+
 const App = () => {
     const [mode, setMode] = useState('light');
     const [loader, setLoader] = useState(false);
@@ -71,21 +82,33 @@ const App = () => {
                     <InfinitySpin width="200" color={`${theme.palette.text.primary}`} />
                 </Backdrop>
                 <Routes>
-
                     <Route
-                            path="/landing"
-                            element={
-                                <Home
-                                    setLoader={setLoader}
-                                    loader={loader}
-                                    mode={mode}
-                                    toggleMode={toggleMode}
-                                />
-                            }
-                        />
+                        path="/landing"
+                        element={
+                            <Home
+                                setLoader={setLoader}
+                                loader={loader}
+                                mode={mode}
+                                toggleMode={toggleMode}
+                            />
+                        }
+                    />
+                    {/* =============footerpages=============== */}
+                    <Route path="/about" element={<Aboutus />} />
+                    <Route path="/disclaimer" element={<Disclaimer />} />
+                    <Route path="/Termsofservices" element={<Termsofservices />} />
+                    <Route path="/Privacypolicy" element={<Privacypolicy />} />
+                    <Route path="/Taxguide" element={<Taxguide />} />
+                    <Route path="/integration" element={<Integration />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/security" element={<Security />} />
+                    <Route path="/careers" element={<Careers />} />
+                    <Route path="/cointracker" element={<Cointracker />} />
+                    {/* ==============Authpages================== */}
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
-                  
+
+                    <Route element={<PersistLogin/>}>
                         <Route
                             path="/"
                             element={
@@ -97,6 +120,7 @@ const App = () => {
                                 />
                             }
                         />
+
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/wallets" element={<Wallets />} />
                         <Route path="/loss-harvesting" element={<LossHarvesting />} />
@@ -105,13 +129,13 @@ const App = () => {
                         <Route path="/cointracker" element={<Cointracker />} />
                         <Route path="/transactions" element={<Transactions />} />
                         <Route path="/performance" element={<Performance />} />
-                        <Route path='/pastperformance' element={<Pastperformance/>} />
+                        <Route path="/pastperformance" element={<Pastperformance />} />
                         <Route path="/pricing-details" element={<SeePricing />} />
                         <Route path="/career" element={<Career />} />
                         <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
-                        <Route path="/crypto-prices" element={<CryptoPrices/>} />
+                        <Route path="/crypto-prices" element={<CryptoPrices />} />
                         <Route path="/subscription" element={<ChooseSubscription />} />
-                  
+                    </Route>
 
                     <Route path="*" element={<PageNotExist />}></Route>
                 </Routes>
