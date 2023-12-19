@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { responsiveFontSizes } from '@mui/material/styles';
 import { ThemeProvider, Backdrop, useTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -57,6 +57,20 @@ const App = () => {
         return theme;
     }, [mode]);
 
+    const [persistedData, setPersistedData] = useState(null);
+
+    useEffect(() => {
+        // Get data from localStorage on component mount
+        const storedData = localStorage.getItem('persistMe');
+        console.log(storedData, 'storedData');
+        if (storedData) {
+            // Parse and set the data if it exists
+            setPersistedData(JSON.parse(storedData));
+        }
+    }, []);
+
+    console.log(persistedData, 'AllData');
+
     return (
         <>
             <ThemeProvider theme={themeClient}>
@@ -82,17 +96,6 @@ const App = () => {
                     <InfinitySpin width="200" color={`${theme.palette.text.primary}`} />
                 </Backdrop>
                 <Routes>
-                    <Route
-                        path="/landing"
-                        element={
-                            <Home
-                                setLoader={setLoader}
-                                loader={loader}
-                                mode={mode}
-                                toggleMode={toggleMode}
-                            />
-                        }
-                    />
                     {/* =============footerpages=============== */}
                     <Route path="/about" element={<Aboutus />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
@@ -108,9 +111,38 @@ const App = () => {
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
 
-                    <Route element={<PersistLogin/>}>
+                    {persistedData?.token ? (
+                        <Route element={<PersistLogin />}>
+                            <Route
+                                path="/"
+                                element={
+                                    <Home
+                                        setLoader={setLoader}
+                                        loader={loader}
+                                        mode={mode}
+                                        toggleMode={toggleMode}
+                                    />
+                                }
+                            />
+
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/wallets" element={<Wallets />} />
+                            <Route path="/loss-harvesting" element={<LossHarvesting />} />
+                            <Route path="/tax-plans" element={<Plans />} />
+                            <Route path="/taxes" element={<Taxes />} />
+                            <Route path="/cointracker" element={<Cointracker />} />
+                            <Route path="/transactions" element={<Transactions />} />
+                            <Route path="/performance" element={<Performance />} />
+                            <Route path="/pastperformance" element={<Pastperformance />} />
+                            <Route path="/pricing-details" element={<SeePricing />} />
+                            <Route path="/career" element={<Career />} />
+                            <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
+                            <Route path="/crypto-prices" element={<CryptoPrices />} />
+                            <Route path="/subscription" element={<ChooseSubscription />} />
+                        </Route>
+                    ) : (
                         <Route
-                            path="/"
+                            path="/landing"
                             element={
                                 <Home
                                     setLoader={setLoader}
@@ -120,22 +152,7 @@ const App = () => {
                                 />
                             }
                         />
-
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/wallets" element={<Wallets />} />
-                        <Route path="/loss-harvesting" element={<LossHarvesting />} />
-                        <Route path="/tax-plans" element={<Plans />} />
-                        <Route path="/taxes" element={<Taxes />} />
-                        <Route path="/cointracker" element={<Cointracker />} />
-                        <Route path="/transactions" element={<Transactions />} />
-                        <Route path="/performance" element={<Performance />} />
-                        <Route path="/pastperformance" element={<Pastperformance />} />
-                        <Route path="/pricing-details" element={<SeePricing />} />
-                        <Route path="/career" element={<Career />} />
-                        <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
-                        <Route path="/crypto-prices" element={<CryptoPrices />} />
-                        <Route path="/subscription" element={<ChooseSubscription />} />
-                    </Route>
+                    )}
 
                     <Route path="*" element={<PageNotExist />}></Route>
                 </Routes>

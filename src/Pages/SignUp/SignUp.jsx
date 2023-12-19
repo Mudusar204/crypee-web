@@ -79,31 +79,33 @@ const Signup = () => {
     });
 
     const onSubmit = async () => {
-        const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
-        const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
-
-        if (!validEmail.test(user.email)) {
-            return makeToast('Email is not Valid', 'warn', 3);
-        } else if (!validPassword.test(user.password)) {
-            return makeToast('password is not valid', 'warn', 3);
-        } else if (user.name == '') {
-            return makeToast('Name must be required', 'warn', 3);
-        } else {
-            try {
-                const resp = await handleRegister(user);
-                if (resp?.data?.status == 'success') {
-                    makeToast(resp?.data?.message, 'success', 3);
-                    navigate('/login');
+        console.log(user, 'user');
+        let data = new FormData();
+        data.append('email', user?.email);
+        data.append('name', user?.userName);
+        data.append('password', user?.password);
+        console.log(data, 'form data');
+        let requestOptions = {
+            method: 'POST',
+            body: data,
+        };
+        fetch(`https://crypeebackend-production.up.railway.app/api/user/signup`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+                const results = JSON.parse(result);
+                console.log(results, 'response in Signup');
+                if (results?.status && results?.data?.isVerified) {
+                    navigate('RouteName');
+                } else if (results?.status && results?.data?.isVerified == false) {
+                    navigate('Auth Otp');
                 }
-            } catch (err) {
-                makeToast(err?.response?.data?.message, 'warn', 3);
-            }
-        }
+            })
+            .catch((error) => console.log('error', error));
     };
 
     async function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
-        console.log('accesToken',accessToken)
+        console.log('accesToken', accessToken);
         try {
             const response = await handleRegister({ googleToken: accessToken });
 
@@ -149,17 +151,19 @@ const Signup = () => {
             <Header />
             <Container maxWidth="lg">
                 <Box mt={{ md: 15, xs: 4 }}>
-                    <Grid container    sx={{
-                        backgroundColor: 'white',
-                        py: 3,
-                        px: 3,
-                        borderRadius: '15px',
-                        width: 'fit-content',
-                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
-                        justifyContent:'center',
-                    
-                    }}>
                     <Grid
+                        container
+                        sx={{
+                            backgroundColor: 'white',
+                            py: 3,
+                            px: 3,
+                            borderRadius: '15px',
+                            width: 'fit-content',
+                            boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Grid
                             item
                             md={6}
                             xs={12}
@@ -216,19 +220,13 @@ const Signup = () => {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Grid item   md={6}
-                            xs={12}
-                            sm={11}
-                            lg={6}>
+                        <Grid item md={6} xs={12} sm={11} lg={6}>
                             <Box
                                 sx={{
-                                 background:'white',
-                                 px:2
-
+                                    background: 'white',
+                                    px: 2,
                                 }}
                             >
-                               
-                               
                                 <Box mt={4}>
                                     <CustomTextField
                                         autoComplete="off"
@@ -307,7 +305,6 @@ const Signup = () => {
                                                     sx={{ color: 'white', bgcolor: '#28CE46' }}
                                                 />
                                             }
-                                            
                                         />
                                         <Typography
                                             sx={{
