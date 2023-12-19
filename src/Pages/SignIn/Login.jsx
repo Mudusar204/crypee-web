@@ -90,9 +90,11 @@ const Login = () => {
                 if (results?.status && results?.data?.isVerified) {
                     navigate('/dashboard');
                 } else if (results?.status && results?.data?.isVerified == false) {
-                    // navigate('Auth Otp')
                     console.log(results?.data,"results?.data");
                     navigate('/dashboard');
+                    dispatch(
+                        setUserData(results?.data),
+                    );
                     localStorage.setItem('persistMe', JSON.stringify(results?.data));
                 }
             })
