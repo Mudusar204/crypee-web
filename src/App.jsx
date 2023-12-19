@@ -110,8 +110,6 @@ const App = () => {
                     {/* ==============Authpages================== */}
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
-
-                    {persistedData?.token ? (
                         <Route element={<PersistLogin />}>
                             <Route
                                 path="/"
@@ -140,7 +138,7 @@ const App = () => {
                             <Route path="/crypto-prices" element={<CryptoPrices />} />
                             <Route path="/subscription" element={<ChooseSubscription />} />
                         </Route>
-                    ) : (
+                
                         <Route
                             path="/landing"
                             element={
@@ -152,8 +150,6 @@ const App = () => {
                                 />
                             }
                         />
-                    )}
-
                     <Route path="*" element={<PageNotExist />}></Route>
                 </Routes>
                 <Footer />
