@@ -48,7 +48,7 @@ const App = () => {
                 >
                     <InfinitySpin width="200" color={`${theme.palette.text.primary}`} />
                 </Backdrop>
-                <Routing />
+                <Routing/>
                 <Footer />
             </ThemeProvider>
     );
