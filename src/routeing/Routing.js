@@ -28,6 +28,7 @@ import Career from '../Pages/Career/Career';
 import Home from '../Pages/LandingPage/Home';
 import LossHarvesting from "../Pages/TaxLoss/LossHarvesting";
 import { useSelector } from "react-redux";
+import Navigation from '../Components/Navigation';
 
 export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
@@ -48,7 +49,6 @@ export default function Routing() {
         
     persistedData?.token ?
 <Routes>
-
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/wallets" element={<Wallets />} />
                             <Route path="/loss-harvesting" element={<LossHarvesting />} />
@@ -102,7 +102,6 @@ export default function Routing() {
                     <Route path="/cointracker" element={<Cointracker />} />
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
-                     
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )

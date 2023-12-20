@@ -35,6 +35,7 @@ import { handleRegister } from '../../api/api';
 // import Cookies from 'js-cookie';
 import useMakeToast from '../../hooks/makeToast';
 import FacebookLogin from 'react-facebook-login';
+import { REACT_APP_BASE_URL } from '../../config';
 
 const CustomTextField = styled(TextField)({
     width: '100%',
@@ -89,7 +90,7 @@ const Signup = () => {
             method: 'POST',
             body: data,
         };
-        fetch(`https://crypeebackend-production.up.railway.app/api/user/signup`, requestOptions)
+        fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 const results = JSON.parse(result);
@@ -97,7 +98,7 @@ const Signup = () => {
                 if (results?.status && results?.data?.isVerified) {
                     navigate('/cointracker');
                 } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('Auth Otp');
+                    navigate('/authpages');
                 }
             })
             .catch((error) => console.log('error', error));

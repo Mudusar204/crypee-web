@@ -27,6 +27,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import useMakeToast from '../../hooks/makeToast';
 import FacebookLogin from 'react-facebook-login';
 import crplogo from '../../images/crplogo.png';
+import { REACT_APP_BASE_URL } from '../../config';
 
 const CustomTextField = styled(TextField)({
     width: '100%',
@@ -82,7 +83,7 @@ const Login = () => {
             method: 'POST',
             body: formdata,
         };
-        fetch(`https://crypeebackend-production.up.railway.app/api/user/login`, requestOptions)
+        fetch(`${REACT_APP_BASE_URL}/user/login`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 const results = JSON.parse(result);
@@ -91,7 +92,7 @@ const Login = () => {
                     navigate('/dashboard');
                 } else if (results?.status && results?.data?.isVerified == false) {
                     console.log(results?.data,"results?.data");
-                    navigate('/dashboard');
+                    navigate('/authpages');
                     dispatch(
                         setUserData(results?.data),
                     );
