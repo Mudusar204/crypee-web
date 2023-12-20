@@ -48,6 +48,7 @@ export default function Routing() {
         
     persistedData?.token ?
 <Routes>
+<<<<<<< HEAD
 <Route path="/dashboard" element={<Dashboard />} />
 <Route
                                 path="/home"
@@ -58,11 +59,13 @@ export default function Routing() {
                             />
 
                            
+=======
+                            <Route path="/dashboard" element={<Dashboard />} />
+>>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                             <Route path="/wallets" element={<Wallets />} />
                             <Route path="/loss-harvesting" element={<LossHarvesting />} />
                             <Route path="/tax-plans" element={<Plans />} />
                             <Route path="/taxes" element={<Taxes />} />
-                            <Route path="/cointracker" element={<Cointracker />} />
                             <Route path="/transactions" element={<Transactions />} />
                             <Route path="/performance" element={<Performance />} />
                             <Route path="/pastperformance" element={<Pastperformance />} />
@@ -71,11 +74,15 @@ export default function Routing() {
                             <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
                             <Route path="/crypto-prices" element={<CryptoPrices />} />
                             <Route path="/subscription" element={<ChooseSubscription />} />
+<<<<<<< HEAD
                             <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
                             :
   <Routes>
                    <Route path="/about" element={<Aboutus />} />
+=======
+                            <Route path="/about" element={<Aboutus />} />
+>>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/Termsofservices" element={<Termsofservices />} />
                     <Route path="/Privacypolicy" element={<Privacypolicy />} />
@@ -85,6 +92,7 @@ export default function Routing() {
                     <Route path="/security" element={<Security />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/cointracker" element={<Cointracker />} />
+<<<<<<< HEAD
                     
                     <Route path="/login" element={<Login/>} />
                     <Route path="/signup" element={<Signup/>} />
@@ -92,11 +100,38 @@ export default function Routing() {
                 
                         <Route
                             path="/landing"
+=======
+                    <Route
+                                path="/Home"
+                                element={
+                                    <Home
+                                    />
+                                }
+                            />
+                            <Route path="*" element={<PageNotExist />}></Route>
+</Routes>
+                            :
+<Routes>
+<Route
+                            path="/"
+>>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                             element={
                                 <Home
                                 />
                             }
                         />
+<Route path="/about" element={<Aboutus />} />
+                    <Route path="/disclaimer" element={<Disclaimer />} />
+                    <Route path="/Termsofservices" element={<Termsofservices />} />
+                    <Route path="/Privacypolicy" element={<Privacypolicy />} />
+                    <Route path="/Taxguide" element={<Taxguide />} />
+                    <Route path="/integration" element={<Integration />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/security" element={<Security />} />
+                    <Route path="/careers" element={<Careers />} />
+                    <Route path="/cointracker" element={<Cointracker />} />
+                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/signup" element={<Signup />} />
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )
