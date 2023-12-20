@@ -84,21 +84,19 @@ console.log(users,"redux data");
         
       }}
     >
-      <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-        Enter OTP
-      </Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px',
-                        backgroundColor: 'white',
-                        py: 3,
-                        px: 3,
+     
+     <Box sx={{ backgroundColor: 'white',
+                        py: 5,
+                        px: 5,
                         borderRadius: '15px',
                         width: 'fit-content',
-                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
-                      
-                    
-                     }}>
-        {otp.map((digit, index) => (
-          <input
+                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',}}>
+             <Typography variant="h5" sx={{ marginBottom: '20px' }}>
+        Veirify OTP
+      </Typography>
+           <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
+             {otp.map((digit, index) => (
+            <input
           style={{
               width: '40px',
               height: '40px',
@@ -136,6 +134,10 @@ console.log(users,"redux data");
           {error}
         </Typography>
       )}
+                        </Box>
+   
+    
+    
     </Box>
   );
 };

@@ -93,7 +93,7 @@ export default function Routing() {
                                 />
                             }
                         />
-<Route path="/about" element={<Aboutus />} />
+                    <Route path="/about" element={<Aboutus />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/Termsofservices" element={<Termsofservices />} />
                     <Route path="/Privacypolicy" element={<Privacypolicy />} />
@@ -109,7 +109,7 @@ export default function Routing() {
                     <Route path="/Passwordrecheck" element={<Passwordrecheck/>}/>
                     <Route path="/verifyotp" element={<Verifyotp />} />
                     <Route path="/forgotPasswordOtp" element={<ForgotPasswordOtp />} />
-                        <Route path="*" element={<PageNotExist />}></Route>
+                    <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )
 }
