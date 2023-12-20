@@ -4,6 +4,7 @@ import { REACT_APP_BASE_URL } from '../../config';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from "react-redux";
 import useMakeToast from '../../hooks/makeToast';
+import crplogo from '../../images/crplogo.png'
 const Verifyotp = () => {
   const navigate = useNavigate();
   const makeToast = useMakeToast();
@@ -91,9 +92,8 @@ console.log(users,"redux data");
                         borderRadius: '15px',
                         width: 'fit-content',
                         boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',}}>
-             <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-        Veirify OTP
-      </Typography>
+            <Box display={"flex"} justifyContent={'center'} alignItems={'center'}><img src={crplogo} width='80px' ></img></Box>
+     <Typography fontWeight={600} textAlign={'center'} fontSize={{lg:'20px',xs:'12px',md:'18px'}} py={3}>Verify Otp</Typography>
            <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
              {otp.map((digit, index) => (
             <input

@@ -5,20 +5,23 @@ import { REACT_APP_BASE_URL } from '../../config';
 import crplogo from '../../images/crplogo.png'
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/slices/userSlice';
 
 const Forgetpassword = () => {
+    const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const makeToast = useMakeToast();
+
   const forgotPasswordHandler = async () => {
    
   
     let formdata = new FormData();
     formdata.append('email', email);
-    
-    
+
     let requestOptions = {
         method: 'GET',
         body: formdata,

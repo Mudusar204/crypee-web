@@ -114,9 +114,11 @@ const Login = () => {
           setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
         }
       };
+      
 
+    //   ==================handlelogin===================
     const handleLogin = async () => {
-        console.log(data, 'data');
+      
         let formdata = new FormData();
         formdata.append('email', data?.email);
         formdata.append('password', data?.password);
@@ -125,29 +127,26 @@ const Login = () => {
             method: 'POST',
             body: formdata,
         };
-        fetch(`${REACT_APP_BASE_URL}/user/login`, requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                const results = JSON.parse(result);
-                console.log(results, 'response in Login');
-                if (results?.status == true && results?.data?.isVerified == true) {
-                    dispatch(
-                        setUserData(results?.data),
-                    );
-                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
-                    navigate('/dashboard');
-                    makeToast(results?.message, 'success', 3);
-                } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('/verifyotp');
-                    dispatch(
-                        setUserData(results?.data),
-                    );
-                    makeToast(results?.message, 'success', 3);
-                } else {
-                    makeToast(results?.message, 'error', 3);
-                }
-            })
-            .catch((err) => console.log(err?.response?.data?.message));
+          try {
+            const response = await fetch(`${REACT_APP_BASE_URL}/user/login`, requestOptions);
+            const result = await response.text();
+            const results = JSON.parse(result);
+            console.log(results, 'response in Signup');
+        
+          if (results?.status === true && results?.data?.isVerified === false) {
+              navigate('/verifyotp');
+              localStorage.setItem('persistMe', JSON.stringify(results?.data));
+             
+              dispatch(
+                  setUserData(results?.data),
+              );
+              makeToast(results?.message, 'success', 3);
+            } else {
+              makeToast(results?.message, 'error', 3);
+            }
+          } catch (err) {
+              console.log(err?.response?.data?.message, 'error');
+          }
     };
 
     // const handleChange = (event) => {
@@ -163,7 +162,7 @@ const Login = () => {
             if (response?.data?.status == 'success') {
                 // const message = response?.data?.message ? response?.data?.message : 'Some thing went Wrong';
                 // makeToast(`${message}`, 'success', 3);
-                Cookies.set('refreshToken-dai214', response?.data?.refreshToken, 1);
+                local.set('refreshToken-dai214', response?.data?.refreshToken, 1);
                 dispatch(
                     setUserData({
                         accessToken: response?.data?.accessToken,
@@ -230,7 +229,7 @@ const Login = () => {
         try {
             const resp = await loginHandle({ FbToken: response });
             if (resp?.data?.status == 'success') {
-                Cookies.set('refreshToken-dai214', resp?.data?.refreshToken, 1);
+            localStorage.set('refreshToken-dai214', resp?.data?.refreshToken, 1);
                 dispatch(
                     setUserData({
                         accessToken: resp?.data?.accessToken,

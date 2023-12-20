@@ -39,6 +39,9 @@ import { REACT_APP_BASE_URL } from '../../config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/slices/userSlice';
+
 const CustomTextField = styled(TextField)({
     width: '100%',
     fontFamily: 'Poppins',
@@ -73,6 +76,7 @@ const CustomTextField = styled(TextField)({
     background: '#F2FAFF',
 });
 const Signup = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const makeToast = useMakeToast();
     const [user, setuser] = useState({
@@ -161,6 +165,7 @@ const Signup = () => {
         if (results?.status === true && results?.data?.isVerified === false) {
             navigate('/verifyotp');
             localStorage.setItem('persistMe', JSON.stringify(results?.data));
+           
             dispatch(
                 setUserData(results?.data),
             );

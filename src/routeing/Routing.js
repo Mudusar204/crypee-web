@@ -37,7 +37,7 @@ export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
     const storedData = localStorage.getItem('persistMe');
     const users = useSelector((state) => state?.users);
-
+   
     useEffect(() => {
         if (users) {
             setPersistedData(users)
@@ -47,7 +47,7 @@ export default function Routing() {
         
     }, [storedData,users,persistedData]);
 
-    console.log(persistedData, 'AllData');
+    console.log(storedData, 'AllData');
   return (
         
     persistedData?.user?.token ?
