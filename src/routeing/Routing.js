@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../Pages/DashboardPage/Index';
 import Wallets from '../Pages/WalletsPage/Index';
+import SignIn from '../Pages/SignIn/Login';
 import Transactions from '../Pages/Transactions/Transactions';
 import Plans from '../Pages/Plans/Plans';
 import Taxes from '../Pages/Taxes/Taxes';
@@ -11,6 +12,7 @@ import SeePricing from '../Pages/Plans/SeePricing';
 import PreviewTaxImpact from '../Pages/PreviewTaxImpact/PreviewTaxImpact';
 import CryptoPrices from '../Pages/CryptoPrices/CryptoPrices';
 import ChooseSubscription from '../Pages/DashboardPage/ChooseSubscription';
+import Signup from '../Pages/SignUp/SignUp';
 import PageNotExist from '../Pages/404/404';
 import Pastperformance from '../Pages/Performance/Pastperformance';
 import Aboutus from '../Pages/Footerpages/Aboutus';
@@ -26,8 +28,7 @@ import Career from '../Pages/Career/Career';
 import Home from '../Pages/LandingPage/Home';
 import LossHarvesting from "../Pages/TaxLoss/LossHarvesting";
 import { useSelector } from "react-redux";
-import Signup from '../Pages/SignUp/SignUp';
-import Login from '../Pages/SignIn/Login';
+import Navigation from '../Components/Navigation';
 
 export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
@@ -48,20 +49,7 @@ export default function Routing() {
         
     persistedData?.token ?
 <Routes>
-<<<<<<< HEAD
-<Route path="/dashboard" element={<Dashboard />} />
-<Route
-                                path="/home"
-                                element={
-                                    <Home
-                                    />
-                                }
-                            />
-
-                           
-=======
                             <Route path="/dashboard" element={<Dashboard />} />
->>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                             <Route path="/wallets" element={<Wallets />} />
                             <Route path="/loss-harvesting" element={<LossHarvesting />} />
                             <Route path="/tax-plans" element={<Plans />} />
@@ -74,15 +62,7 @@ export default function Routing() {
                             <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
                             <Route path="/crypto-prices" element={<CryptoPrices />} />
                             <Route path="/subscription" element={<ChooseSubscription />} />
-<<<<<<< HEAD
-                            <Route path="*" element={<PageNotExist />}></Route>
-</Routes>
-                            :
-  <Routes>
-                   <Route path="/about" element={<Aboutus />} />
-=======
                             <Route path="/about" element={<Aboutus />} />
->>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/Termsofservices" element={<Termsofservices />} />
                     <Route path="/Privacypolicy" element={<Privacypolicy />} />
@@ -92,15 +72,6 @@ export default function Routing() {
                     <Route path="/security" element={<Security />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/cointracker" element={<Cointracker />} />
-<<<<<<< HEAD
-                    
-                    <Route path="/login" element={<Login/>} />
-                    <Route path="/signup" element={<Signup/>} />
-                     
-                
-                        <Route
-                            path="/landing"
-=======
                     <Route
                                 path="/Home"
                                 element={
@@ -114,7 +85,6 @@ export default function Routing() {
 <Routes>
 <Route
                             path="/"
->>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                             element={
                                 <Home
                                 />

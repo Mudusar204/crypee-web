@@ -90,20 +90,15 @@ const Signup = () => {
             method: 'POST',
             body: data,
         };
-        
         fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Signup');
                 if (results?.status && results?.data?.isVerified) {
-<<<<<<< HEAD
-                    navigate('/');
-=======
                     navigate('/cointracker');
->>>>>>> 96572441117c99f6aa1d4ec70f1376e38c4f8052
                 } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('/');
+                    navigate('/authpages');
                 }
             })
             .catch((error) => console.log('error', error));
