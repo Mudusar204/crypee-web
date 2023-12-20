@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../../config';
 import { Box, Button, Typography } from '@mui/material';
+import { useSelector } from "react-redux";
 
 const Verifyotp = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
-
+  const users = useSelector((state) => state?.users);
   const handleOtpChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
       const newOtp = [...otp];
@@ -20,29 +21,32 @@ const Verifyotp = () => {
   };
 
   const handleSubmit = async () => {
-    const enteredOtp = otp.join('');
+    console.log(otp.join(''), 'data');
+        let myHeaders = new Headers();
+        myHeaders.append('authorization', users?.token);
+        let data = new FormData();
+        data.append('code', otp.join(''));
 
-    if (enteredOtp.length === 6) {
-      const formData = new FormData();
-      formData.append('code', enteredOtp);
-
-      try {
-        const response = await fetch(`${REACT_APP_BASE_URL}/api/user/verify`, {
+        let requestOptions = {
           method: 'POST',
-          body: formData,
-        });
-
-        if (response.ok) {
-          navigate('/');
-        } else {
-          setError('Invalid OTP. Please try again.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    } else {
-      setError('Please enter a six-digit OTP.');
-    }
+          headers: myHeaders,
+          body: data,
+          redirect: 'follow',
+        };
+        fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            const results = JSON.parse(result);
+            console.log(results, 'response in otp Varified');
+            if (results?.status) {
+              localStorage.setItem('persistMe', JSON.stringify(results?.data));
+              dispatch(
+                setUserData(results?.data),
+            );
+              navigate('cointracker');
+            }
+          })
+          .catch(error => console.log('error', error));
   };
 
   return (

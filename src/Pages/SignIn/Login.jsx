@@ -88,15 +88,17 @@ const Login = () => {
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Login');
-                if (results?.status && results?.data?.isVerified) {
-                    navigate('/');
-                } else if (results?.status && results?.data?.isVerified == false) {
-                    console.log(results?.data,"results?.data");
-                    navigate('/');
+                if (results?.status == true && results?.data?.isVerified == true) {
                     dispatch(
                         setUserData(results?.data),
                     );
                     localStorage.setItem('persistMe', JSON.stringify(results?.data));
+                    navigate('/dashboard');
+                } else if (results?.status && results?.data?.isVerified == false) {
+                    navigate('/verifyotp');
+                    dispatch(
+                        setUserData(results?.data),
+                    );
                 }
             })
             .catch((error) => console.log('error', error));

@@ -95,10 +95,10 @@ const Signup = () => {
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Signup');
-                if (results?.status && results?.data?.isVerified) {
+                if (results?.status == true && results?.data?.isVerified == true) {
                     navigate('/cointracker');
-                } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('/authpages');
+                } else if (results?.status == true && results?.data?.isVerified == false) {
+                    navigate('/verifyotp');
                 }
             })
             .catch((error) => console.log('error', error));

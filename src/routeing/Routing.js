@@ -28,7 +28,7 @@ import Career from '../Pages/Career/Career';
 import Home from '../Pages/LandingPage/Home';
 import LossHarvesting from "../Pages/TaxLoss/LossHarvesting";
 import { useSelector } from "react-redux";
-import Navigation from '../Components/Navigation';
+import Verifyotp from '../Pages/Verifyotp/Verifyotp';
 
 export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
@@ -36,10 +36,10 @@ export default function Routing() {
     const users = useSelector((state) => state?.users);
 
     useEffect(() => {
-        if (storedData) {
-            setPersistedData(JSON.parse(storedData));
-        } else if (users) {
+        if (users) {
             setPersistedData(users)
+        } else if (storedData) {
+            setPersistedData(JSON.parse(storedData));
         } 
         
     }, [storedData,users,persistedData]);
@@ -47,7 +47,7 @@ export default function Routing() {
     console.log(persistedData, 'AllData');
   return (
         
-    persistedData?.token ?
+    persistedData?.user?.token ?
 <Routes>
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/wallets" element={<Wallets />} />
@@ -102,6 +102,7 @@ export default function Routing() {
                     <Route path="/cointracker" element={<Cointracker />} />
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/verifyotp" element={<Verifyotp />} />
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )
