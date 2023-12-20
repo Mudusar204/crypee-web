@@ -83,9 +83,7 @@ const Forgetpassword = () => {
       >
         {loading ? 'Loading...' : 'Submit'}
       </Button>
-      <Typography> <Link to="/Passwordrecheck" style={{ textDecoration: 'none' }}>
-      Password reset
-                                    </Link></Typography>
+   
      </Stack>
         </Box>
         </Box>
