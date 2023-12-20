@@ -90,15 +90,16 @@ const Signup = () => {
             method: 'POST',
             body: data,
         };
+        
         fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Signup');
                 if (results?.status && results?.data?.isVerified) {
-                    navigate('/authpages');
+                    navigate('/');
                 } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('/authpages');
+                    navigate('/');
                 }
             })
             .catch((error) => console.log('error', error));

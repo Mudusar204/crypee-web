@@ -89,10 +89,10 @@ const Login = () => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Login');
                 if (results?.status && results?.data?.isVerified) {
-                    navigate('/dashboard');
+                    navigate('/');
                 } else if (results?.status && results?.data?.isVerified == false) {
                     console.log(results?.data,"results?.data");
-                    navigate('/authpages');
+                    navigate('/');
                     dispatch(
                         setUserData(results?.data),
                     );
