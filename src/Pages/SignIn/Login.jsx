@@ -136,14 +136,18 @@ const Login = () => {
                     );
                     localStorage.setItem('persistMe', JSON.stringify(results?.data));
                     navigate('/dashboard');
+                    makeToast(results?.message, 'success', 3);
                 } else if (results?.status && results?.data?.isVerified == false) {
                     navigate('/verifyotp');
                     dispatch(
                         setUserData(results?.data),
                     );
+                    makeToast(results?.message, 'success', 3);
+                } else {
+                    makeToast(results?.message, 'error', 3);
                 }
             })
-            .catch((err) =>   makeToast(err?.response?.data?.message));
+            .catch((err) => console.log(err?.response?.data?.message));
     };
 
     // const handleChange = (event) => {

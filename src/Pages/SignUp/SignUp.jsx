@@ -156,18 +156,20 @@ const Signup = () => {
           const response = await fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions);
           const result = await response.text();
           const results = JSON.parse(result);
-      
           console.log(results, 'response in Signup');
       
-          if (results?.status === true && results?.data?.isVerified === true) {
-            navigate('/cointracker');
-          } else if (results?.status === true && results?.data?.isVerified === false) {
+        if (results?.status === true && results?.data?.isVerified === false) {
             navigate('/verifyotp');
+            localStorage.setItem('persistMe', JSON.stringify(results?.data));
+            dispatch(
+                setUserData(results?.data),
+            );
+            makeToast(results?.message, 'success', 3);
           } else {
-           
+            makeToast(results?.message, 'error', 3);
           }
         } catch (err) {
-            makeToast(err?.response?.data?.message, 'warn', 3);
+            console.log(err?.response?.data?.message, 'error');
         }
       };
       

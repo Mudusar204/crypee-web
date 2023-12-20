@@ -5,7 +5,7 @@ import { Lock } from '@mui/icons-material';
 import useMakeToast from '../../hooks/makeToast';
 import { REACT_APP_BASE_URL } from '../../config';
 import crplogo from '../../images/crplogo.png';
-
+import { useLocation } from "react-router-dom";
 
 const CustomTextField = styled(TextField)({
   width: '100%',
@@ -46,11 +46,16 @@ const Passwordrecheck = () => {
     password: '',
     passwordReset: '',
   });
-
+  const makeToast = useMakeToast();
   const [validationErrors, setValidationErrors] = useState({
     password: '',
   });
-
+  let location = useLocation();
+  useEffect(() => {
+      if (location.state !== null) {
+          console.log(location.state.rowData,"location.state.rowData");
+      }
+  }, []);
 //   ===========validation=============
   const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
 
@@ -88,7 +93,7 @@ const resetPasswordHandler = async () => {
   
     console.log(data, 'data');
         let formdata = new FormData();
-     
+        formdata.append('otp',location.state.rowData)
         formdata.append('password', data?. passwordReset);
         console.log(formdata, 'form data');
     
@@ -104,20 +109,14 @@ const resetPasswordHandler = async () => {
         .then((result) => {
             const results = JSON.parse(result);
           
-            if (results?.status == true && results?.data?.isVerified == true) {
-                dispatch(
-                    setUserData(results?.data),
-                );
-                localStorage.setItem('persistMe', JSON.stringify(results?.data));
-                navigate('/dashboard');
-            } else if (results?.status && results?.data?.isVerified == false) {
-                navigate('/verifyotp');
-                dispatch(
-                    setUserData(results?.data),
-                );
+            if (results?.status == true) {
+                navigate('/Login');
+                makeToast(results?.message, 'success', 3);
+            } else {
+              makeToast(results?.message, 'error', 3);
             }
         })
-        .catch((err) =>   useMakeToast(err?.response?.data?.message));
+        .catch((err) => console.log(err?.response?.data?.message,"err?.response?.data?.message"));
 };
 
   return (

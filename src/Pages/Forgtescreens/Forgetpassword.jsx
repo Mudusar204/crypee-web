@@ -11,7 +11,7 @@ const Forgetpassword = () => {
   const [emailError, setEmailError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const makeToast = useMakeToast();
   const forgotPasswordHandler = async () => {
    
   
@@ -31,21 +31,18 @@ const Forgetpassword = () => {
         .then((result) => {
             const results = JSON.parse(result);
           
-            if (results?.status == true && results?.data?.isVerified == true) {
-
+            if (results?.status == true) {
                 dispatch(
                     setUserData(results?.data),
                 );
-                localStorage.setItem('persistMe', JSON.stringify(results?.data));
-                navigate('/dashboard');
-            } else if (results?.status && results?.data?.isVerified == false) {
-                navigate('/verifyotp');
-                dispatch(
-                    setUserData(results?.data),
-                );
+                navigate('/forgotPasswordOtp');
+                makeToast(results?.message, 'success', 3);
+            } else {
+              makeToast(results?.message, 'error', 3);
             }
+            
         })
-        .catch((err) =>   useMakeToast(err?.response?.data?.message));
+        .catch((err) => console.log(err?.response?.data?.message));
 };
 
   const handleEmailChange = (e) => {

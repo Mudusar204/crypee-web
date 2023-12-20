@@ -1,28 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../../config';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from "react-redux";
-import useMakeToast from '../../hooks/makeToast';
-const Verifyotp = () => {
+
+const ForgotPasswordOtp = () => {
   const navigate = useNavigate();
-  const makeToast = useMakeToast();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
-  const [persistedData, setPersistedData] = useState(null);
-  const storedData = localStorage.getItem('persistMe');
   const users = useSelector((state) => state?.users);
-
-  useEffect(() => {
-      if (users) {
-          setPersistedData(users)
-      } else if (storedData) {
-          setPersistedData(JSON.parse(storedData));
-      } 
-      
-  }, [storedData,users,persistedData]);
-
-  console.log(persistedData, 'AllData');
 console.log(users,"redux data");
   const handleOtpChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
@@ -37,12 +23,13 @@ console.log(users,"redux data");
 
   const handleSubmit = async () => {
     console.log(otp.join(''), 'data');
+    const collectOtp = otp.join('')
   
     let myHeaders = new Headers();
-    myHeaders.append('authorization', persistedData?.token);
+    myHeaders.append('authorization', users?.token);
   
     let data = new FormData();
-    data.append('code', otp.join(''));
+    data.append('code', collectOtp);
   
     let requestOptions = {
       method: 'POST',
@@ -51,26 +38,32 @@ console.log(users,"redux data");
       redirect: 'follow',
     };
   
-    try {
-      const response = await fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions);
-      const result = await response.json();
-  
-      console.log(result, 'response in otp Varified');
-  
-      
-      if (result?.status == true && result?.data?.isVerified == true) {
-        dispatch(
+    fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      setLoading(false);
+      const results = JSON.parse(result);
+      console.log(results, 'response in otp Varified');
+      if (results?.status) {
+                dispatch(
             setUserData(result?.data),
         );
-        localStorage.setItem('persistMe', JSON.stringify(result?.data));
-        navigate('/cointracker');
         makeToast(result?.message, 'success', 3);
-    } else{
-      makeToast(result?.message, 'error', 3);
-    }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+        let path = `/Passwordrecheck`; 
+      navigate(
+        path , {
+          state : {
+            rowData : collectOtp,
+          }
+        }
+      );
+      } else {
+        makeToast(result?.message, 'error', 3);
+      }
+      setOtpCode('');
+      setOptCodeError('');
+    })
+    .catch(error => console.log('error', error));
   };
   
 
@@ -140,4 +133,4 @@ console.log(users,"redux data");
   );
 };
 
-export default Verifyotp;
+export default ForgotPasswordOtp;

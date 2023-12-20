@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 import Verifyotp from '../Pages/Verifyotp/Verifyotp';
 import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
 import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
+import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
 
 export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
@@ -107,6 +108,7 @@ export default function Routing() {
                     <Route path="/forgetpassword" element={<Forgetpassword/>} />
                     <Route path="/Passwordrecheck" element={<Passwordrecheck/>}/>
                     <Route path="/verifyotp" element={<Verifyotp />} />
+                    <Route path="/forgotPasswordOtp" element={<ForgotPasswordOtp />} />
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )
