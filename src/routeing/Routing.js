@@ -48,20 +48,12 @@ export default function Routing() {
         
     persistedData?.token ?
 <Routes>
-<Route
-                                path="/"
-                                element={
-                                    <Home
-                                    />
-                                }
-                            />
 
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/wallets" element={<Wallets />} />
                             <Route path="/loss-harvesting" element={<LossHarvesting />} />
                             <Route path="/tax-plans" element={<Plans />} />
                             <Route path="/taxes" element={<Taxes />} />
-                            <Route path="/cointracker" element={<Cointracker />} />
                             <Route path="/transactions" element={<Transactions />} />
                             <Route path="/performance" element={<Performance />} />
                             <Route path="/pastperformance" element={<Pastperformance />} />
@@ -70,10 +62,34 @@ export default function Routing() {
                             <Route path="/previewtaximpact" element={<PreviewTaxImpact />} />
                             <Route path="/crypto-prices" element={<CryptoPrices />} />
                             <Route path="/subscription" element={<ChooseSubscription />} />
+                            <Route path="/about" element={<Aboutus />} />
+                    <Route path="/disclaimer" element={<Disclaimer />} />
+                    <Route path="/Termsofservices" element={<Termsofservices />} />
+                    <Route path="/Privacypolicy" element={<Privacypolicy />} />
+                    <Route path="/Taxguide" element={<Taxguide />} />
+                    <Route path="/integration" element={<Integration />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/security" element={<Security />} />
+                    <Route path="/careers" element={<Careers />} />
+                    <Route path="/cointracker" element={<Cointracker />} />
+                    <Route
+                                path="/Home"
+                                element={
+                                    <Home
+                                    />
+                                }
+                            />
                             <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
                             :
 <Routes>
+<Route
+                            path="/"
+                            element={
+                                <Home
+                                />
+                            }
+                        />
 <Route path="/about" element={<Aboutus />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/Termsofservices" element={<Termsofservices />} />
@@ -84,18 +100,9 @@ export default function Routing() {
                     <Route path="/security" element={<Security />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/cointracker" element={<Cointracker />} />
-                    
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
                      
-                
-                        <Route
-                            path="/landing"
-                            element={
-                                <Home
-                                />
-                            }
-                        />
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )

@@ -95,7 +95,7 @@ const Signup = () => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Signup');
                 if (results?.status && results?.data?.isVerified) {
-                    navigate('RouteName');
+                    navigate('/cointracker');
                 } else if (results?.status && results?.data?.isVerified == false) {
                     navigate('Auth Otp');
                 }
