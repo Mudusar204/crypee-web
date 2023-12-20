@@ -36,7 +36,9 @@ import { handleRegister } from '../../api/api';
 import useMakeToast from '../../hooks/makeToast';
 import FacebookLogin from 'react-facebook-login';
 import { REACT_APP_BASE_URL } from '../../config';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 const CustomTextField = styled(TextField)({
     width: '100%',
     fontFamily: 'Poppins',
@@ -78,31 +80,97 @@ const Signup = () => {
         email: '',
         password: '',
     });
+    const [validationErrors, setValidationErrors] = useState({
+        name: '',
+        email: '',
+        password: '',
+      });
 
-    const onSubmit = async () => {
+    const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$');
+    const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
+
+    // ============name==============
+    const handleNameChange = (e) => {
+        const newName = e.target.value;
+        setuser((prevUser) => ({ ...prevUser, name: newName }));
+      
+        if (!newName) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            name: 'Name is required',
+          }));
+        } else {
+          setValidationErrors((prevErrors) => ({ ...prevErrors, name: '' }));
+        }
+      };
+    // ============handleemailchange===============
+    const handleEmailChange = (e) => {
+        const newEmail = e.target.value;
+        setuser((prevUser) => ({ ...prevUser, email: newEmail }));
+        if (!newEmail) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            email: 'Email is required',
+          }));
+        } else if (!validEmail.test(newEmail)) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            email: 'Invalid email address',
+          }));
+        } else {
+          setValidationErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+        }
+      };
+    //   ==========handlepassword================
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setuser((prevUser) => ({ ...prevUser, password: newPassword }));
+        if (!newPassword) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            password: 'Password is required',
+          }));
+        } else if (!validPassword.test(newPassword)) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            password: 'Password must be at least 6 characters and contain at least one letter and one digit',
+          }));
+        } else {
+          setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
+        }
+      };
+
+      const onSubmit = async () => {
         console.log(user, 'user');
         let data = new FormData();
         data.append('email', user?.email);
-        data.append('name', user?.userName);
+        data.append('name', user?.name); 
         data.append('password', user?.password);
         console.log(data, 'form data');
         let requestOptions = {
-            method: 'POST',
-            body: data,
+          method: 'POST',
+          body: data,
         };
-        fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                const results = JSON.parse(result);
-                console.log(results, 'response in Signup');
-                if (results?.status == true && results?.data?.isVerified == true) {
-                    navigate('/cointracker');
-                } else if (results?.status == true && results?.data?.isVerified == false) {
-                    navigate('/verifyotp');
-                }
-            })
-            .catch((error) => console.log('error', error));
-    };
+      
+        try {
+          const response = await fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions);
+          const result = await response.text();
+          const results = JSON.parse(result);
+      
+          console.log(results, 'response in Signup');
+      
+          if (results?.status === true && results?.data?.isVerified === true) {
+            navigate('/cointracker');
+          } else if (results?.status === true && results?.data?.isVerified === false) {
+            navigate('/verifyotp');
+          } else {
+           
+          }
+        } catch (err) {
+            makeToast(err?.response?.data?.message, 'warn', 3);
+        }
+      };
+      
 
     async function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
@@ -120,7 +188,11 @@ const Signup = () => {
                 makeToast(response?.data?.message, 'error', 3);
             }
         } catch (err) {
-            makeToast(err?.response?.data?.message, 'error', 3);
+            makeToast({
+                message: err?.message || 'An error occurred. Please try again later.',
+                type: 'warn', 
+                duration: 3, 
+              });
         }
     }
 
@@ -233,9 +305,11 @@ const Signup = () => {
                                         autoComplete="off"
                                         id="standard-name"
                                         placeholder={'Name'}
-                                        onChange={(e) => setuser({ ...user, name: e.target.value })}
+                                        onChange={handleNameChange }
                                         required={true}
                                         type="text"
+                                        error={!!validationErrors.name}  
+                                        helperText={validationErrors.name} 
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -250,11 +324,11 @@ const Signup = () => {
                                         autoComplete="off"
                                         id="standard-email"
                                         placeholder={'Email Address'}
-                                        onChange={(e) =>
-                                            setuser({ ...user, email: e.target.value })
-                                        }
+                                        onChange={handleEmailChange} 
                                         required={true}
                                         type="email"
+                                        error={!!validationErrors.email}  
+                                        helperText={validationErrors.email} 
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -269,11 +343,11 @@ const Signup = () => {
                                         autoComplete="off"
                                         id="standard-name"
                                         placeholder={'Password'}
-                                        onChange={(e) =>
-                                            setuser({ ...user, password: e.target.value })
-                                        }
+                                        onChange={handlePasswordChange}
                                         required={true}
                                         type="password"
+                                        error={!!validationErrors.password}  
+                                        helperText={validationErrors.password} 
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -327,7 +401,9 @@ const Signup = () => {
                                             fontFamily: 'Gmarket',
                                         }}
                                     >
-                                        <u> Forget Password</u>
+                                        <Link to="/forgetpassword" style={{ textDecoration: 'none' }}>
+                            Forget Password
+                                    </Link>
                                     </Typography>
                                 </Box>
                                 <Box

@@ -9,6 +9,7 @@ const Verifyotp = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const users = useSelector((state) => state?.users);
+
   const handleOtpChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
       const newOtp = [...otp];
@@ -22,32 +23,58 @@ const Verifyotp = () => {
 
   const handleSubmit = async () => {
     console.log(otp.join(''), 'data');
-        let myHeaders = new Headers();
-        myHeaders.append('authorization', users?.token);
-        let data = new FormData();
-        data.append('code', otp.join(''));
+  
+    let myHeaders = new Headers();
+    myHeaders.append('authorization', users?.token);
+  
+    let data = new FormData();
+    data.append('code', otp.join(''));
+  
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: data,
+      redirect: 'follow',
+    };
+  
+    try {
+      const response = await fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+  
+      console.log(result, 'response in otp Varified');
+  
+      
+      if (results?.status == true && results?.data?.isVerified == true) {
 
-        let requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: data,
-          redirect: 'follow',
-        };
-        fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions)
-          .then(response => response.text())
-          .then(result => {
-            const results = JSON.parse(result);
-            console.log(results, 'response in otp Varified');
-            if (results?.status) {
-              localStorage.setItem('persistMe', JSON.stringify(results?.data));
-              dispatch(
-                setUserData(results?.data),
-            );
-              navigate('cointracker');
-            }
-          })
-          .catch(error => console.log('error', error));
+        let path = `/Passwordrecheck`; 
+           navigate(
+ path , {
+  state : {
+    optCode: optCode,
+  }
+}
+);
+        dispatch(
+            setUserData(results?.data),
+        );
+        localStorage.setItem('persistMe', JSON.stringify(results?.data));
+        navigate('/dashboard');
+    } else if (results?.status && results?.data?.isVerified == false) {
+        navigate('/verifyotp');
+        dispatch(
+            setUserData(results?.data),
+        );
+    }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
 
   return (
     <Box

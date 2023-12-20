@@ -28,6 +28,7 @@ import useMakeToast from '../../hooks/makeToast';
 import FacebookLogin from 'react-facebook-login';
 import crplogo from '../../images/crplogo.png';
 import { REACT_APP_BASE_URL } from '../../config';
+import { Link } from 'react-router-dom';
 
 const CustomTextField = styled(TextField)({
     width: '100%',
@@ -71,7 +72,48 @@ const Login = () => {
         password: '',
     });
 
+    const [validationErrors, setValidationErrors] = useState({
+        email: '',
+        password: '',
+      });
+      const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$');
+      const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
     const [rememberMe, setRememberMe] = useState(false);
+    const handleEmailChange = (e) => {
+        const newEmail = e.target.value;
+        setData((prevUser) => ({ ...prevUser, email: newEmail }));
+        if (!newEmail) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            email: 'Email is required',
+          }));
+        } else if (!validEmail.test(newEmail)) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            email: 'Invalid email address',
+          }));
+        } else {
+          setValidationErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+        }
+      };
+    //   ==========handlepassword================
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setData((prevUser) => ({ ...prevUser, password: newPassword }));
+        if (!newPassword) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            password: 'Password is required',
+          }));
+        } else if (!validPassword.test(newPassword)) {
+          setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            password: 'Password must be at least 6 characters and contain at least one letter and one digit',
+          }));
+        } else {
+          setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
+        }
+      };
 
     const handleLogin = async () => {
         console.log(data, 'data');
@@ -101,12 +143,12 @@ const Login = () => {
                     );
                 }
             })
-            .catch((error) => console.log('error', error));
+            .catch((err) =>   makeToast(err?.response?.data?.message));
     };
 
-    const handleChange = (event) => {
-        setData({ ...data, [event.target.name]: event.target.value });
-    };
+    // const handleChange = (event) => {
+    //     setData({ ...data, [event.target.name]: event.target.value });
+    // };
 
     async function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
@@ -318,6 +360,8 @@ const Login = () => {
                                     // onChange={(e) => setemail(e.target.value)}
                                     required={true}
                                     type="email"
+                                    error={!!validationErrors.email}  
+                                    helperText={validationErrors.email} 
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
@@ -327,7 +371,7 @@ const Login = () => {
                                     }}
                                     value={data?.email}
                                     name="email"
-                                    onChange={handleChange}
+                                    onChange={handleEmailChange}
                                 />
                             </Box>
                             <Box mt={4}>
@@ -335,10 +379,12 @@ const Login = () => {
                                     autoComplete="off"
                                     name="password"
                                     value={data.password}
-                                    onChange={handleChange}
+                                    onChange={handlePasswordChange}
                                     placeholder={'Password'}
                                     // onChange={(e) => setpassword(e.target.value)}
                                     required={true}
+                                    error={!!validationErrors.password}  
+                                    helperText={validationErrors.password} 
                                     type="password"
                                     InputProps={{
                                         startAdornment: (
@@ -392,7 +438,9 @@ const Login = () => {
                                         fontFamily: 'Gmarket',
                                     }}
                                 >
-                                    <u> Forget Password</u>
+                                   <Link to="/forgetpassword" style={{ textDecoration: 'none' }}>
+                            Forget Password
+                                    </Link>
                                 </Typography>
                             </Box>
                             <Box

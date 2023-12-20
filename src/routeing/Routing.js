@@ -29,6 +29,8 @@ import Home from '../Pages/LandingPage/Home';
 import LossHarvesting from "../Pages/TaxLoss/LossHarvesting";
 import { useSelector } from "react-redux";
 import Verifyotp from '../Pages/Verifyotp/Verifyotp';
+import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
+import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 
 export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
@@ -102,6 +104,8 @@ export default function Routing() {
                     <Route path="/cointracker" element={<Cointracker />} />
                     <Route path="/login" element={<SignIn />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/forgetpassword" element={<Forgetpassword/>} />
+                    <Route path="/Passwordrecheck" element={<Passwordrecheck/>}/>
                     <Route path="/verifyotp" element={<Verifyotp />} />
                         <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
