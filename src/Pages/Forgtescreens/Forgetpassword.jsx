@@ -5,44 +5,41 @@ import { REACT_APP_BASE_URL } from '../../config';
 import crplogo from '../../images/crplogo.png'
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setUserData } from '../../redux/slices/userSlice';
 
 const Forgetpassword = () => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const makeToast = useMakeToast();
   const forgotPasswordHandler = async () => {
-   
-  
-    let formdata = new FormData();
-    formdata.append('email', email);
-    
     
     let requestOptions = {
         method: 'GET',
-        body: formdata,
+        redirect: 'follow'
     };
-    fetch(
+
+    try {
+      const response = await fetch(
         `${REACT_APP_BASE_URL}/api/user/forgetPassword?email=${email}`,
         requestOptions,
       )
-        .then((response) => response.text())
-        .then((result) => {
-            const results = JSON.parse(result);
-          
-            if (results?.status == true) {
-                dispatch(
-                    setUserData(results?.data),
-                );
-                navigate('/forgotPasswordOtp');
-                makeToast(results?.message, 'success', 3);
-            } else {
-              makeToast(results?.message, 'error', 3);
-            }
-            
-        })
-        .catch((err) => console.log(err?.response?.data?.message));
+      const result = await response.text();
+      const results = JSON.parse(result);
+      if (results?.status == true) {
+        dispatch(setUserData(results?.data));
+        localStorage.setItem('persistMe', JSON.stringify(results?.data));
+        navigate('/forgotPasswordOtp');
+        makeToast(results?.message, 'success', 3);
+      } else {
+        makeToast(results?.message, 'error', 3);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
 };
 
   const handleEmailChange = (e) => {

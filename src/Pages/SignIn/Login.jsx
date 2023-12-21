@@ -11,12 +11,8 @@ import {
     Typography,
     styled,
 } from '@mui/material';
-// import { FacebookProvider, LoginButton } from 'react-facebook';
 import { Check, Email, Facebook, Google, Lock } from '@mui/icons-material';
-
 import loginbg from '../../images/loginbg.png';
-// import login from '../../images/login.png';
-
 import signinbg from './../../images/signinbg.png';
 import Header from '../../Components/Header';
 import { loginHandle } from '../../api/api';
@@ -30,39 +26,6 @@ import crplogo from '../../images/crplogo.png';
 import { REACT_APP_BASE_URL } from '../../config';
 import { Link } from 'react-router-dom';
 
-const CustomTextField = styled(TextField)({
-    width: '100%',
-    fontFamily: 'Poppins',
-    fontWeight: '300',
-    borderRadius: '5px',
-    '& label.Mui-focused': {
-        color: '#ffffff',
-    },
-    '& .MuiInput-underline:after': {
-        borderBottomColor: 'transparent',
-    },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'transparent',
-        },
-        '&:hover fieldset': {
-            borderColor: 'transparent',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: 'transparent',
-        },
-    },
-    input: {
-        '&::placeholder': {
-            textOverflow: 'ellipsis !important',
-            color: '#000000 !important',
-        },
-        color: '#000000',
-        fontSize: '15px',
-        paddingLeft: '10px',
-    },
-    background: '#F2FAFF',
-});
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -116,32 +79,32 @@ const Login = () => {
       };
 
     const handleLogin = async () => {
-        console.log(data, 'data');
         let formdata = new FormData();
         formdata.append('email', data?.email);
         formdata.append('password', data?.password);
-        console.log(formdata, 'form data');
+
         let requestOptions = {
             method: 'POST',
             body: formdata,
         };
-        fetch(`${REACT_APP_BASE_URL}/user/login`, requestOptions)
+        fetch(`${REACT_APP_BASE_URL}/api/user/login`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Login');
                 if (results?.status == true && results?.data?.isVerified == true) {
+                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
                     dispatch(
                         setUserData(results?.data),
                     );
-                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
                     navigate('/dashboard');
                     makeToast(results?.message, 'success', 3);
                 } else if (results?.status && results?.data?.isVerified == false) {
-                    navigate('/verifyotp');
+                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
                     dispatch(
                         setUserData(results?.data),
                     );
+                    navigate('/verifyotp');
                     makeToast(results?.message, 'success', 3);
                 } else {
                     makeToast(results?.message, 'error', 3);
@@ -537,4 +500,37 @@ const Login = () => {
     );
 };
 
+const CustomTextField = styled(TextField)({
+    width: '100%',
+    fontFamily: 'Poppins',
+    fontWeight: '300',
+    borderRadius: '5px',
+    '& label.Mui-focused': {
+        color: '#ffffff',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'transparent',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'transparent',
+        },
+        '&:hover fieldset': {
+            borderColor: 'transparent',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'transparent',
+        },
+    },
+    input: {
+        '&::placeholder': {
+            textOverflow: 'ellipsis !important',
+            color: '#000000 !important',
+        },
+        color: '#000000',
+        fontSize: '15px',
+        paddingLeft: '10px',
+    },
+    background: '#F2FAFF',
+});
 export default Login;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
     Box,
     Button,
@@ -11,70 +10,33 @@ import {
     Typography,
     styled,
 } from '@mui/material';
-
 import {
     Check,
     Email,
     Facebook,
     Google,
-    // Instagram,
     Lock,
     AccountCircle,
 } from '@mui/icons-material';
-
-// import logincart from '../../images/loginstar.png';
-// import login from '../../images/login.png';
 import loginbg from '../../images/loginbg.png';
 import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
 import Header from '../../Components/Header';
-
 import { useNavigate } from 'react-router';
 import { useGoogleLogin } from '@react-oauth/google';
 import { handleRegister } from '../../api/api';
-// import Cookies from 'js-cookie';
 import useMakeToast from '../../hooks/makeToast';
 import FacebookLogin from 'react-facebook-login';
 import { REACT_APP_BASE_URL } from '../../config';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-const CustomTextField = styled(TextField)({
-    width: '100%',
-    fontFamily: 'Poppins',
-    fontWeight: '300',
-    borderRadius: '5px',
-    '& label.Mui-focused': {
-        color: '#ffffff',
-    },
-    '& .MuiInput-underline:after': {
-        borderBottomColor: 'transparent',
-    },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'transparent',
-        },
-        '&:hover fieldset': {
-            borderColor: 'transparent',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: 'transparent',
-        },
-    },
-    input: {
-        '&::placeholder': {
-            textOverflow: 'ellipsis !important',
-            color: '#000000!important',
-        },
-        color: '#000000',
-        fontSize: '15px',
-        paddingLeft: '10px',
-    },
-    background: '#F2FAFF',
-});
+import { useDispatch } from "react-redux";
+import { setUserData } from '../../redux/slices/userSlice';
+
 const Signup = () => {
     const navigate = useNavigate();
     const makeToast = useMakeToast();
+    const dispatch = useDispatch()
     const [user, setuser] = useState({
         name: '',
         email: '',
@@ -146,24 +108,24 @@ const Signup = () => {
         data.append('email', user?.email);
         data.append('name', user?.name); 
         data.append('password', user?.password);
-        console.log(data, 'form data');
+
         let requestOptions = {
           method: 'POST',
           body: data,
         };
       
         try {
-          const response = await fetch(`${REACT_APP_BASE_URL}/user/signup`, requestOptions);
+          const response = await fetch(`${REACT_APP_BASE_URL}/api/user/signup`, requestOptions);
           const result = await response.text();
           const results = JSON.parse(result);
           console.log(results, 'response in Signup');
       
         if (results?.status === true && results?.data?.isVerified === false) {
-            navigate('/verifyotp');
             localStorage.setItem('persistMe', JSON.stringify(results?.data));
             dispatch(
                 setUserData(results?.data),
             );
+            navigate('/verifyotp');
             makeToast(results?.message, 'success', 3);
           } else {
             makeToast(results?.message, 'error', 3);
@@ -480,5 +442,38 @@ const Signup = () => {
         </Box>
     );
 };
+const CustomTextField = styled(TextField)({
+    width: '100%',
+    fontFamily: 'Poppins',
+    fontWeight: '300',
+    borderRadius: '5px',
+    '& label.Mui-focused': {
+        color: '#ffffff',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'transparent',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'transparent',
+        },
+        '&:hover fieldset': {
+            borderColor: 'transparent',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'transparent',
+        },
+    },
+    input: {
+        '&::placeholder': {
+            textOverflow: 'ellipsis !important',
+            color: '#000000!important',
+        },
+        color: '#000000',
+        fontSize: '15px',
+        paddingLeft: '10px',
+    },
+    background: '#F2FAFF',
+});
 
 export default Signup;

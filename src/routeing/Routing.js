@@ -47,7 +47,7 @@ export default function Routing() {
         
     }, [storedData,users,persistedData]);
 
-    console.log(persistedData, 'AllData');
+    // console.log(persistedData, 'AllData');
   return (
         
     persistedData?.user?.token ?

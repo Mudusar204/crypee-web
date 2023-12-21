@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Box, TextField, Button, Stack, Typography ,styled} from '@mui/material';
 import { InputAdornment } from '@mui/material';
 import { Lock } from '@mui/icons-material';
@@ -7,45 +7,13 @@ import { REACT_APP_BASE_URL } from '../../config';
 import crplogo from '../../images/crplogo.png';
 import { useLocation } from "react-router-dom";
 
-const CustomTextField = styled(TextField)({
-  width: '100%',
-  fontFamily: 'Poppins',
-  fontWeight: '300',
-  borderRadius: '5px',
-  '& label.Mui-focused': {
-    color: '#ffffff',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'transparent',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'transparent',
-    },
-    '&:hover fieldset': {
-      borderColor: 'transparent',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'transparent',
-    },
-  },
-  input: {
-    '&::placeholder': {
-      textOverflow: 'ellipsis !important',
-      color: '#000000 !important',
-    },
-    color: '#000000',
-    fontSize: '15px',
-    paddingLeft: '10px',
-  },
-  background: '#F2FAFF',
-});
-
 const Passwordrecheck = () => {
   const [data, setData] = useState({
     password: '',
     passwordReset: '',
   });
+  const [persistedData, setPersistedData] = useState(null);
+  const storedData = localStorage.getItem('persistMe');
   const makeToast = useMakeToast();
   const [validationErrors, setValidationErrors] = useState({
     password: '',
@@ -56,6 +24,11 @@ const Passwordrecheck = () => {
           console.log(location.state.rowData,"location.state.rowData");
       }
   }, []);
+  useEffect(() => {
+    if (storedData) {
+      setPersistedData(JSON.parse(storedData));
+    } 
+}, []);
 //   ===========validation=============
   const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
 
@@ -89,34 +62,37 @@ const Passwordrecheck = () => {
   };
 //   ================
 const resetPasswordHandler = async () => {
-   
-  
-    console.log(data, 'data');
-        let formdata = new FormData();
-        formdata.append('otp',location.state.rowData)
-        formdata.append('password', data?. passwordReset);
-        console.log(formdata, 'form data');
-    
-    let requestOptions = {
-        method: 'POST',
-        body: formdata,
-    };
-    fetch(
+    var myHeaders = new Headers();
+    myHeaders.append("authorization", persistedData?.token);
+
+    var formdata = new FormData();
+    formdata.append("otpCode", location.state.rowData);
+    formdata.append("password", data?.password);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: formdata,
+  redirect: 'follow'
+};
+
+    try {
+      const response = await fetch(
         `${REACT_APP_BASE_URL}/api/user/resetPassword`,
         requestOptions,
       )
-        .then((response) => response.text())
-        .then((result) => {
-            const results = JSON.parse(result);
-          
+      const result = await response.text();
+      const results = JSON.parse(result);
+console.log(results,"results");
             if (results?.status == true) {
                 navigate('/Login');
                 makeToast(results?.message, 'success', 3);
             } else {
               makeToast(results?.message, 'error', 3);
             }
-        })
-        .catch((err) => console.log(err?.response?.data?.message,"err?.response?.data?.message"));
+    } catch (error) {
+      console.error('Error:', error);
+    }
 };
 
   return (
@@ -190,6 +166,38 @@ const resetPasswordHandler = async () => {
   );
 };
 
-
+const CustomTextField = styled(TextField)({
+  width: '100%',
+  fontFamily: 'Poppins',
+  fontWeight: '300',
+  borderRadius: '5px',
+  '& label.Mui-focused': {
+    color: '#ffffff',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: 'transparent',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'transparent',
+    },
+    '&:hover fieldset': {
+      borderColor: 'transparent',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'transparent',
+    },
+  },
+  input: {
+    '&::placeholder': {
+      textOverflow: 'ellipsis !important',
+      color: '#000000 !important',
+    },
+    color: '#000000',
+    fontSize: '15px',
+    paddingLeft: '10px',
+  },
+  background: '#F2FAFF',
+});
 
 export default Passwordrecheck;

@@ -2,28 +2,25 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../../config';
 import { Box, Button, Typography } from '@mui/material';
-import { useSelector } from "react-redux";
 import useMakeToast from '../../hooks/makeToast';
+import { setUserData } from '../../redux/slices/userSlice';
+import { useDispatch } from "react-redux";
+
 const Verifyotp = () => {
   const navigate = useNavigate();
   const makeToast = useMakeToast();
+  const dispatch = useDispatch()
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const [persistedData, setPersistedData] = useState(null);
   const storedData = localStorage.getItem('persistMe');
-  const users = useSelector((state) => state?.users);
 
   useEffect(() => {
-      if (users) {
-          setPersistedData(users)
-      } else if (storedData) {
-          setPersistedData(JSON.parse(storedData));
+      if (storedData) {
+        setPersistedData(JSON.parse(storedData));
       } 
-      
-  }, [storedData,users,persistedData]);
+  }, []);
 
-  console.log(persistedData, 'AllData');
-console.log(users,"redux data");
   const handleOtpChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
       const newOtp = [...otp];
@@ -36,42 +33,36 @@ console.log(users,"redux data");
   };
 
   const handleSubmit = async () => {
-    console.log(otp.join(''), 'data');
-  
+    console.log(persistedData?.token,"persistedData?.token");
     let myHeaders = new Headers();
-    myHeaders.append('authorization', persistedData?.token);
-  
-    let data = new FormData();
-    data.append('code', otp.join(''));
-  
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: data,
-      redirect: 'follow',
-    };
-  
-    try {
-      const response = await fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions);
-      const result = await response.json();
-  
-      console.log(result, 'response in otp Varified');
-  
-      
-      if (result?.status == true && result?.data?.isVerified == true) {
-        dispatch(
-            setUserData(result?.data),
-        );
-        localStorage.setItem('persistMe', JSON.stringify(result?.data));
-        navigate('/cointracker');
-        makeToast(result?.message, 'success', 3);
-    } else{
-      makeToast(result?.message, 'error', 3);
-    }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+myHeaders.append("authorization", persistedData?.token);
+
+let formdata = new FormData();
+formdata.append('code', otp.join(''));
+
+let requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: formdata,
+  redirect: 'follow'
+};
+
+try {
+  const response = await fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions);
+  const result = await response.text();
+  const results = JSON.parse(result);
+  if (results?.status == true) {
+    dispatch(setUserData(results?.data));
+    localStorage.setItem('persistMe', JSON.stringify(results?.data));
+    navigate('/cointracker');
+    makeToast(results?.message, 'success', 3);
+  } else {
+    makeToast(results?.message, 'error', 3);
+  }
+} catch (error) {
+  console.error('Error:', error);
+}
+};
   
 
   return (

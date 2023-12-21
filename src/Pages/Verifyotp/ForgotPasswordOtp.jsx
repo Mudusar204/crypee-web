@@ -9,7 +9,7 @@ const ForgotPasswordOtp = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
   const users = useSelector((state) => state?.users);
-console.log(users,"redux data");
+  console.log(users,"redux data");
   const handleOtpChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
       const newOtp = [...otp];
@@ -22,34 +22,8 @@ console.log(users,"redux data");
   };
 
   const handleSubmit = async () => {
-    console.log(otp.join(''), 'data');
-    const collectOtp = otp.join('')
-  
-    let myHeaders = new Headers();
-    myHeaders.append('authorization', users?.token);
-  
-    let data = new FormData();
-    data.append('code', collectOtp);
-  
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: data,
-      redirect: 'follow',
-    };
-  
-    fetch(`${REACT_APP_BASE_URL}/api/user/verify`, requestOptions)
-    .then(response => response.text())
-    .then(result => {
-      setLoading(false);
-      const results = JSON.parse(result);
-      console.log(results, 'response in otp Varified');
-      if (results?.status) {
-                dispatch(
-            setUserData(result?.data),
-        );
-        makeToast(result?.message, 'success', 3);
-        let path = `/Passwordrecheck`; 
+    let collectOtp = otp.join('')
+    let path = `/Passwordrecheck`; 
       navigate(
         path , {
           state : {
@@ -57,13 +31,6 @@ console.log(users,"redux data");
           }
         }
       );
-      } else {
-        makeToast(result?.message, 'error', 3);
-      }
-      setOtpCode('');
-      setOptCodeError('');
-    })
-    .catch(error => console.log('error', error));
   };
   
 
