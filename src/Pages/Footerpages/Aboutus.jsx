@@ -5,10 +5,7 @@ import { Box, Container, Typography, useTheme } from '@mui/material';
 import getbg from '../../images/getbg.png';
 import Header from '../../Components/Header';
 
-const Aboutus = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
-  const [exchangeData, setExchangeData] = useState([]);
-  
+const Aboutus = () => {  
     const theme = useTheme();
     return (
         <Box sx={{ background: `url(${getbg})`, height: 'auto', backgroundSize: 'cover' }}>
