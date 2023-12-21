@@ -77,7 +77,9 @@ const Login = () => {
           setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
         }
       };
+      
 
+    //   ==================handlelogin===================
     const handleLogin = async () => {
         let formdata = new FormData();
         formdata.append('email', data?.email);
@@ -126,7 +128,7 @@ const Login = () => {
             if (response?.data?.status == 'success') {
                 // const message = response?.data?.message ? response?.data?.message : 'Some thing went Wrong';
                 // makeToast(`${message}`, 'success', 3);
-                Cookies.set('refreshToken-dai214', response?.data?.refreshToken, 1);
+                local.set('refreshToken-dai214', response?.data?.refreshToken, 1);
                 dispatch(
                     setUserData({
                         accessToken: response?.data?.accessToken,
@@ -193,7 +195,7 @@ const Login = () => {
         try {
             const resp = await loginHandle({ FbToken: response });
             if (resp?.data?.status == 'success') {
-                Cookies.set('refreshToken-dai214', resp?.data?.refreshToken, 1);
+            localStorage.set('refreshToken-dai214', resp?.data?.refreshToken, 1);
                 dispatch(
                     setUserData({
                         accessToken: resp?.data?.accessToken,

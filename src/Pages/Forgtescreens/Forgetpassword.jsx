@@ -15,6 +15,7 @@ const Forgetpassword = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const makeToast = useMakeToast();
+
   const forgotPasswordHandler = async () => {
     
     let requestOptions = {
@@ -80,9 +81,7 @@ const Forgetpassword = () => {
       >
         {loading ? 'Loading...' : 'Submit'}
       </Button>
-      <Typography> <Link to="/Passwordrecheck" style={{ textDecoration: 'none' }}>
-      Password reset
-                                    </Link></Typography>
+   
      </Stack>
         </Box>
         </Box>

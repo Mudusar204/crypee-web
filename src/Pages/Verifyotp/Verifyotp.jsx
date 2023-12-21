@@ -75,21 +75,18 @@ try {
         
       }}
     >
-      <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-        Enter OTP
-      </Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px',
-                        backgroundColor: 'white',
-                        py: 3,
-                        px: 3,
+     
+     <Box sx={{ backgroundColor: 'white',
+                        py: 5,
+                        px: 5,
                         borderRadius: '15px',
                         width: 'fit-content',
-                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
-                      
-                    
-                     }}>
-        {otp.map((digit, index) => (
-          <input
+                        boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',}}>
+            <Box display={"flex"} justifyContent={'center'} alignItems={'center'}><img src={crplogo} width='80px' ></img></Box>
+     <Typography fontWeight={600} textAlign={'center'} fontSize={{lg:'20px',xs:'12px',md:'18px'}} py={3}>Verify Otp</Typography>
+           <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px'}}>
+             {otp.map((digit, index) => (
+            <input
           style={{
               width: '40px',
               height: '40px',
@@ -127,6 +124,10 @@ try {
           {error}
         </Typography>
       )}
+                        </Box>
+   
+    
+    
     </Box>
   );
 };

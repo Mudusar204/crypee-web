@@ -37,7 +37,7 @@ export default function Routing() {
     const [persistedData, setPersistedData] = useState(null);
     const storedData = localStorage.getItem('persistMe');
     const users = useSelector((state) => state?.users);
-
+   
     useEffect(() => {
         if (users) {
             setPersistedData(users)
@@ -47,7 +47,11 @@ export default function Routing() {
         
     }, [storedData,users,persistedData]);
 
+<<<<<<< HEAD
     // console.log(persistedData, 'AllData');
+=======
+    console.log(storedData, 'AllData');
+>>>>>>> ab7fc5b4af683f9053e37a12a683c2a618068fff
   return (
         
     persistedData?.user?.token ?
@@ -93,7 +97,7 @@ export default function Routing() {
                                 />
                             }
                         />
-<Route path="/about" element={<Aboutus />} />
+                    <Route path="/about" element={<Aboutus />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/Termsofservices" element={<Termsofservices />} />
                     <Route path="/Privacypolicy" element={<Privacypolicy />} />
@@ -109,7 +113,7 @@ export default function Routing() {
                     <Route path="/Passwordrecheck" element={<Passwordrecheck/>}/>
                     <Route path="/verifyotp" element={<Verifyotp />} />
                     <Route path="/forgotPasswordOtp" element={<ForgotPasswordOtp />} />
-                        <Route path="*" element={<PageNotExist />}></Route>
+                    <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
   )
 }

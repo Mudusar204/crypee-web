@@ -34,9 +34,9 @@ import { useDispatch } from "react-redux";
 import { setUserData } from '../../redux/slices/userSlice';
 
 const Signup = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const makeToast = useMakeToast();
-    const dispatch = useDispatch()
     const [user, setuser] = useState({
         name: '',
         email: '',
@@ -122,6 +122,7 @@ const Signup = () => {
       
         if (results?.status === true && results?.data?.isVerified === false) {
             localStorage.setItem('persistMe', JSON.stringify(results?.data));
+           
             dispatch(
                 setUserData(results?.data),
             );
