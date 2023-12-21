@@ -94,7 +94,7 @@ const Login = () => {
             .then((result) => {
                 const results = JSON.parse(result);
                 console.log(results, 'response in Login');
-                if (results?.status == true && results?.data?.isVerified == true) {
+                if (results?.status == true && results?.data?.user?.isVerified == true) {
                     localStorage.setItem('persistMe', JSON.stringify(results?.data));
                     dispatch(
                         setUserData(results?.data),
