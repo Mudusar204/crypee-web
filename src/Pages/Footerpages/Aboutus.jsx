@@ -6,6 +6,9 @@ import getbg from '../../images/getbg.png';
 import Header from '../../Components/Header';
 
 const Aboutus = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+  const [exchangeData, setExchangeData] = useState([]);
+  
     const theme = useTheme();
     return (
         <Box sx={{ background: `url(${getbg})`, height: 'auto', backgroundSize: 'cover' }}>

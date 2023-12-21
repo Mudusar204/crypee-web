@@ -20,7 +20,6 @@ const Herosection = () => {
             py={1}
         >
             <Header/>
-            {/* <Navigation/> */}
             <Box>
                 <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 8 }, py: 5 }}>
                     <Grid

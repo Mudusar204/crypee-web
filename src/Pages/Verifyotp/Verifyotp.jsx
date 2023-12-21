@@ -5,7 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import useMakeToast from '../../hooks/makeToast';
 import { setUserData } from '../../redux/slices/userSlice';
 import { useDispatch } from "react-redux";
-
+import crplogo from '../../images/crplogo.png'
 const Verifyotp = () => {
   const navigate = useNavigate();
   const makeToast = useMakeToast();

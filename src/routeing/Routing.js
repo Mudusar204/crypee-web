@@ -109,7 +109,15 @@ export default function Routing() {
                     <Route path="/Passwordrecheck" element={<Passwordrecheck/>}/>
                     <Route path="/verifyotp" element={<Verifyotp />} />
                     <Route path="/forgotPasswordOtp" element={<ForgotPasswordOtp />} />
-                    <Route path="*" element={<PageNotExist />}></Route>
+                    <Route path="*" element={<PageNotExist />}>
+                      
+                        
+                    </Route>
+
+
+                   
+                    
+                  
 </Routes>
   )
 }

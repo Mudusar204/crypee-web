@@ -4,6 +4,7 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
 import Header from '../../Components/Header';
+import { Link } from 'react-router-dom';
 
 const Cointracker = () => {
     return (
@@ -79,9 +80,11 @@ const Cointracker = () => {
                                     facial recognition.
                                 </Typography>
                                 <Box mt={4}>
-                                    <Button variant="btn1" fullWidth sx={{ py: 2 }}>
+                                 <Link style={{textdecoration:'none',}} to='/dashboard'>
+                                 <Button   variant="btn1" fullWidth sx={{ py: 2 }}>
                                         Continue
                                     </Button>
+                                 </Link>
                                 </Box>
                                 <Box mt={4}>
                                     <Button variant="btn3" fullWidth sx={{ py: 2 }}>
