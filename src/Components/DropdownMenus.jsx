@@ -329,28 +329,29 @@ export const AssetsDropdown = ({ categories }) => {
 
 // ===========================
 export const AddwalletDropdown = () => {
+    const [presistLogin, setPresistLogin] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [exchangeData, setExchangeData] = useState([]);
-    const [persistedData, setPersistedData] = useState(null);
-    const storedData = localStorage.getItem('persistMe');
-
+    let storedData = JSON.parse(localStorage.getItem('persistMe'));
     useEffect(() => {
-        if (storedData) {
-          setPersistedData(JSON.parse(storedData));
-          console.log('Persisted Data:', JSON.parse(storedData));
+        if (storedData?.user?.token) {
+            setPresistLogin(true);
+        } else {
+            setPresistLogin(false);
         }
-      }, []);
+    }, [storedData]);
+
+    // console.log(presistLogin, 'presistLogin', storedData?.user?.token);
       
       useEffect(() => {
         const fetchData = async () => {
           try {
             const response = await fetch(`${REACT_APP_BASE_URL}/api/avlExchanges`, {
               headers: {
-                'Authorization': `Bearer ${persistedData?.token}`,
+                'Authorization': `Bearer ${presistLogin?.token}`,
                 'Content-Type': 'application/json',
               },
             });
-      
             const result = await response.json();
             console.log('result',result)
             setExchangeData(result);
@@ -360,7 +361,7 @@ export const AddwalletDropdown = () => {
         };
       
         fetchData();
-      }, [persistedData]); 
+      }, [presistLogin]); 
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
