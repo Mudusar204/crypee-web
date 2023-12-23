@@ -32,25 +32,30 @@ import Verifyotp from '../Pages/Verifyotp/Verifyotp';
 import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
 import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
+import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 export default function Routing() {
-    const [persistedData, setPersistedData] = useState(null);
+    const [state,setstate] = useState(false);
     const storedData = localStorage.getItem('persistMe');
     const users = useSelector((state) => state?.users);
    
-    useEffect(() => {
-        if (users) {
-            setPersistedData(users)
-        } else if (storedData) {
-            setPersistedData(JSON.parse(storedData));
-        } 
-        
-    }, [users,persistedData]);
+    // console.log('persistme',storedData)
 
+    useEffect(() => {
+        console.log('statesdataaaaa',storedData);
+        if (storedData?.user?.token) {
+            setstate(true)
+
+        }else{
+            setstate(false)
+        }
+        
+    }, [storedData?.user?.token]);
+    console.log('state',storedData,state);
 
   return (
         
-    persistedData?.user?.token?
+    storedData?.user?.token?
    
 <Routes>
                             <Route path="/dashboard" element={<Dashboard />} />
