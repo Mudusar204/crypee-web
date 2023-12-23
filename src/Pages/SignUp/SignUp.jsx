@@ -95,7 +95,7 @@ const Signup = () => {
         } else if (!validPassword.test(newPassword)) {
           setValidationErrors((prevErrors) => ({
             ...prevErrors,
-            password: 'Password must be at least 6 characters and contain at least one letter and one digit',
+            password: 'Password should be 6 char include at least one letter and one digit.',
           }));
         } else {
           setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));

@@ -45,12 +45,13 @@ export default function Routing() {
             setPersistedData(JSON.parse(storedData));
         } 
         
-    }, [storedData,users,persistedData]);
+    }, [users,persistedData]);
 
-    // console.log(persistedData, 'AllData');
+
   return (
         
-    persistedData?.user?.token ?
+    persistedData?.user?.token?
+   
 <Routes>
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/wallets" element={<Wallets />} />
@@ -75,13 +76,7 @@ export default function Routing() {
                     <Route path="/security" element={<Security />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/cointracker" element={<Cointracker />} />
-                    <Route
-                                path="/Home"
-                                element={
-                                    <Home
-                                    />
-                                }
-                            />
+                   
                             <Route path="*" element={<PageNotExist />}></Route>
 </Routes>
                             :
