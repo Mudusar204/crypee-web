@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Container,
     Button,
@@ -32,6 +32,16 @@ const Header = () => {
     const users = useSelector((state) => state.users);
     const [state, setState] = useState(false);
     const theme = useTheme();
+    const [presistLogin, setPresistLogin] = useState(false);
+    let storedData = JSON.parse(localStorage.getItem('persistMe'));
+    useEffect(() => {
+        if (storedData?.user?.token) {
+            setPresistLogin(true);
+        } else {
+            setPresistLogin(false);
+        }
+    }, [storedData]);
+
     const toggleDrawer = () => {
         setState((prev) => (prev === true ? false : true));
     };
@@ -126,7 +136,17 @@ const Header = () => {
                                     }}
                                 />
                             </StyledLink>
-                            {!users?.accessToken && (
+                            {presistLogin && (
+                                <Button
+                                    variant="btn2"
+                                    onClick={() => {
+                                        navigate('/dashboard');
+                                    }}
+                                >
+                                    Dashboard
+                                </Button>
+                            )}
+                            {!presistLogin && (
                                 <Button
                                     variant="btn2"
                                     onClick={() => {
@@ -136,6 +156,7 @@ const Header = () => {
                                     Sign In
                                 </Button>
                             )}
+
                             <Button variant="btn1">Try for free</Button>
                         </Box>
                     </Hidden>
@@ -201,9 +222,24 @@ const Header = () => {
                                         );
                                     })}
                                 </Box>
-                                {!users?.accessToken && (
-                                    <Button variant="btn2">
-                                        <StyledLink to="/login"> Sign In</StyledLink>
+                                {presistLogin && (
+                                    <Button
+                                        variant="btn2"
+                                        onClick={() => {
+                                            navigate('/dashboard');
+                                        }}
+                                    >
+                                        Dashboard
+                                    </Button>
+                                )}
+                                {!presistLogin && (
+                                    <Button
+                                        variant="btn2"
+                                        onClick={() => {
+                                            navigate('/login');
+                                        }}
+                                    >
+                                        Sign In
                                     </Button>
                                 )}
                                 <Button variant="btn1">Try for free</Button>
