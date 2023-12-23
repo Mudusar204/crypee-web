@@ -32,11 +32,11 @@ import Verifyotp from '../Pages/Verifyotp/Verifyotp';
 import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
 import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
+
 
 export default function Routing() {
     const [state,setstate] = useState(false);
-    const storedData = localStorage.getItem('persistMe');
+    const storedData = JSON.parse(localStorage.getItem('persistMe'));
     const users = useSelector((state) => state?.users);
    
     // console.log('persistme',storedData)
