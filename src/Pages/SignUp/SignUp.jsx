@@ -10,14 +10,7 @@ import {
     Typography,
     styled,
 } from '@mui/material';
-import {
-    Check,
-    Email,
-    Facebook,
-    Google,
-    Lock,
-    AccountCircle,
-} from '@mui/icons-material';
+import { Check, Email, Facebook, Google, Lock, AccountCircle } from '@mui/icons-material';
 import loginbg from '../../images/loginbg.png';
 import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
@@ -30,7 +23,7 @@ import FacebookLogin from 'react-facebook-login';
 import { REACT_APP_BASE_URL } from '../../config';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { setUserData } from '../../redux/slices/userSlice';
 
 const Signup = () => {
@@ -46,7 +39,7 @@ const Signup = () => {
         name: '',
         email: '',
         password: '',
-      });
+    });
 
     const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$');
     const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
@@ -55,87 +48,84 @@ const Signup = () => {
     const handleNameChange = (e) => {
         const newName = e.target.value;
         setuser((prevUser) => ({ ...prevUser, name: newName }));
-      
+
         if (!newName) {
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            name: 'Name is required',
-          }));
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                name: 'Name is required',
+            }));
         } else {
-          setValidationErrors((prevErrors) => ({ ...prevErrors, name: '' }));
+            setValidationErrors((prevErrors) => ({ ...prevErrors, name: '' }));
         }
-      };
+    };
     // ============handleemailchange===============
     const handleEmailChange = (e) => {
         const newEmail = e.target.value;
         setuser((prevUser) => ({ ...prevUser, email: newEmail }));
         if (!newEmail) {
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            email: 'Email is required',
-          }));
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                email: 'Email is required',
+            }));
         } else if (!validEmail.test(newEmail)) {
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            email: 'Invalid email address',
-          }));
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                email: 'Invalid email address',
+            }));
         } else {
-          setValidationErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+            setValidationErrors((prevErrors) => ({ ...prevErrors, email: '' }));
         }
-      };
+    };
     //   ==========handlepassword================
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
         setuser((prevUser) => ({ ...prevUser, password: newPassword }));
         if (!newPassword) {
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            password: 'Password is required',
-          }));
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                password: 'Password is required',
+            }));
         } else if (!validPassword.test(newPassword)) {
-          setValidationErrors((prevErrors) => ({
-            ...prevErrors,
-            password: 'Password should be 6 char include at least one letter and one digit.',
-          }));
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                password: 'Password should be 6 char include at least one letter and one digit.',
+            }));
         } else {
-          setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
+            setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
         }
-      };
+    };
 
-      const onSubmit = async () => {
+    const onSubmit = async () => {
         console.log(user, 'user');
         let data = new FormData();
         data.append('email', user?.email);
-        data.append('name', user?.name); 
+        data.append('name', user?.name);
         data.append('password', user?.password);
 
         let requestOptions = {
-          method: 'POST',
-          body: data,
+            method: 'POST',
+            body: data,
         };
-      
+
         try {
-          const response = await fetch(`${REACT_APP_BASE_URL}/api/user/signup`, requestOptions);
-          const result = await response.text();
-          const results = JSON.parse(result);
-          console.log(results, 'response in Signup');
-      
-        if (results?.status === true && results?.data?.isVerified === false) {
-            localStorage.setItem('persistMe', JSON.stringify(results?.data));
-           
-            dispatch(
-                setUserData(results?.data),
-            );
-            navigate('/verifyotp');
-            makeToast(results?.message, 'success', 3);
-          } else {
-            makeToast(results?.message, 'error', 3);
-          }
+            const response = await fetch(`${REACT_APP_BASE_URL}/api/user/signup`, requestOptions);
+            const result = await response.text();
+            const results = JSON.parse(result);
+            console.log(results, 'response in Signup');
+
+            if (results?.status === true && results?.data?.isVerified === false) {
+                localStorage.setItem('persistMe', JSON.stringify(results?.data));
+
+                dispatch(setUserData(results?.data));
+                navigate('/verifyotp');
+                makeToast(results?.message, 'success', 3);
+            } else {
+                makeToast(results?.message, 'error', 3);
+            }
         } catch (err) {
             console.log(err?.response?.data?.message, 'error');
         }
-      };
-      
+    };
 
     async function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
@@ -155,9 +145,9 @@ const Signup = () => {
         } catch (err) {
             makeToast({
                 message: err?.message || 'An error occurred. Please try again later.',
-                type: 'warn', 
-                duration: 3, 
-              });
+                type: 'warn',
+                duration: 3,
+            });
         }
     }
 
@@ -270,11 +260,11 @@ const Signup = () => {
                                         autoComplete="off"
                                         id="standard-name"
                                         placeholder={'Name'}
-                                        onChange={handleNameChange }
+                                        onChange={handleNameChange}
                                         required={true}
                                         type="text"
-                                        error={!!validationErrors.name}  
-                                        helperText={validationErrors.name} 
+                                        error={!!validationErrors.name}
+                                        helperText={validationErrors.name}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -289,11 +279,11 @@ const Signup = () => {
                                         autoComplete="off"
                                         id="standard-email"
                                         placeholder={'Email Address'}
-                                        onChange={handleEmailChange} 
+                                        onChange={handleEmailChange}
                                         required={true}
                                         type="email"
-                                        error={!!validationErrors.email}  
-                                        helperText={validationErrors.email} 
+                                        error={!!validationErrors.email}
+                                        helperText={validationErrors.email}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -311,8 +301,8 @@ const Signup = () => {
                                         onChange={handlePasswordChange}
                                         required={true}
                                         type="password"
-                                        error={!!validationErrors.password}  
-                                        helperText={validationErrors.password} 
+                                        error={!!validationErrors.password}
+                                        helperText={validationErrors.password}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -366,9 +356,12 @@ const Signup = () => {
                                             fontFamily: 'Gmarket',
                                         }}
                                     >
-                                        <Link to="/forgetpassword" style={{ textDecoration: 'none' }}>
-                            Forget Password
-                                    </Link>
+                                        <Link
+                                            to="/forgetpassword"
+                                            style={{ textDecoration: 'none' }}
+                                        >
+                                            Forget Password
+                                        </Link>
                                     </Typography>
                                 </Box>
                                 <Box
