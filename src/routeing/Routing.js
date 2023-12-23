@@ -35,29 +35,24 @@ import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
 
 
 export default function Routing() {
-    const [state,setstate] = useState(false);
-    const storedData = JSON.parse(localStorage.getItem('persistMe'));
-    const users = useSelector((state) => state?.users);
-   
-    // console.log('persistme',storedData)
-
+    const [presistLogin, setPresistLogin] = useState(false)
+    let  storedData = JSON.parse(localStorage.getItem('persistMe'));
     useEffect(() => {
-        console.log('statesdataaaaa',storedData);
-        if (storedData?.user?.token) {
-            setstate(true)
-
-        }else{
-            setstate(false)
-        }
+      if (storedData?.user?.token) {
+        setPresistLogin(true)
         
-    }, [storedData?.user?.token]);
-    console.log('state',storedData,state);
-
+      }else {
+        setPresistLogin(false)
+      }
+    }, [storedData])
+    console.log(presistLogin,"presistLogin",storedData?.user?.token);
+    
   return (
         
-    storedData?.user?.token?
-   
 <Routes>
+    {presistLogin?
+    <>
+   
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/wallets" element={<Wallets />} />
                             <Route path="/loss-harvesting" element={<LossHarvesting />} />
@@ -83,9 +78,9 @@ export default function Routing() {
                     <Route path="/cointracker" element={<Cointracker />} />
                    
                             <Route path="*" element={<PageNotExist />}></Route>
-</Routes>
-                            :
-<Routes>
+                            </>
+
+                            :<></>}
 <Route
                             path="/"
                             element={
