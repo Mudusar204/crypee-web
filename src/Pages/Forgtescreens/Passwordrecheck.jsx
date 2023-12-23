@@ -5,9 +5,10 @@ import { Lock } from '@mui/icons-material';
 import useMakeToast from '../../hooks/makeToast';
 import { REACT_APP_BASE_URL } from '../../config';
 import crplogo from '../../images/crplogo.png';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Passwordrecheck = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     password: '',
     passwordReset: '',

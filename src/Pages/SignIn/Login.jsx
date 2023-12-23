@@ -42,6 +42,7 @@ const Login = () => {
       const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$');
       const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
     const [rememberMe, setRememberMe] = useState(false);
+  
     const handleEmailChange = (e) => {
         const newEmail = e.target.value;
         setData((prevUser) => ({ ...prevUser, email: newEmail }));
@@ -71,7 +72,7 @@ const Login = () => {
         } else if (!validPassword.test(newPassword)) {
           setValidationErrors((prevErrors) => ({
             ...prevErrors,
-            password: 'Password must be at least 6 characters and contain at least one letter and one digit',
+            password: 'Password should be 6 character include at least one letter and one digit.',
           }));
         } else {
           setValidationErrors((prevErrors) => ({ ...prevErrors, password: '' }));
@@ -81,39 +82,39 @@ const Login = () => {
 
     //   ==================handlelogin===================
     const handleLogin = async () => {
-        let formdata = new FormData();
-        formdata.append('email', data?.email);
-        formdata.append('password', data?.password);
-
-        let requestOptions = {
-            method: 'POST',
-            body: formdata,
-        };
-        fetch(`${REACT_APP_BASE_URL}/api/user/login`, requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                const results = JSON.parse(result);
-                console.log(results, 'response in Login');
-                if (results?.status == true && results?.data?.user?.isVerified == true) {
-                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
-                    dispatch(
-                        setUserData(results?.data),
-                    );
-                    navigate('/dashboard');
-                    makeToast(results?.message, 'success', 3);
-                } else if (results?.status && results?.data?.isVerified == false) {
-                    localStorage.setItem('persistMe', JSON.stringify(results?.data));
-                    dispatch(
-                        setUserData(results?.data),
-                    );
-                    navigate('/verifyotp');
-                    makeToast(results?.message, 'success', 3);
-                } else {
-                    makeToast(results?.message, 'error', 3);
-                }
-            })
-            .catch((err) => console.log(err?.response?.data?.message));
+        try {
+            let formdata = new FormData();
+            formdata.append('email', data?.email);
+            formdata.append('password', data?.password);
+    
+            let requestOptions = {
+                method: 'POST',
+                body: formdata,
+            };
+    
+            const response = await fetch(`${REACT_APP_BASE_URL}/api/user/login`, requestOptions);
+            const result = await response.text();
+            const results = JSON.parse(result);
+            console.log(results, 'response in Login');
+    
+            if (results?.status === true && results?.data?.user?.isVerified === true) {
+                localStorage.setItem('persistMe', JSON.stringify(results?.data));
+                dispatch(setUserData(results?.data));
+                navigate('/dashboard');
+                makeToast(results?.message, 'success', 3);
+            } else if (results?.status && results?.data?.isVerified === false) {
+                localStorage.setItem('persistMe', JSON.stringify(results?.data));
+                dispatch(setUserData(results?.data));
+                navigate('/verifyotp');
+                makeToast(results?.message, 'success', 3);
+            } else {
+                makeToast(results?.message, 'error', 3);
+            }
+        } catch (err) {
+            console.log(err?.response?.data?.message, 'error');
+        }
     };
+    
 
     // const handleChange = (event) => {
     //     setData({ ...data, [event.target.name]: event.target.value });

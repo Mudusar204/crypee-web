@@ -1,5 +1,5 @@
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Container, Grid, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import Profile from './Profile';
 import cryptocard from '../../images/dashboard/cryptocard.png';
 import dashboardbg from '../../images/dashboard/dashboardbg.png';
@@ -10,6 +10,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { styled } from '@mui/styles';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import { AddwalletDropdown } from '../../Components/DropdownMenus';
 
 const rtransactiondata = [
     {
@@ -82,7 +83,9 @@ const rtransactiondata = [
     },
 ];
 
+
 export default function Index() {
+  
     return (
         <>
             <Navigation />
@@ -111,25 +114,14 @@ export default function Index() {
                         <Grid item xs={12} md={3.5}>
                             <Box>
                                 <Stack direction="row" justifyContent="center" gap={5} mb={5}>
-                                    <Button
-                                        fontFamily={'Gmarket'}
-                                        variant="btn2"
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '600',
-                                            fontSize: '16px',
-                                            lineHeight: '24px',
-                                        }}
-                                    >
-                                        Add wallet
-                                    </Button>
+                                <AddwalletDropdown/>
                                     <Button
                                         variant="btn1"
                                         sx={{
                                             fontFamily: 'Poppins',
                                             fontStyle: 'normal',
                                             fontWeight: '600',
-                                            fontSize: '16px',
+                                            fontSize: '14px',
                                             lineHeight: '24px',
                                         }}
                                     >

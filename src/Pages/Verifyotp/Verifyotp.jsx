@@ -35,10 +35,10 @@ const Verifyotp = () => {
   const handleSubmit = async () => {
     console.log(persistedData?.token,"persistedData?.token");
     let myHeaders = new Headers();
-myHeaders.append("authorization", persistedData?.token);
+    myHeaders.append("authorization", persistedData?.token);
 
-let formdata = new FormData();
-formdata.append('code', otp.join(''));
+    let formdata = new FormData();
+    formdata.append('code', otp.join(''));
 
 let requestOptions = {
   method: 'POST',
@@ -54,7 +54,7 @@ try {
   if (results?.status == true) {
     dispatch(setUserData(results?.data));
     localStorage.setItem('persistMe', JSON.stringify(results?.data));
-    navigate('/cointracker');
+    navigate('/dashboard');
     makeToast(results?.message, 'success', 3);
   } else {
     makeToast(results?.message, 'error', 3);
