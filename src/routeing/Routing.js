@@ -40,7 +40,7 @@ export default function Routing() {
             <Route element={<PersistLogin />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/wallets" element={<Wallets />} />
-                <Route path="/addewallet/:id" element={<Addexchangedata/>}/>
+                <Route path="/addewallet/:_id" element={<Addexchangedata/>}/>
                 <Route path="/loss-harvesting" element={<LossHarvesting />} />
                 <Route path="/tax-plans" element={<Plans />} />
                 <Route path="/taxes" element={<Taxes />} />

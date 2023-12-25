@@ -384,7 +384,7 @@ export const AddwalletDropdown = () => {
                     exchangeData.map((exchange, i) => {
                         return (
                             <StyledLink key={i}>
-                                    <Link  to={`/addewallet/${exchange.id}`} style={{textDecoration:'none'}}>
+                                    <Link  to={`/addewallet/${exchange._id}`} style={{textDecoration:'none'}}>
                                 <StyledMenuItem sx={{ color: 'black' }} >
                                     <Box display="flex" alignItems={'center'} gap={'10px'}>
                                         <img
