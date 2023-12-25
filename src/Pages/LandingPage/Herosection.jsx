@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Box, Button, Container, Grid, Typography, useTheme } from '@mui/material';
-
 // import heroright from '../../images/heroright.png';
 import cointracker from '../../images/cointracker.png'
 import herobg from '../../images/herobg.png';

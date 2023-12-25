@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Box, Button, Menu, MenuItem, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
-
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -329,84 +328,82 @@ export const AssetsDropdown = ({ categories }) => {
 
 // ===========================
 export const AddwalletDropdown = () => {
-    const [presistLogin, setPresistLogin] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [exchangeData, setExchangeData] = useState([]);
     let storedData = JSON.parse(localStorage.getItem('persistMe'));
+
     useEffect(() => {
-        if (storedData?.user?.token) {
-            setPresistLogin(true);
-        } else {
-            setPresistLogin(false);
-        }
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${REACT_APP_BASE_URL}/api/avlExchanges`, {
+                    headers: {
+                        Authorization: storedData?.user?.token,
+                    },
+                });
+                const result = await response.json();
+                setExchangeData(result.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }, [storedData]);
 
-    // console.log(presistLogin, 'presistLogin', storedData?.user?.token);
-      
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`${REACT_APP_BASE_URL}/api/avlExchanges`, {
-              headers: {
-                'Authorization': `Bearer ${presistLogin?.token}`,
-                'Content-Type': 'application/json',
-              },
-            });
-            const result = await response.json();
-            console.log('result',result)
-            setExchangeData(result);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        };
-      
-        fetchData();
-      }, [presistLogin]); 
+    console.log('storeddata', exchangeData);
 
     const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
     };
-  
+
     const handleClose = () => {
-      setAnchorEl(null);
+        setAnchorEl(null);
+       
     };
 
-  
     return (
-      <>
-        <Button
-          sx={{
-            textTransform: 'capitalize',
-            fontSize: '14px',
-          }}
-          variant="btn1"
-          endIcon={<ArrowDropDownIcon />}
-          onClick={handleClick}
-        >
-          Add Wallet
-        </Button>
-        <StyledMenu
-          id="menu2"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-         {Array.isArray(exchangeData) && exchangeData.length > 0 ? (
-  exchangeData.map((exchange, i) => (
-    <StyledLink key={i}>
-      <StyledMenuItem sx={{ color: 'black' }} onClick={handleClose}>
-        {exchange}
-      </StyledMenuItem>
-    </StyledLink>
-  ))
-) : (
-  <StyledMenuItem sx={{ color: 'black' }}>No available exchanges</StyledMenuItem>
-)}
-
-
-        </StyledMenu>
-      </>
+        <>
+            <Button
+                sx={{
+                    textTransform: 'capitalize',
+                    fontSize: '14px',
+                }}
+                variant="btn1"
+                endIcon={<ArrowDropDownIcon />}
+                onClick={handleClick}
+            >
+                Add Wallet
+            </Button>
+            <StyledMenu
+                id="menu2"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose(null)}
+            >
+                {Array.isArray(exchangeData) && exchangeData.length > 0 ? (
+                    exchangeData.map((exchange, i) => {
+                        return (
+                            <StyledLink key={i}>
+                                    <Link  to={`/addewallet/${exchange.id}`} style={{textDecoration:'none'}}>
+                                <StyledMenuItem sx={{ color: 'black' }} >
+                                    <Box display="flex" alignItems={'center'} gap={'10px'}>
+                                        <img
+                                            src={REACT_APP_BASE_URL + exchange.img}
+                                            alt={REACT_APP_BASE_URL + exchange.img}
+                                            width={'20px'}
+                                        />
+                                        <Typography>{exchange.name}</Typography>
+                                    </Box>
+                                   
+                                </StyledMenuItem>
+                                    </Link>
+                            </StyledLink>
+                        );
+                    })
+                ) : (
+                    <StyledMenuItem sx={{ color: 'black' }}>No available exchanges</StyledMenuItem>
+                )}
+            </StyledMenu>
+        </>
     );
-  };
-  
-  
+};
