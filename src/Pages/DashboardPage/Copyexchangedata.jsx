@@ -5,9 +5,9 @@ import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
-import { useNavigate ,useLocation} from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -383,14 +383,14 @@ export const AddwalletDropdown = () => {
                 {Array.isArray(exchangeData) && exchangeData.length > 0 ? (
                     exchangeData.map((exchange, i) => {
                         return (
-                           
-                                <StyledMenuItem key={i} sx={{ color: 'black' }}>
+                            <StyledLink key={i}>
+                                <StyledMenuItem sx={{ color: 'black' }}>
                                     <Box
                                         display="flex"
                                         alignItems={'center'}
                                         gap={'10px'}
                                         onClick={() => {
-                                            let path = `/addewallet/${exchange.name}`;
+                                            let path = `/addewallet`;
                                             navigate(path, {
                                                 state: {
                                                     exchangeData: exchange,
@@ -406,7 +406,7 @@ export const AddwalletDropdown = () => {
                                         <Typography>{exchange.name}</Typography>
                                     </Box>
                                 </StyledMenuItem>
-                           
+                            </StyledLink>
                         );
                     })
                 ) : (
@@ -416,3 +416,11 @@ export const AddwalletDropdown = () => {
         </>
     );
 };
+
+
+// let location = useLocation();
+// useEffect(() => {
+//     if (location.state !== null) {
+//         console.log(location.state.exchangeData,"location.state");
+//     }
+// }, []);

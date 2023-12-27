@@ -10,6 +10,8 @@ import gns from '../../images/wallets/gns.png';
 import usdt from '../../images/wallets/usdt.png';
 import WalletsDialog from './WalletsDialog';
 import AddWalletDialog from './AddWalletDialog';
+import { addWalletFunction, fetchData, syncWallet,  } from './Index';
+
 
 const data = [
     {
@@ -66,12 +68,40 @@ const data = [
 export default function Walletslist() {
     const [wallet, setwallet] = useState(false);
     const [addWallet, setAddWallet] = useState(false);
+    const [syncData, setsyncData] = useState(null);
+    const [walletData,setwalletData] = useState([]);
+    console.log('walletData',walletData);
+
+  const handleSyncWalletClick = async () => {
+    try {
+      const result = await syncWallet();
+      setsyncData(result);
+      console.log('syncwalet',result);
+    } catch (error) {
+      console.error('Error syncing wallet:', error.message);
+    }
+  };
+// ======================
+const handleAddWalletClick = async () => {
+    try {
+      const result = await addWalletFunction();
+      setwalletData(result.data);
+    //   console.log('addwalet',result);
+    } catch (error) {
+      console.error('Error syncing wallet:', error.message);
+    }
+  };
+
+  
     const handleWallet = () => {
         setwallet((preState) => !preState);
     };
     const handleAddWallet = () => {
         setAddWallet((preState) => !preState);
     };
+  
+
+ 
     return (
         <Box>
             <AddWalletDialog
@@ -86,19 +116,20 @@ export default function Walletslist() {
             />
             <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 } }}>
                 <Stack direction="row" gap={5} pt={0}>
-                    <Button
-                        variant="btn2"
-                        sx={{
-                            fontFamily: 'Gmarket',
-                            fontStyle: 'normal',
-                            fontWeight: '600',
-                            fontSize: '16px',
-                            lineHeight: '24px',
-                            p: { xs: '5px 15px', sm: '10px 20px' },
-                        }}
-                    >
-                        Sync wallet
-                    </Button>
+                <Button
+        variant="btn2"
+        sx={{
+          fontFamily: 'Gmarket',
+          fontStyle: 'normal',
+          fontWeight: '600',
+          fontSize: '16px',
+          lineHeight: '24px',
+          p: { xs: '5px 15px', sm: '10px 20px' },
+        }}
+        onClick={handleSyncWalletClick}
+      >
+        Sync wallet
+      </Button>
                     <Button
                         variant="btn1"
                         sx={{
@@ -109,7 +140,8 @@ export default function Walletslist() {
                             lineHeight: '24px',
                             p: { xs: '5px 15px', sm: '10px 20px' },
                         }}
-                        onClick={() => handleWallet()}
+                        onClick={handleAddWalletClick}
+                        
                     >
                         Add wallet
                     </Button>
@@ -197,7 +229,7 @@ export default function Walletslist() {
                     </Stack>
                     <Box sx={{background:'#F9FCFF',borderRadius:'10px',px:2}}>
                     <Grid container spacing={5} >
-                        {data.map((item, i) => (
+                        {walletData.map((item, i) => (
                             <Grid key={i} item xs={12} md={6}>
                                 <Stack
                                     direction="row"
@@ -206,13 +238,7 @@ export default function Walletslist() {
                                     width={{ xs: '100%', md: '80%' }}
                                 >
                                     <Stack direction="row" gap={1}>
-                                        <Avatar
-                                            src={item.img}
-                                            sx={{
-                                                width: { xs: 30, sm: 40 },
-                                                height: { xs: 30, sm: 40 },
-                                            }}
-                                        />
+                                       
                                         <Box>
                                             <Box
                                                 sx={{
@@ -224,7 +250,7 @@ export default function Walletslist() {
                                                     color: ' var(--Text-Black, #333)',
                                                 }}
                                             >
-                                                {item.name}
+                                                {item.id}
                                             </Box>
                                             <Box
                                                 sx={{
@@ -236,7 +262,7 @@ export default function Walletslist() {
                                                     color: ' var(--Text-Black, #333)',
                                                 }}
                                             >
-                                                {item.subName}
+                                                {item.name}
                                             </Box>
                                         </Box>
                                     </Stack>
@@ -253,20 +279,9 @@ export default function Walletslist() {
                                                 alignItems: 'center',
                                             }}
                                         >
-                                            {item.value} <ArrowDropDownIcon />
+                                            {item.user} <ArrowDropDownIcon />
                                         </Box>
-                                        <Box
-                                            sx={{
-                                                fontFamily: 'Gmarket',
-                                                fontStyle: 'normal',
-                                                fontWeight: '600',
-                                                fontSize: { xs: '12px', sm: '15px' },
-                                                lineHeight: '18px',
-                                                color: ' var(--Text-Black, #333)',
-                                            }}
-                                        >
-                                            {item.subValue}
-                                        </Box>
+                                        
                                     </Box>
                                 </Stack>
                             </Grid>
