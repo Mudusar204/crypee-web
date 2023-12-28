@@ -11,7 +11,9 @@ import usdt from '../../images/wallets/usdt.png';
 import WalletsDialog from './WalletsDialog';
 import AddWalletDialog from './AddWalletDialog';
 import { addWalletFunction, fetchData, syncWallet,  } from './Index';
-
+import { setWalletData } from '../../redux/slices/userWalletData';
+import { useDispatch } from 'react-redux';
+import useMakeToast from '../../hooks/makeToast';
 
 const data = [
     {
@@ -66,31 +68,47 @@ const data = [
 ];
 
 export default function Walletslist() {
+    const dispatch = useDispatch();
+    const makeToast = useMakeToast();
     const [wallet, setwallet] = useState(false);
     const [addWallet, setAddWallet] = useState(false);
     const [syncData, setsyncData] = useState(null);
     const [walletData,setwalletData] = useState([]);
     console.log('walletData',walletData);
 
-  const handleSyncWalletClick = async () => {
-    try {
-      const result = await syncWallet();
-      setsyncData(result);
-      console.log('syncwalet',result);
-    } catch (error) {
-      console.error('Error syncing wallet:', error.message);
-    }
-  };
-// ======================
+    const handleSyncWalletClick = async () => {
+        try {
+          const result = await syncWallet();
+          setsyncData(result);
+          if (result) {
+            makeToast('Wallet synced successfully', 'success', 3);
+          } else {
+            makeToast('Error syncing wallet', 'error', 3);
+          }
+      
+        } catch (error) {
+          makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
+          console.error('Error syncing wallet:', error.message);
+        }
+      };
+// ==========addwallet============
 const handleAddWalletClick = async () => {
     try {
       const result = await addWalletFunction();
-      setwalletData(result.data);
-    //   console.log('addwalet',result);
+      if (result) {
+        makeToast(`Wallet added successfully: ${result.message}`, 'success', 3);
+        setwalletData(result.data);
+        localStorage.setItem('walletdata', JSON.stringify(result?.data));
+        dispatch(setWalletData(result?.data));
+      } else {
+        makeToast('Error adding wallet', 'error', 3);
+      }
     } catch (error) {
-      console.error('Error syncing wallet:', error.message);
+      makeToast(`Error adding wallet: ${error.message}`, 'error', 3);
+      console.error('Error adding wallet:', error.message);
     }
   };
+  
 
   
     const handleWallet = () => {

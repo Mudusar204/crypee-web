@@ -19,11 +19,27 @@ import logo from '../images/logo.svg';
 
 import { CountryDropdown, NavigationDropdown } from './DropdownMenus';
 import { NavigationAccordion } from './MobileMenus';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { logout } from '../redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import useMakeToast from '../hooks/makeToast';
 
 const countries = ['Pakistan', 'USA', 'Turkey'];
 
 const Navigation = () => {
+    const dispatch = useDispatch();
+    const makeToast = useMakeToast();
+    const navigate = useNavigate();
+
+    //   ===========logout================
+    const handleLogout = () => {
+        localStorage.removeItem('persistMe');
+
+        dispatch(logout());
+        navigate('/');
+
+        makeToast('You have been logged out.');
+    };
     const navItems = [
         { name: 'Dashboard', to: '/dashboard' },
         {
@@ -98,7 +114,7 @@ const Navigation = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     color: `${theme.palette.text.lightblue}`,
-                                  fontFamily: 'Gmarket',
+                                    fontFamily: 'Gmarket',
                                     fontWeight: '500',
 
                                     cursor: 'pointer',
@@ -136,7 +152,7 @@ const Navigation = () => {
                 <Stack sx={{ display: { xs: 'none', md: 'flex' } }} direction={'row'} gap={2}>
                     <CountryDropdown countries={countries} />
 
-                    <Avatar sx={{ bgcolor: '#0B7BC3' }} />
+                    <Avatar sx={{ bgcolor: '#0B7BC3', cursor: 'pointer' }} onClick={handleLogout} />
                 </Stack>
                 <Hidden mdUp>
                     <Stack gap={2}>

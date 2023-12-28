@@ -3,70 +3,77 @@ import WalletsCard from './WalletsCard';
 import Walletslist from './Walletslist';
 import Navigation from '../../Components/Navigation';
 import { REACT_APP_BASE_URL } from '../../config';
-
+import useMakeToast from '../../hooks/makeToast';
 
 // ===================syncwallet===============
 export const syncWallet = async () => {
-  try {
-    const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
-    const response = await fetch(`${REACT_APP_BASE_URL}/api/data/syncWallet`, {
-      method: 'GET',
-      headers: {
-        Authorization: localStorageData?.user?.token,
-      },
-    });
+    try {
+        const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
+        const response = await fetch(`${REACT_APP_BASE_URL}/api/data/syncWallet`, {
+            method: 'GET',
+            headers: {
+                Authorization: localStorageData?.user?.token,
+            },
+        });
 
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-    throw error;
-  }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        throw error;
+    }
 };
 // ===============addwallet=========================
 export const addWalletFunction = async () => {
     try {
-      const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
-      const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getMyExchanges`, {
-        method: 'GET',
-        headers: {
-          Authorization: localStorageData?.user?.token,
-        },
-      });
-  
-      const result = await response.json();
-      return result;
-    } catch (error) {
-      console.error('Error fetching data:', error.message);
-      throw error;
-    }
-  };
+        const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
+        const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getMyExchanges`, {
+            method: 'GET',
+            headers: {
+                Authorization: localStorageData?.user?.token,
+            },
+        });
 
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        throw error;
+    }
+};
 
 const Index = () => {
-  const [data, setData] = useState(null);
+    const [data, setData] = useState(null);
+    const makeToast = useMakeToast();
 
-  useEffect(() => {
-    const syncWalletState = async () => {
-      try {
-        const result = await syncWallet();
-        setData(result);
-      } catch (error) {
-        console.error('Error setting data:', error.message);
-      }
-    };
-
-    syncWalletState();
-    addWalletFunction();
-  }, []); 
-
-  return (
-    <>
-      <Navigation />
-      <WalletsCard data={data} />
-      <Walletslist data={data} />
-    </>
-  );
+    useEffect(() => {
+        const syncWalletState = async () => {
+            try {
+                const result = await syncWallet();
+                setData(result);
+                makeToast(result?.message, 'success', 3);
+            } catch (error) {
+                makeToast(error.message, 'error', 3);
+                console.error('Error setting data:', error.message);
+            }
+        };
+        const handlePageFocus = () => {
+            syncWalletState();
+            addWalletFunction();
+          };
+        
+          window.addEventListener('focus', handlePageFocus);
+          return () => {
+            window.removeEventListener('focus', handlePageFocus);
+          };
+        }, [syncWallet, addWalletFunction]);
+    return (
+        <>
+            <Navigation />
+            <WalletsCard data={data} />
+            <Walletslist data={data} />
+        </>
+    );
 };
 
 export default Index;
