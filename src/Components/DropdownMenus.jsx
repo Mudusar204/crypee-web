@@ -366,7 +366,7 @@ export const AddwalletDropdown = () => {
             <Button
                 sx={{
                     textTransform: 'capitalize',
-                    fontSize: '14px',
+                    fontSize: {lg:'14px',xs:'12px',sm:'13px',md:'13px'},
                 }}
                 variant="btn1"
                 endIcon={<ArrowDropDownIcon />}

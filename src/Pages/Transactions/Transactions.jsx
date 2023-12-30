@@ -343,13 +343,13 @@ useEffect(() => {
 
     return (
         <>
-            <Navigation />
-            <Container maxWidth="xl">
-                <Box px={{ xs: 0, md: 10 }}>
-                    <Sorting />
-                    <History forTransactionsPage={true} historyDetails={records} />
-                </Box>
-            </Container>
+           <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
+           <Navigation />
+           <Sorting />
+           <History forTransactionsPage={true} historyDetails={records} />
+           </Box>
+               
+            
         </>
     );
 };

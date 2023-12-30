@@ -60,7 +60,7 @@ const Addexchangedata = () => {
                 elevation={3}
                 sx={{
                     p: 2,
-                    maxWidth: 400,
+                    maxWidth: 450,
                     display: 'flex',
                     justifyContent: 'center',
                     flexDirection: 'column',
@@ -69,16 +69,17 @@ const Addexchangedata = () => {
                     py: 4,
                 }}
             >
-                <Typography variant="h6" color="black">
-                    {location.state.exchangeData.name}
-                </Typography>
                 <img
                     src={REACT_APP_BASE_URL + location.state.exchangeData.img}
                     alt={REACT_APP_BASE_URL + location.state.exchangeData.img}
-                    width={'50px'}
+                    width={'100px'}
                 />
+                 <Typography variant="h6" color="black">
+                    {location.state.exchangeData.name}
+                </Typography>
 
                 <TextField
+                    required
                     label="API Key"
                     variant="outlined"
                     fullWidth
@@ -88,6 +89,7 @@ const Addexchangedata = () => {
                 />
 
                 <TextField
+                    required
                     label="API Secret"
                     variant="outlined"
                     fullWidth

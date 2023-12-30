@@ -16,18 +16,20 @@ const LossHarvesting = () => {
         { text: 'Maximize performance & build wealth' },
     ];
     return (
-        <>
-            <Navigation />
+        <Box  sx={{
+            position: 'relative',
+            backgroundImage: `url(${TaxLossBg})`,
+            backgroundSize: '100%  100%',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            py: 1,
+        }}>
+           
             <Box
-                sx={{
-                    position: 'relative',
-                    backgroundImage: `url(${TaxLossBg})`,
-                    backgroundSize: '100%  100%',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    py: 1,
-                }}
+              mx={{lg:7,xs:2,md:4,sm:3}}
+               
             >
+                 <Navigation />
                 <img
                     src={Ellipse1}
                     alt=""
@@ -146,7 +148,7 @@ const LossHarvesting = () => {
                     </Grid>
                 </Container>
             </Box>
-        </>
+        </Box>
     );
 };
 

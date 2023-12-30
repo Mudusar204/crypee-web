@@ -4,6 +4,7 @@ import Walletslist from './Walletslist';
 import Navigation from '../../Components/Navigation';
 import { REACT_APP_BASE_URL } from '../../config';
 import useMakeToast from '../../hooks/makeToast';
+import { Box } from '@mui/material';
 
 // ===================syncwallet===============
 export const syncWallet = async () => {
@@ -69,9 +70,12 @@ const Index = () => {
         }, [syncWallet, addWalletFunction]);
     return (
         <>
-            <Navigation />
+           <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
+           <Navigation />
             <WalletsCard data={data} />
             <Walletslist data={data} />
+           </Box>
+
         </>
     );
 };

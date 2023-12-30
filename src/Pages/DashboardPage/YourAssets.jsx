@@ -72,10 +72,7 @@ const rows = [
 export default function YourAssets() {
     return (
         <>
-            <Box
-            
-            >
-                <Container maxWidth="lg">
+            <Box px={2}>
                     <Stack direction="row" gap={2} justifyContent="space-between">
                         <Typography
                            fontFamily={'Gmarket'}
@@ -292,7 +289,7 @@ export default function YourAssets() {
                             </Table>
                         </TableContainer>
                     </Box>
-                </Container>
+                
             </Box>
         </>
     );

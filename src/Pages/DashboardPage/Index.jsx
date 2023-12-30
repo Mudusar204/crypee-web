@@ -87,18 +87,10 @@ const rtransactiondata = [
 export default function Index() {
   
     return (
-        <>
+        <Box mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation />
-            <Box
-                sx={{
-                    background: `url(${dashboardbg})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: '100% 100%',
-                    backgroundPosition: 'center center',
-                    width: '100%',
-                }}
-            >
-                <Container
+           
+                <Box
                     sx={{
                         borderRadius: '15px',
                         background: 'white',
@@ -108,12 +100,12 @@ export default function Index() {
                     }}
                 >
                     <Grid container spacing={{ xs: 3, md: 5 }} px={3} py={3}>
-                        <Grid item xs={12} md={8.5}>
+                        <Grid item xs={12} lg={8.5} md={8}>
                             <Profile />
                         </Grid>
-                        <Grid item xs={12} md={3.5}>
+                        <Grid item xs={12} lg={3.5} md={4}>
                             <Box>
-                                <Stack direction="row" justifyContent="center" gap={5} mb={5}>
+                                <Stack direction="row" justifyContent="center" gap={5} py={5}>
                                 <AddwalletDropdown/>
                                     <Button
                                         variant="btn1"
@@ -121,7 +113,7 @@ export default function Index() {
                                             fontFamily: 'Poppins',
                                             fontStyle: 'normal',
                                             fontWeight: '600',
-                                            fontSize: '14px',
+                                            fontSize: {lg:'14px',xs:'12px',sm:'13px',md:'13px'},
                                             lineHeight: '24px',
                                         }}
                                     >
@@ -358,7 +350,7 @@ export default function Index() {
 
                                                 fontStyle: 'normal',
                                                 fontWeight: '500',
-                                                fontSize: '8px',
+                                                fontSize: '10px',
                                                 lineHeight: '16px',
                                                 textAlign: 'center',
                                                 color: '#333',
@@ -407,8 +399,8 @@ export default function Index() {
                             </Box>
                         </Grid>
                     </Grid>
-                </Container>
-                <Container
+                </Box>
+                <Box
                     sx={{
                         boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                         background: 'white',
@@ -420,8 +412,8 @@ export default function Index() {
                     }}
                 >
                     <YourAssets />
-                </Container>
-            </Box>
-        </>
+                </Box>
+            
+        </Box>
     );
 }

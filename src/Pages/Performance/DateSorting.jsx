@@ -215,7 +215,7 @@ const DateSorting = () => {
                 </Stack>
                 <Divider sx={{ color: '#D8EDFF', width: '100%' }}></Divider>
 
-                <Stack justifyContent={'center'} gap={'10px'} alignItems={'center'} py={10} >
+                <Stack justifyContent={'center'} gap={'10px'} alignItems={'center'} py={8} >
                     <img src={subscribe} alt="subscribe" width={'39px'}></img>
                     <Typography
                         fontSize={{ md: '24px', xs: '14px', sm: '18px' }}

@@ -85,17 +85,17 @@ const plansCard = [
 
 const SeePricing = () => {
     return (
-        <>
+        <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation />
-            <Container maxWidth="xl">
-                <Box px={{ xs: 0, md: 10 }}>
+          
+               
                     <PlansCard introDetails={introDetails} plansCard={plansCard} />
                     <ComparePlans />
                     <OffersCards plansCard={plansCard} />
-                </Box>
-            </Container>
+             
+          
             <TaxQuestion seePricingNeeded={false} />
-        </>
+        </Box>
     );
 };
 

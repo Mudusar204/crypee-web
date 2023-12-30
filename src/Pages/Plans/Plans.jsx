@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 import PlansCard from './PlansCard';
 import TaxQuestion from './TaxQuestion';
@@ -53,14 +53,11 @@ const plansCard = [
 
 const Plans = () => {
     return (
-        <>
+        <Box mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation />
-
-            <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 } }}>
                 <PlansCard plansCard={plansCard} />
-            </Container>
             <TaxQuestion seePricingNeeded={true} />
-        </>
+        </Box>
     );
 };
 

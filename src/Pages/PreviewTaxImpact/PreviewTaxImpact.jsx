@@ -8,10 +8,10 @@ import Navigation from '../../Components/Navigation';
 const PreviewTaxImpact = () => {
     const theme = useTheme();
     return (
-        <Box sx={{ background: `url(${getbg})`, height: 'auto', backgroundSize: 'cover' }}>
+        <Box  mx={{lg:7,xs:2,md:4,sm:3}} sx={{ background: `url(${getbg})`, height: 'auto', backgroundSize: 'cover' }}>
             <Navigation />
 
-            <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 }, py: 3 }}>
+           
                 <Typography
                     sx={{
                         fontSize: { md: '30px', sm: '25px', xs: '20px' },
@@ -152,7 +152,7 @@ const PreviewTaxImpact = () => {
                         your portfolio to its original state
                     </Typography>
                 </Box>
-            </Container>
+          
         </Box>
     );
 };

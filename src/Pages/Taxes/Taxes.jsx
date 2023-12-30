@@ -62,10 +62,10 @@ const Taxes = () => {
     }));
 
     return (
-        <>
+        <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation />
 
-            <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 } }}>
+         
                 <Box
                     display={'flex'}
                     alignItems={'center'}
@@ -312,8 +312,8 @@ const Taxes = () => {
 
                 {/* New component   'TaxAbleIcome' */}
                 <TaxAbleIcome />
-            </Container>
-        </>
+           
+        </Box>
     );
 };
 

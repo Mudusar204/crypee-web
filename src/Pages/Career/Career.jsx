@@ -89,10 +89,10 @@ const Career = () => {
         setAnchorEl(null);
     };
     return (
-        <Box>
+        <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation />
 
-            <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 } }}>
+        
                 <Box
                     sx={{
                         border: '2px solid #4FA9E3',
@@ -426,7 +426,7 @@ const Career = () => {
                         </Box>
                     </Container>
                 </Box>
-            </Container>
+          
         </Box>
     );
 };

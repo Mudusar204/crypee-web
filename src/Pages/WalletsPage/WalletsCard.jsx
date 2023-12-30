@@ -8,7 +8,7 @@ import wcard4 from '../../images/wallets/wcard4.png';
 
 export default function WalletsCard() {
     return (
-        <Box sx={{ px: { xs: 5, sm: 10 }, my: { xs: 5, md: 10 } }}>
+        <Box sx={{my: { xs: 5, md: 10 } }}>
             <Container maxWidth="xl">
                 <Box
                     sx={{

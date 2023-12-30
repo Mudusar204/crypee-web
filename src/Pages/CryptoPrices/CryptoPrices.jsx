@@ -175,16 +175,12 @@ const historyDetails = [
 
 const CryptoPrices = () => {
     return (
-        <>
+        <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
             <Navigation/>
-            <Container maxWidth="xl">
-                <Box px={{ xs: 0, md: 10 }}>
                     <SearchSection />
                     <CoinsPrices />
                     <CoinTable data={historyDetails} />
-                </Box>
-            </Container>
-        </>
+        </Box>
     );
 };
 

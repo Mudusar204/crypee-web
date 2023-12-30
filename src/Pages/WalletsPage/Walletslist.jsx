@@ -132,7 +132,7 @@ const handleAddWalletClick = async () => {
                 handleWallet={handleWallet}
                 handleAddWallet={handleAddWallet}
             />
-            <Container maxWidth="xl" sx={{ px: { xs: 5, sm: 10 } }}>
+            <Box >
                 <Stack direction="row" gap={5} pt={0}>
                 <Button
         variant="btn2"
@@ -308,7 +308,7 @@ const handleAddWalletClick = async () => {
                     </Box>
                   
                 </Box>
-            </Container>
+            </Box>
         </Box>
     );
 }

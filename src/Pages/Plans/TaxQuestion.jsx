@@ -45,7 +45,7 @@ const TaxQuestion = () => {
     ];
     return (
         <>
-            <Container maxWidth="lg">
+           
                 <Typography
                     color={theme.palette.text.darkblue}
                     textAlign={'center'}
@@ -84,7 +84,7 @@ const TaxQuestion = () => {
                         );
                     })}
                 </Grid>
-            </Container>
+           
 
             {/* <Box
                 sx={{

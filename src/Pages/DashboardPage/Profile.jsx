@@ -222,7 +222,7 @@ export default function Profile() {
                     </Stack>
                 </Stack>
             </Stack>
-            <Box  sx={{ boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)', borderRadius: '10px', mt: 5 ,py:6.6}}>
+            <Box  sx={{ boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)', borderRadius: '10px', mt: 5 ,py:{lg:9,xs:2,md:3,sm:2}}}>
                 <ReactEcharts
                     option={Option}
                     style={{ width: '100%', height: '400px' }}
