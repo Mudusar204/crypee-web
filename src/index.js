@@ -5,16 +5,19 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import ContextAPI from './utils/ContextAPI';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
-                <GoogleOAuthProvider clientId="800279046459-7e4h0lc55eu65dgd5jir1q64ephfkqgk.apps.googleusercontent.com">
-                    <App />
-                </GoogleOAuthProvider>
-            </BrowserRouter>
+            <ContextAPI>
+                <BrowserRouter>
+                    <GoogleOAuthProvider clientId="800279046459-7e4h0lc55eu65dgd5jir1q64ephfkqgk.apps.googleusercontent.com">
+                        <App />
+                    </GoogleOAuthProvider>
+                </BrowserRouter>
+            </ContextAPI>
         </Provider>
     </React.StrictMode>,
 );

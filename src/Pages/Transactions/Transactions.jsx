@@ -1,5 +1,5 @@
+import { useContext, useEffect, useState } from 'react';
 import { Box, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
 // import axios from 'axios';
 import usdtIcon from '../../images/usdt_icon.png';
 import ethIcon from '../../images/eth_icon.png';
@@ -11,6 +11,7 @@ import History from './History';
 import receiveIcon from '../../images/receive_icon.png';
 import { REACT_APP_BASE_URL } from '../../config';
 import useMakeToast from '../../hooks/makeToast';
+import { DataContext } from '../../utils/ContextAPI';
 const transactionDetails = [
     {
         transaction: { icon: receiveIcon, status: 'Receive', theDate: 'March 1, 2022 1:55PM' },
@@ -297,15 +298,18 @@ const transactionDetails = [
 ];
 
 // ===================Transaction===============
-export const addTransaction = async () => {
+export const addTransaction = async (limit, page) => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
-        const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getTransactions`, {
-            method: 'GET',
-            headers: {
-                Authorization: localStorageData?.user?.token,
+        const response = await fetch(
+            `${REACT_APP_BASE_URL}/api/data/getTransactions?limit=${limit}&page=${page}`,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorageData?.user?.token,
+                },
             },
-        });
+        );
 
         const result = await response.json();
         return result;
@@ -315,41 +319,56 @@ export const addTransaction = async () => {
     }
 };
 const Transactions = () => {
-const [records, setRecords] = useState([]);
-const makeToast = useMakeToast();
+    const [records, setRecords] = useState([]);
+    const [page, setPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
+    const makeToast = useMakeToast();
+    const { setLoader } = useContext(DataContext);
 
-useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const result = await addTransaction();
-        makeToast(result?.message, 'success', 3);
-        setRecords(result.data);
-      } catch (error) {
-        makeToast(error.message, 'error', 3);
-        console.error('Error fetching data:', error.message);
-      }
-    };
-  
-    const handlePageFocus = () => {
-      fetchTransactions();
-    };
-  
-    window.addEventListener('focus', handlePageFocus);
-    return () => {
-      window.removeEventListener('focus', handlePageFocus);
-    };
-  }, []); 
-  
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                setLoader(true);
+                const result = await addTransaction(rowsPerPage, page);
+                console.log(result, '-=-=-=-result');
+                makeToast(result?.message, 'success', 3);
+                setTotalPages(result?.data?.numberOfPages);
+                setRecords(result?.data?.transactions);
+                setLoader(false);
+            } catch (error) {
+                setLoader(false);
+                makeToast(error.message, 'error', 3);
+                console.error('Error fetching data:', error.message);
+            }
+        };
+
+        // const handlePageFocus = () => {};
+        fetchTransactions();
+
+        // window.addEventListener('focus', handlePageFocus);
+        // return () => {
+        //     window.removeEventListener('focus', handlePageFocus);
+        // };
+    }, [page, rowsPerPage]);
 
     return (
         <>
-           <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
-           <Navigation />
-           <Sorting />
-           <History forTransactionsPage={true} historyDetails={records} />
-           </Box>
-               
-            
+            <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
+                <Navigation />
+                <Sorting />
+                <History
+                    forTransactionsPage={true}
+                    historyDetails={records}
+                    // historyDetails={transactionDetails}
+                    // total pages count remain to pass as params
+                    totalPages={totalPages}
+                    page={page}
+                    setPage={setPage}
+                    rowsPerPage={rowsPerPage}
+                    setRowsPerPage={setRowsPerPage}
+                />
+            </Box>
         </>
     );
 };

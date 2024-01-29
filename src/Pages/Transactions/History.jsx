@@ -17,9 +17,8 @@ import {
 import { styled } from '@mui/material/styles';
 import { url } from '../../URL';
 
-
 import sendIcon from '../../images/send_icon.png';
-import receiveIcon from '../../images/receive_icon.png'
+import receiveIcon from '../../images/receive_icon.png';
 // import ethIcon from '../../images/eth_icon.png';
 // import usdtIcon from '../../images/usdt_icon.png';
 
@@ -30,10 +29,16 @@ const icons = {
     // usdtIcon: usdtIcon,
 };
 
-const History = ({ historyDetails, forTransactionsPage }) => {
+const History = ({
+    historyDetails,
+    forTransactionsPage,
+    totalPages,
+    page,
+    setPage,
+    rowsPerPage,
+    setRowsPerPage,
+}) => {
     const theme = useTheme();
-    const [page, setPage] = useState(1);
-    const rowsPerPage = 5;
 
     const isMobile = useMediaQuery('(max-width: 900px)');
 
@@ -79,12 +84,11 @@ const History = ({ historyDetails, forTransactionsPage }) => {
         setPage(newPage);
     };
 
-    const itemsPerPage = 5;
-    const startIndex = (page - 1) * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
-    const displayedHistoryDetails = historyDetails.slice(startIndex, endIndex);
-    const totalRows = historyDetails.length;
-    const totalPages = Math.ceil(totalRows / itemsPerPage);
+    // const startIndex = (page - 1) * rowsPerPage;
+    // const endIndex = startIndex + rowsPerPage;
+    // const displayedHistoryDetails = historyDetails?.slice(startIndex, endIndex);
+    // const totalRows = historyDetails?.length;
+    // const totalPages = Math.ceil(totalRows / rowsPerPage);
 
     return (
         <>
@@ -94,10 +98,9 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                         <TableHead
                             sx={{
                                 boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
-                                border:'2px solid #E7F4FF',
-                                borderRadius:'15px',
-                                background:'white',
-                                
+                                border: '2px solid #E7F4FF',
+                                borderRadius: '15px',
+                                background: 'white',
                             }}
                         >
                             <TableRow
@@ -187,7 +190,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                     fontWeight: 600,
                                                                 }}
                                                             >
-                                                                {item.transaction.status}
+                                                                {item.transaction?.status}
                                                             </Typography>
                                                             <Typography
                                                                 sx={{
@@ -198,7 +201,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                     },
                                                                 }}
                                                             >
-                                                                {item.transaction.theDate}
+                                                                {item.transaction?.theDate}
                                                             </Typography>
                                                         </Box>
                                                     </Stack>
@@ -223,12 +226,12 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                         },
                                                                     }}
                                                                 >
-                                                                    {item.outgoing.coin}
+                                                                    {item.outgoing?.coin}
                                                                 </Typography>
                                                             </Stack>
                                                         </Box>
                                                         <img
-                                                            src={icons[item.outgoing.icon]}
+                                                            src={icons[item.outgoing?.icon]}
                                                             alt=""
                                                         />
                                                     </Stack>
@@ -245,7 +248,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                         <img
                                                             width={40}
                                                             height={40}
-                                                            src={icons[item.coin.icon]}
+                                                            src={icons[item.coin?.icon]}
                                                             alt="icon"
                                                         />
                                                         <Box>
@@ -258,7 +261,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                     fontWeight: 600,
                                                                 }}
                                                             >
-                                                                {item.coin.short}
+                                                                {item.coin?.short}
                                                             </Typography>
                                                             <Typography
                                                                 sx={{
@@ -269,7 +272,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                     },
                                                                 }}
                                                             >
-                                                                {item.coin.coinName}
+                                                                {item.coin?.coinName}
                                                             </Typography>
                                                         </Box>
                                                     </Stack>
@@ -280,8 +283,8 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                         color: '#585858',
                                                     }}
                                                 >
-                                                    {item.price.currency}
-                                                    {item.price.value}
+                                                    {item.price?.currency}
+                                                    {item.price?.value}
                                                 </StyledCell>
 
                                                 <StyledCell>
@@ -299,7 +302,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                         : `${theme.palette.background.redColor}`,
                                                             }}
                                                         >
-                                                            {item.oneDayChange}%
+                                                            {item?.oneDayChange}%
                                                         </Typography>
                                                     </Box>
                                                 </StyledCell>
@@ -360,7 +363,7 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                         <TableBody
                             sx={{
                                 bgcolor: 'white',
-                                boxShadow:'0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
+                                boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
                                 '&:last-of-type tr:last-of-type td:first-of-type': {
                                     borderBottomLeftRadius: '17px',
                                 },
@@ -372,14 +375,15 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                 },
                             }}
                         >
-                            {displayedHistoryDetails.map((item, i) => {
+                            {historyDetails?.map((item, i) => {
                                 console.log(
-                                    url + item.incoming.icon,
-
+                                    url + item.incoming?.icon,
                                     'item.incoming.icon',
-                                    url + item.outgoing.icon,
+                                    url + item.outgoing?.icon,
                                     'item.outgoing.icon',
                                 );
+                                let date = new Date(item?.completeTime).toLocaleDateString();
+                                let time = new Date(item?.completeTime).toLocaleTimeString();
                                 return (
                                     <TableRow key={i}>
                                         {forTransactionsPage ? (
@@ -390,21 +394,39 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                         alignItems={'center'}
                                                         gap={2}
                                                     >
-                                                        {item.transaction.status?.toLowerCase() ===
-                                                        'receive' ? (
+                                                        {['in', 'deposit', 'buy'].includes(
+                                                            item.txType?.toLowerCase(),
+                                                        ) ? (
                                                             <img
                                                                 width={25}
                                                                 height={25}
                                                                 src={receiveIcon}
                                                                 alt="icon"
                                                             />
-                                                        ) : (
+                                                        ) : ['out', 'withdrawal', 'sell'].includes(
+                                                              item.txType?.toLowerCase(),
+                                                          ) ? (
                                                             <img
                                                                 width={25}
                                                                 height={25}
                                                                 src={sendIcon}
                                                                 alt="icon"
                                                             />
+                                                        ) : (
+                                                            <>
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={sendIcon}
+                                                                    alt="icon"
+                                                                />
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={receiveIcon}
+                                                                    alt="icon"
+                                                                />
+                                                            </>
                                                         )}
                                                         <Box>
                                                             <Typography
@@ -417,11 +439,10 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                     fontWeight: 600,
                                                                 }}
                                                             >
-                                                                {item.transaction.status}
+                                                                {item?.txType}
                                                             </Typography>
-                                                            <Typography>
-                                                                {item.transaction.theDate}
-                                                            </Typography>
+                                                            <Typography>{date}</Typography>
+                                                            <Typography>{time}</Typography>
                                                         </Box>
                                                     </Stack>
                                                 </StyledCell>
@@ -438,20 +459,28 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                             />
                                                         )} */}
                                                         <Box>
-                                                            <Stack>
+                                                            <Stack
+                                                                direction={'row'}
+                                                                alignItems={'center'}
+                                                            >
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.inCoinId}.png`}
+                                                                    alt="icon"
+                                                                />
                                                                 <Typography
                                                                     sx={{ fontWeight: 700 }}
                                                                 >
-                                                                    {item.outgoing.coin}
+                                                                    {item?.inAmount}{' '}
+                                                                    {item?.inCurrency}
                                                                 </Typography>
-                                                                <span>{item.outgoing.inUsd}</span>
                                                             </Stack>
-                                                            <Typography>
-                                                                {item.outgoing.address}
-                                                            </Typography>
-                                                            <Box sx={{ pt: '1em' }}>
+                                                            <span>(${item?.inAmountInUSD})</span>
+                                                            <Typography>{item?.symbol}</Typography>
+                                                            {/* <Box sx={{ pt: '1em' }}>
                                                                 <Typography>
-                                                                    {item.outgoing.costBasis}
+                                                                    {item.outgoing?.costBasis}
                                                                 </Typography>
                                                                 <Typography
                                                                     sx={{
@@ -459,41 +488,45 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                                         color: '#5BBFFF',
                                                                     }}
                                                                 >
-                                                                    {item.outgoing.gain}
+                                                                    {item.outgoing?.gain}
                                                                 </Typography>
-                                                            </Box>
+                                                            </Box> */}
                                                         </Box>
                                                     </Stack>
                                                 </StyledCell>
                                                 <StyledCell>
                                                     <Stack
-                                                        alignItems={'start'}
+                                                        alignItems={'center'}
                                                         direction={'row'}
                                                         gap={2}
                                                     >
                                                         {/* {item.incoming.icon && (
-                                                            <img
-                                                                src={`${url + item.incoming.icon}`}
-                                                                alt={url + item.incoming.icon}
-                                                            />
                                                         )} */}
                                                         <Box>
-                                                            <Stack>
+                                                            <Stack
+                                                                direction={'row'}
+                                                                alignItems={'center'}
+                                                            >
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
+                                                                    alt="icon"
+                                                                />
                                                                 <Typography
                                                                     sx={{ fontWeight: 700 }}
                                                                 >
-                                                                    {item.incoming.coin}
+                                                                    {item?.outAmount}{' '}
+                                                                    {item?.outCurrency}
                                                                 </Typography>
-                                                                <span>{item.incoming.inUsd}</span>
                                                             </Stack>
-                                                            <Typography>
-                                                                {item.incoming.address}
-                                                            </Typography>
-                                                            <Box sx={{ pt: '1em' }}>
+                                                            <span>${item?.outAmountInUSD}</span>
+                                                            <Typography>{item?.symbol}</Typography>
+                                                            {/* <Box sx={{ pt: '1em' }}>    
                                                                 <Typography>
-                                                                    {item.incoming.costBasis}
+                                                                    {item.incoming?.costBasis}
                                                                 </Typography>
-                                                            </Box>
+                                                            </Box> */}
                                                         </Box>
                                                     </Stack>
                                                 </StyledCell>
@@ -501,13 +534,19 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                                                     <Box>
                                                         <Stack>
                                                             <Typography sx={{ fontWeight: 700 }}>
-                                                                {item.fee.fee}
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
+                                                                    alt="icon"
+                                                                />
+                                                                {item?.fee}
                                                             </Typography>
-                                                            <span>{item.fee.inUsd}</span>
+                                                            <span>${item.feeInUSD}</span>
                                                         </Stack>
                                                         <Box sx={{ pt: '1em' }}>
                                                             <Typography>
-                                                                {item.fee.costBasis}
+                                                                {item.fee?.costBasis}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
@@ -570,7 +609,8 @@ const History = ({ historyDetails, forTransactionsPage }) => {
                             defaultPage={1}
                             page={page}
                             onChange={handleChangePage}
-                            labelrowsperpage=""
+                            labelrowsperpage="10"
+                            boundaryCount={1}
                         />
                     </PaginationWrapper>
                 </TableContainer>
