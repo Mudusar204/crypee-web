@@ -1,56 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Stack, Typography } from '@mui/material';
 import ReactEcharts from 'echarts-for-react';
-import { graphic } from 'echarts';
+import { graphic, use } from 'echarts';
 
-const Option = {
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['Jun2021', 'Oct2021', 'Feb2022', 'Jun2021', 'Oct2021', 'Feb2022'],
-    },
-    yAxis: {
-        type: 'value',
-        splitLine: {
-            show: true,
-            lineStyle: { color: 'gray', type: 'dashed', opacity: '0.2' },
-        },
-        axisLabel: {
-            formatter: (value) => `PKR ${value / 1e6}M`,
-        },
-    },
-    series: [
-        {
-            type: 'line',
-            symbol: 'none',
-            itemStyle: {
-                color: '#307BAB',
-            },
-            areaStyle: {
-                color: new graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                        offset: 0,
-                        color: '#3C97D0',
-                    },
-                    {
-                        offset: 1,
-                        color: '#ffffff',
-                    },
-                ]),
-            },
-            data: [0, 10e6, 4e6,30e6, 15e6, 20e6,3e6,20e6,12e6,20e6],
-            tooltip: {
-                formatter: (params) => `PKR ${params.value / 1e6}M`,
-            },
-        },
-    ],
-};
-
-
-export default function Profile() {
+export default function Profile({ data }) {
     const [time, settime] = useState(0);
+    const [date, setDate] = useState([]);
+    const [value, setValue] = useState([]);
+
+    useEffect(() => {
+        let timeArray = [];
+        let valueArray = [];
+        for (let i = 0; i < data.length; i++) {
+            timeArray.push(data[i]?.date.split('T')[0]);
+            valueArray.push(data[i]?.balance);
+        }
+        console.log(timeArray, valueArray, 'Profile data');
+        setDate(timeArray);
+        setValue(valueArray);
+    }, [data]);
+
+    const Option = {
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: date,
+        },
+        yAxis: {
+            type: 'value',
+            min: {
+                value: 0,
+            },
+            splitLine: {
+                show: true,
+                lineStyle: { color: 'gray', type: 'dashed', opacity: '0.2' },
+            },
+            axisLabel: {
+                formatter: (value) => `$ ${value}`,
+            },
+        },
+        series: [
+            {
+                type: 'line',
+                symbol: 'none',
+                itemStyle: {
+                    color: '#307BAB',
+                },
+                areaStyle: {
+                    color: new graphic.LinearGradient(0, 0, 0, 1, [
+                        {
+                            offset: 0,
+                            color: '#3C97D0',
+                        },
+                        {
+                            offset: 1,
+                            color: '#ffffff',
+                        },
+                    ]),
+                },
+                data: value,
+                tooltip: {
+                    formatter: (params) => `$ ${params.value}`,
+                },
+            },
+        ],
+    };
+
     return (
-        <Box >
+        <Box>
             <Stack direction="row" flexWrap="wrap" justifyContent="space-between" gap={3}>
                 <Typography
                     sx={{
@@ -222,13 +239,19 @@ export default function Profile() {
                     </Stack>
                 </Stack>
             </Stack>
-            <Box  sx={{ boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)', borderRadius: '10px', mt: 5 ,py:{lg:9,xs:2,md:3,sm:2}}}>
+            <Box
+                sx={{
+                    boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)',
+                    borderRadius: '10px',
+                    mt: 5,
+                    py: { lg: 9, xs: 2, md: 3, sm: 2 },
+                }}
+            >
                 <ReactEcharts
                     option={Option}
                     style={{ width: '100%', height: '400px' }}
                 ></ReactEcharts>
             </Box>
-         
         </Box>
     );
 }

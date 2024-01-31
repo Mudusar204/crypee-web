@@ -130,7 +130,7 @@ const Login = () => {
             if (response?.data?.status == 'success') {
                 // const message = response?.data?.message ? response?.data?.message : 'Some thing went Wrong';
                 // makeToast(`${message}`, 'success', 3);
-                local.set('refreshToken-dai214', response?.data?.refreshToken, 1);
+                localStorage.set('presistMe', response?.data?.refreshToken, 1);
                 dispatch(
                     setUserData({
                         accessToken: response?.data?.accessToken,
