@@ -1,11 +1,4 @@
-import {
-    Typography,
-    Button,
-    Stack,
-    ButtonGroup,
-    Box,
-  
-} from '@mui/material';
+import { Typography, Button, Stack, ButtonGroup, Box } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 // import pastdayBg from '../../images/pastday_bg.png';
@@ -16,12 +9,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { SortByNewest, UnrealizedPerformanceDropdown } from '../../Components/DropdownMenus';
 import Profile from '../DashboardPage/Profile';
 import { DateRange, Share } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../../config';
 
 // import costbasis from '../../images/costbasis.png';
 // import upicon from '../../images/upicon.png';
 // import note from '../../images/note.png';
 // import dollar from '../../images/dollar.png';
-
 
 // const balanceDetails = [
 //     {
@@ -54,6 +49,25 @@ const performances = ['Unrealized Performance', 'Total Performance'];
 const sortByNewest = ['Newest', 'Oldest'];
 
 const Pastdatesorting = () => {
+    const [graphData, setGraphData] = useState([]);
+    const fetchData = async () => {
+        try {
+            const refreshToken = localStorage.getItem('persistMe')
+                ? JSON.parse(localStorage.getItem('persistMe'))
+                : null;
+            let response = await axios.get(`${REACT_APP_BASE_URL}/api/data/getPortfolio`, {
+                headers: {
+                    Authorization: refreshToken?.user?.token,
+                },
+            });
+            setGraphData(response.data?.data?.graphData);
+        } catch (error) {
+            console.log(error?.response?.data);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -150,9 +164,8 @@ const Pastdatesorting = () => {
                 py={5}
                 px={5}
             >
-                <Profile />
+                <Profile data={graphData} />
             </Box>
-
         </>
     );
 };

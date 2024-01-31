@@ -75,7 +75,6 @@ export default function YourAssets({ data }) {
         const handleData = async () => {
             let assetArray = [];
             for (let [key, value] of Object.entries(data)) {
-                console.log(key, value);
                 assetArray.push({
                     name: key,
                     data: value,

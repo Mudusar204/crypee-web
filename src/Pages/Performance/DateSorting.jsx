@@ -14,46 +14,90 @@ import costbasis from '../../images/costbasis.png';
 import upicon from '../../images/upicon.png';
 import note from '../../images/note.png';
 import dollar from '../../images/dollar.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import subscribe from '../../images/subscribe.png';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../../config';
 
-const balanceDetails = [
-    {
-        img: returnBg,
-        title: 'Unrealized Return',
-        price: ' 0.00',
-        icon: upicon,
-    },
-    {
-        img: pastdayBg,
-        title: 'Past Day',
-        price: ' 0.00',
-        icon: note,
-    },
-    {
-        img: costBasisBg,
-        title: 'Cost Basis',
-        price: ' 0.00',
-        icon: costbasis,
-    },
-    {
-        img: netFiatBg,
-        title: 'Net Fiat Invested',
-        price: ' 0.00',
-        icon: dollar,
-    },
-];
+// const balanceDetails = [
+//     {
+//         img: returnBg,
+//         title: 'Unrealized Return',
+//         price: ' 0.00',
+//         icon: upicon,
+//     },
+//     {
+//         img: pastdayBg,
+//         title: 'Past Day',
+//         price: ' 0.00',
+//         icon: note,
+//     },
+//     {
+//         img: costBasisBg,
+//         title: 'Cost Basis',
+//         price: ' 0.00',
+//         icon: costbasis,
+//     },
+//     {
+//         img: netFiatBg,
+//         title: 'Net Fiat Invested',
+//         price: ' 0.00',
+//         icon: dollar,
+//     },
+// ];
 
 const performances = ['Unrealized Performance', 'Total Performance'];
 
-
 const DateSorting = () => {
     const [time, settime] = useState(0);
+    const [balanceDetails, setBalanceDetails] = useState([]);
     const navigate = useNavigate();
+
+    const fetchData = async () => {
+        try {
+            const refreshToken = localStorage.getItem('persistMe')
+                ? JSON.parse(localStorage.getItem('persistMe'))
+                : null;
+            let response = await axios.get(`${REACT_APP_BASE_URL}/api/data/getPortfolio`, {
+                headers: {
+                    Authorization: refreshToken?.user?.token,
+                },
+            });
+            console.log(response.data, 'response.data');
+            setBalanceDetails([
+                {
+                    title: 'Unrealized Return',
+                    price: response?.data?.data?.unrealizedReturn.toFixed(4),
+                },
+                {
+                    title: 'Net Cost',
+                    price: response?.data?.data?.netCost.toFixed(4),
+                },
+                {
+                    title: 'Net Proceeds',
+                    price: response?.data?.data?.netProceeds.toFixed(4),
+                },
+                {
+                    title: 'Gains',
+                    price: response?.data?.data?.gains.toFixed(4),
+                },
+                {
+                    title: 'balance',
+                    price: response?.data?.data?.balance.toFixed(4),
+                },
+            ]);
+        } catch (error) {
+            console.log(error, 'error');
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const handleSubscriptionPlans = () => {
-        navigate('/subscription')
-      };
+        navigate('/subscription');
+    };
     return (
         <>
             <Stack
@@ -62,10 +106,10 @@ const DateSorting = () => {
                 alignItems={'center'}
             >
                 <Typography
-                my={2}
+                    my={2}
                     color="text.darkblue"
                     sx={{
-                         fontFamily: 'Gmarket',
+                        fontFamily: 'Gmarket',
                         fontWeight: 800,
                         fontSize: { xs: '1.687rem', md: '1.875rem' },
                         textTransform: 'uppercase',
@@ -85,20 +129,21 @@ const DateSorting = () => {
                         sx={{
                             width: { xs: '140px', sm: 'unset' },
                             height: { xs: '26px', sm: 'unset' },
-                            
                         }}
-                       
                     >
                         <Button
-                            sx={{ fontSize: { xs: '7.4px', sm: '13px' },color:'#0B7BC3' }}
+                            sx={{ fontSize: { xs: '7.4px', sm: '13px' }, color: '#0B7BC3' }}
                             endIcon={<DateRange />}
                         >
                             Date
                         </Button>
-                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } ,color:'#0B7BC3'}}>
+                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' }, color: '#0B7BC3' }}>
                             All Time <ArrowDropDownIcon />
                         </Button>
-                        <Button sx={{ fontSize: { xs: '7.4px', sm: '13px' } ,color:'#0B7BC3'}} endIcon={<Share />}>
+                        <Button
+                            sx={{ fontSize: { xs: '7.4px', sm: '13px' }, color: '#0B7BC3' }}
+                            endIcon={<Share />}
+                        >
                             Share
                         </Button>
                     </ButtonGroup>
@@ -114,9 +159,10 @@ const DateSorting = () => {
                 align="center"
                 justifyContent={'space-evenly'}
             >
-                {balanceDetails.map((item, i) => {
+                {balanceDetails?.map((item, i) => {
+                    console.log(item, 'item');
                     return (
-                        <Grid sx={{ my: '1em' }} key={i} item lg={2.5} md={4} sm={6} xs={12}>
+                        <Grid sx={{ my: '1em' }} key={i} item lg={2.2} md={2.5} sm={6} xs={12}>
                             <Box
                                 sx={{
                                     background: 'white',
@@ -131,7 +177,7 @@ const DateSorting = () => {
                                     py: 2,
                                 }}
                             >
-                                <img src={item.icon} alt="icon" width="56px"></img>
+                                {/* <img src={item.icon} alt="icon" width="56px"></img> */}
 
                                 <Typography
                                     fontWeight={500}
@@ -157,7 +203,6 @@ const DateSorting = () => {
             </Grid>
 
             <Box
-          
                 sx={{
                     borderRadius: '15px',
                     boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.05)',
@@ -166,7 +211,6 @@ const DateSorting = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    
                 }}
             >
                 <Stack
@@ -184,14 +228,20 @@ const DateSorting = () => {
                             fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '700',
-                            fontSize: { xs: '18px', lg: '32px',sm:'22px',md:'30px' },
+                            fontSize: { xs: '18px', lg: '32px', sm: '22px', md: '30px' },
                             lineHeight: '24px',
                             color: '#0B7BC4',
                         }}
                     >
                         Your Portfolio
                     </Typography>
-                    <Stack direction="row" gap={1} alignItems="center" fontSize={'12px'} overflow={'auto'}>
+                    <Stack
+                        direction="row"
+                        gap={1}
+                        alignItems="center"
+                        fontSize={'12px'}
+                        overflow={'auto'}
+                    >
                         {['1D', '1W', '1M', '3M', '1Y', 'All'].map((val, i) => (
                             <Button
                                 key={i}
@@ -215,7 +265,7 @@ const DateSorting = () => {
                 </Stack>
                 <Divider sx={{ color: '#D8EDFF', width: '100%' }}></Divider>
 
-                <Stack justifyContent={'center'} gap={'10px'} alignItems={'center'} py={8} >
+                <Stack justifyContent={'center'} gap={'10px'} alignItems={'center'} py={8}>
                     <img src={subscribe} alt="subscribe" width={'39px'}></img>
                     <Typography
                         fontSize={{ md: '24px', xs: '14px', sm: '18px' }}
@@ -235,20 +285,18 @@ const DateSorting = () => {
                         for timeframes other than all.
                     </Typography>
                     <Button
-                    onClick={handleSubscriptionPlans}
-                    sx={{
-                        
-                        background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
-                        color: 'white',
-                        borderRadius: '6px',
-                        my:3,
-                        py:1
-                    }}
-                >
-                    Choose Subscription Plan
-                </Button>
+                        onClick={handleSubscriptionPlans}
+                        sx={{
+                            background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
+                            color: 'white',
+                            borderRadius: '6px',
+                            my: 3,
+                            py: 1,
+                        }}
+                    >
+                        Choose Subscription Plan
+                    </Button>
                 </Stack>
-              
             </Box>
         </>
     );

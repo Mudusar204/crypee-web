@@ -11,11 +11,11 @@ export default function Profile({ data }) {
     useEffect(() => {
         let timeArray = [];
         let valueArray = [];
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data?.length; i++) {
             timeArray.push(data[i]?.date.split('T')[0]);
             valueArray.push(data[i]?.balance);
+            console.log();
         }
-        console.log(timeArray, valueArray, 'Profile data');
         setDate(timeArray);
         setValue(valueArray);
     }, [data]);
