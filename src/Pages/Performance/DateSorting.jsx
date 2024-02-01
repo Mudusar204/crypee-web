@@ -68,23 +68,23 @@ const DateSorting = () => {
             setBalanceDetails([
                 {
                     title: 'Unrealized Return',
-                    price: response?.data?.data?.unrealizedReturn.toFixed(4),
+                    price: response?.data?.data?.unrealizedReturn?.toFixed(4),
                 },
                 {
                     title: 'Net Cost',
-                    price: response?.data?.data?.netCost.toFixed(4),
+                    price: response?.data?.data?.netCost?.toFixed(4),
                 },
                 {
                     title: 'Net Proceeds',
-                    price: response?.data?.data?.netProceeds.toFixed(4),
+                    price: response?.data?.data?.netProceeds?.toFixed(4),
                 },
                 {
                     title: 'Gains',
-                    price: response?.data?.data?.gains.toFixed(4),
+                    price: response?.data?.data?.gains?.toFixed(4),
                 },
                 {
                     title: 'balance',
-                    price: response?.data?.data?.balance.toFixed(4),
+                    price: response?.data?.data?.balance?.toFixed(4),
                 },
             ]);
         } catch (error) {
@@ -193,7 +193,7 @@ const DateSorting = () => {
                                         fontSize={'20px'}
                                         fontWeight={700}
                                     >
-                                        PKR{item.price}
+                                        ${item.price}
                                     </Typography>
                                 </Typography>
                             </Box>
