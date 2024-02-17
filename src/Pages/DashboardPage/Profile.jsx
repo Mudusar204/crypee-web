@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Card, Stack, Typography } from '@mui/material';
 import ReactEcharts from 'echarts-for-react';
 import { graphic, use } from 'echarts';
+import { DataContext } from '../../utils/ContextAPI';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../../config';
 
 export default function Profile({ data }) {
     const [time, settime] = useState(0);
     const [date, setDate] = useState([]);
     const [value, setValue] = useState([]);
+    const [profile, setProfile] = useState();
+    const { setLoader } = useContext(DataContext);
 
     useEffect(() => {
         let timeArray = [];
@@ -19,6 +24,30 @@ export default function Profile({ data }) {
         setDate(timeArray);
         setValue(valueArray);
     }, [data]);
+
+    const fetchProfile = async () => {
+        try {
+            setLoader(true);
+            const refreshToken = localStorage.getItem('persistMe')
+                ? JSON.parse(localStorage.getItem('persistMe'))
+                : null;
+            let response = await axios.get(`${REACT_APP_BASE_URL}/api/data/getPortfolio`, {
+                headers: {
+                    Authorization: refreshToken?.user?.token,
+                },
+            });
+            // console.log(response.data.data, 'response.data');
+            setProfile(response.data?.data);
+
+            setLoader(false);
+        } catch (error) {
+            setLoader(false);
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        fetchProfile();
+    }, []);
 
     const Option = {
         xAxis: {
@@ -81,7 +110,7 @@ export default function Profile({ data }) {
                 >
                     Your Portfolio
                 </Typography>
-                <Stack direction="row" gap={1} alignItems="center" overflow={'auto'}>
+                {/* <Stack direction="row" gap={1} alignItems="center" overflow={'auto'}>
                     {['1D', '1W', '1M', '3M', '1Y', 'All'].map((val, i) => (
                         <Button
                             key={i}
@@ -101,7 +130,7 @@ export default function Profile({ data }) {
                             {val}
                         </Button>
                     ))}
-                </Stack>
+                </Stack> */}
             </Stack>
             <Stack direction="row" gap={{ xs: 2, md: 3 }} alignItems="center" mt={{ xs: 3, md: 7 }}>
                 <Typography
@@ -109,89 +138,17 @@ export default function Profile({ data }) {
                         fontFamily: 'Poppins',
                         fontStyle: 'normal',
                         fontWeight: '700',
-                        fontSize: { xs: '18px', sm: '24px', md: '38px' },
+                        fontSize: { xs: '18px', sm: '24px', md: '32px' },
                         lineHeight: '24px',
                         color: '#0B7BC4',
+                        display: 'flex',
+                        alignItems: 'center',
                     }}
                 >
-                    <sup>$</sup>556,701
+                    <sup>$</sup>
+                    {profile?.balance.toFixed(2)}
                 </Typography>
-                <Typography
-                    sx={{
-                        fontFamily: 'Poppins',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: { xs: '10px', md: '16px' },
-                        lineHeight: '24px',
-                        minWidth: { xs: '25px', md: '55px' },
-                        bgcolor: '#0B7BC4',
-                        color: 'white',
-                        borderRadius: '5px',
-                        padding: '5px 10px',
-                    }}
-                >
-                    -39.23%
-                </Typography>
-                <Typography
-                    sx={{
-                        fontFamily: 'Poppins',
-                        fontStyle: 'normal',
-                        fontWeight: '600',
-                        fontSize: { xs: '12px', md: '14px' },
-                        lineHeight: '24px',
-                        color: '#0B7BC4',
-                    }}
-                >
-                    -359,318 PKR
-                </Typography>
-            </Stack>
-            <Stack
-                mt={5}
-                gap={3}
-                direction="row"
-                flexWrap="wrap"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <Typography
-                        sx={{
-                            color: '#474747',
-                            fontFamily: 'Poppins',
-                            fontStyle: 'normal',
-                            fontWeight: '600',
-                            fontSize: '12px',
-                        }}
-                    >
-                        Change(1D)
-                    </Typography>
-                    <Typography
-                        sx={{
-                            fontFamily: 'Poppins',
-                            fontStyle: 'normal',
-                            fontWeight: '600',
-                            fontSize: '10px',
-                            padding: '5px 10px',
-                            bgcolor: '#0B7BC4',
-                            color: 'white',
-                            borderRadius: '5px',
-                        }}
-                    >
-                        +7.10%
-                    </Typography>
-                    <Typography
-                        sx={{
-                            color: '#474747',
-                            fontFamily: 'Poppins',
-                            fontStyle: 'normal',
-                            fontWeight: '600',
-                            fontSize: '12px',
-                        }}
-                    >
-                        +36917.62PKR
-                    </Typography>
-                </Stack>
-                <Stack direction="row" flexWrap="wrap" gap={2} alignItems="center">
+                <Stack direction="row" flexWrap="wrap" gap={2} alignItems="center" ml="auto">
                     <Stack direction="row" gap={2} alignItems="center">
                         <Box
                             sx={{
@@ -199,8 +156,15 @@ export default function Profile({ data }) {
                                 height: '25px',
                                 background: 'linear-gradient(180deg, #0B7BC4 0%, #5BACDE 100%)',
                                 borderRadius: '10px',
+                                color: '#fff',
+                                p: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}
-                        ></Box>
+                        >
+                            {profile?.netProceeds}
+                        </Box>
                         <Typography
                             sx={{
                                 color: '#0B7BC4',
@@ -222,8 +186,15 @@ export default function Profile({ data }) {
                                 background:
                                     'linear-gradient(0deg, rgba(250,248,252,0.966) 0%, rgba(112,112,112,1) 100%)',
                                 borderRadius: '10px',
+                                color: '#fff',
+                                p: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}
-                        ></Box>
+                        >
+                            {profile?.netCost}
+                        </Box>
                         <Typography
                             sx={{
                                 color: '#0B7BC4',
@@ -234,11 +205,12 @@ export default function Profile({ data }) {
                                 lineHeight: '24px',
                             }}
                         >
-                            Net deposits
+                            Net cost
                         </Typography>
                     </Stack>
                 </Stack>
             </Stack>
+
             <Box
                 sx={{
                     boxShadow: '0px 0px 25px 0px rgba(0, 0, 0, 0.05)',

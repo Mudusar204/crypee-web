@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Box, Button, Container, Grid, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import useMakeToast from '../../hooks/makeToast';
 import { DataContext } from '../../utils/ContextAPI';
 import { AddwalletDropdown } from '../../Components/DropdownMenus';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '../../config';
 
 const data = [
     {
@@ -76,6 +78,7 @@ export default function Walletslist() {
     const [addWallet, setAddWallet] = useState(false);
     const [syncData, setsyncData] = useState(null);
     const [walletData, setwalletData] = useState([]);
+    const [profile, setProfile] = useState();
     const { setLoader } = useContext(DataContext);
 
     const handleSyncWalletClick = async () => {
@@ -122,6 +125,31 @@ export default function Walletslist() {
     const handleAddWallet = () => {
         setAddWallet((preState) => !preState);
     };
+
+    // =================profile====================
+    const fetchProfile = async () => {
+        try {
+            setLoader(true);
+            const refreshToken = localStorage.getItem('persistMe')
+                ? JSON.parse(localStorage.getItem('persistMe'))
+                : null;
+            let response = await axios.get(`${REACT_APP_BASE_URL}/api/data/getPortfolio`, {
+                headers: {
+                    Authorization: refreshToken?.user?.token,
+                },
+            });
+            // console.log(response.data.data, 'response.data');
+            setProfile(response.data?.data);
+
+            setLoader(false);
+        } catch (error) {
+            setLoader(false);
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        fetchProfile();
+    }, []);
 
     return (
         <Box>
@@ -170,49 +198,18 @@ export default function Walletslist() {
                         gap={2}
                         mb={5}
                     >
-                        <Stack mb={3} direction="row" gap={{ xs: 2, md: 5 }} flexWrap="wrap">
-                            <Box>
-                                <Box
-                                    sx={{
-                                        fontFamily: 'Gmarket',
-                                        fontStyle: 'normal',
-                                        fontWeight: '600',
-                                        fontSize: { xs: '14px', sm: '17px' },
-                                        lineHeight: '18px',
-                                        color: ' var(--Text-Black, #333)',
-                                    }}
-                                >
-                                    Ethereum Wallet ...0e85ea
-                                </Box>
-                                <Box
-                                    sx={{
-                                        fontFamily: 'Gmarket',
-                                        fontStyle: 'normal',
-                                        fontWeight: '400',
-                                        fontSize: '10px',
-                                        lineHeight: '18px',
-                                        color: ' var(--Text-Black, #333)',
-                                    }}
-                                >
-                                    Updated 17 hours ago
-                                </Box>
-                            </Box>
-                            <Box
-                                sx={{
-                                    fontFamily: 'Gmarket',
-                                    fontStyle: 'normal',
-                                    fontWeight: '500',
-                                    fontSize: '15px',
-                                    lineHeight: '18px',
-                                    color: '#0D6BA8',
-                                    display: 'flex',
-                                    gap: 1,
-                                    alignItems: 'start',
-                                }}
-                            >
-                                <img src={nft} alt="" /> NFT center
-                            </Box>
-                        </Stack>
+                        <Box
+                            sx={{
+                                fontFamily: 'Gmarket',
+                                fontStyle: 'normal',
+                                fontWeight: '600',
+                                fontSize: { xs: '14px', sm: '17px' },
+                                lineHeight: '18px',
+                                color: ' var(--Text-Black, #333)',
+                            }}
+                        >
+                            Wallet Exchanges
+                        </Box>
                         <Box
                             sx={{
                                 fontFamily: 'Gmarket',
@@ -225,67 +222,89 @@ export default function Walletslist() {
                                 alignItems: 'center',
                             }}
                         >
-                            PKR528,325.22 <ArrowDropDownIcon />
+                            {profile?.balance}
                         </Box>
                     </Stack>
                     <Box sx={{ background: '#F9FCFF', borderRadius: '10px', px: 2 }}>
                         <Grid container spacing={5}>
-                            {walletData.map((item, i) => (
-                                <Grid key={i} item xs={12} md={6}>
-                                    <Stack
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        alignItems="center"
-                                        width={{ xs: '100%', md: '80%' }}
-                                    >
-                                        <Stack direction="row" gap={1}>
+                            {walletData?.length > 0 ? (
+                                walletData.map((item, i) => (
+                                    <Grid key={i} item xs={12} md={6}>
+                                        <Stack
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                            width={{ xs: '100%', md: '80%' }}
+                                        >
+                                            <Stack direction="row" gap={1}>
+                                                <Box>
+                                                    <Box
+                                                        sx={{
+                                                            fontFamily: 'Gmarket',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: '600',
+                                                            fontSize: '14px',
+                                                            lineHeight: '18px',
+                                                            color: ' var(--Text-Black, #333)',
+                                                        }}
+                                                    >
+                                                        {item.id}
+                                                    </Box>
+                                                    <Box
+                                                        sx={{
+                                                            fontFamily: 'Gmarket',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: '400',
+                                                            fontSize: '10px',
+                                                            lineHeight: '18px',
+                                                            color: ' var(--Text-Black, #333)',
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </Box>
+                                                </Box>
+                                            </Stack>
                                             <Box>
                                                 <Box
                                                     sx={{
                                                         fontFamily: 'Gmarket',
                                                         fontStyle: 'normal',
                                                         fontWeight: '600',
-                                                        fontSize: '14px',
+                                                        fontSize: { xs: '12px', sm: '15px' },
                                                         lineHeight: '18px',
                                                         color: ' var(--Text-Black, #333)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
                                                     }}
                                                 >
-                                                    {item.id}
-                                                </Box>
-                                                <Box
-                                                    sx={{
-                                                        fontFamily: 'Gmarket',
-                                                        fontStyle: 'normal',
-                                                        fontWeight: '400',
-                                                        fontSize: '10px',
-                                                        lineHeight: '18px',
-                                                        color: ' var(--Text-Black, #333)',
-                                                    }}
-                                                >
-                                                    {item.name}
+                                                    {item.user}
+                                                    {/* <ArrowDropDownIcon /> */}
                                                 </Box>
                                             </Box>
                                         </Stack>
-                                        <Box>
-                                            <Box
-                                                sx={{
-                                                    fontFamily: 'Gmarket',
-                                                    fontStyle: 'normal',
-                                                    fontWeight: '600',
-                                                    fontSize: { xs: '12px', sm: '15px' },
-                                                    lineHeight: '18px',
-                                                    color: ' var(--Text-Black, #333)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                {item.user}
-                                                {/* <ArrowDropDownIcon /> */}
-                                            </Box>
-                                        </Box>
-                                    </Stack>
+                                    </Grid>
+                                ))
+                            ) : (
+                                <Grid item xs={12}>
+                                    <Box
+                                        sx={{
+                                            fontFamily: 'Gmarket',
+                                            fontStyle: 'normal',
+                                            fontWeight: '600',
+                                            fontSize: { xs: '12px', sm: '15px' },
+                                            lineHeight: '18px',
+                                            color: ' var(--Text-Black, #333)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            my: { xs: 3, sm: 5, md: 7 },
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        Wallet exchanges not found
+                                    </Box>
                                 </Grid>
-                            ))}
+                            )}
                         </Grid>
                     </Box>
                 </Box>

@@ -459,26 +459,34 @@ const History = ({
                                                             />
                                                         )} */}
                                                         <Box>
-                                                            <Stack
-                                                                direction={'row'}
-                                                                alignItems={'center'}
-                                                            >
-                                                                <img
-                                                                    width={25}
-                                                                    height={25}
-                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.inCoinId}.png`}
-                                                                    alt="icon"
-                                                                />
-                                                                <Typography
-                                                                    sx={{ fontWeight: 700 }}
-                                                                >
-                                                                    {item?.inAmount}{' '}
-                                                                    {item?.inCurrency}
-                                                                </Typography>
-                                                            </Stack>
-                                                            <span>(${item?.inAmountInUSD})</span>
-                                                            <Typography>{item?.symbol}</Typography>
-                                                            {/* <Box sx={{ pt: '1em' }}>
+                                                            {!item?.inAmount ? (
+                                                                '_'
+                                                            ) : (
+                                                                <>
+                                                                    <Stack
+                                                                        direction={'row'}
+                                                                        alignItems={'center'}
+                                                                    >
+                                                                        <img
+                                                                            width={25}
+                                                                            height={25}
+                                                                            src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.inCoinId}.png`}
+                                                                            alt="icon"
+                                                                        />
+                                                                        <Typography
+                                                                            sx={{ fontWeight: 700 }}
+                                                                        >
+                                                                            {item?.inAmount}{' '}
+                                                                            {item?.inCurrency}
+                                                                        </Typography>
+                                                                    </Stack>
+                                                                    <span>
+                                                                        (${item?.inAmountInUSD})
+                                                                    </span>
+                                                                    <Typography>
+                                                                        {item?.symbol}
+                                                                    </Typography>
+                                                                    {/* <Box sx={{ pt: '1em' }}>
                                                                 <Typography>
                                                                     {item.outgoing?.costBasis}
                                                                 </Typography>
@@ -491,6 +499,8 @@ const History = ({
                                                                     {item.outgoing?.gain}
                                                                 </Typography>
                                                             </Box> */}
+                                                                </>
+                                                            )}
                                                         </Box>
                                                     </Stack>
                                                 </StyledCell>
@@ -503,52 +513,73 @@ const History = ({
                                                         {/* {item.incoming.icon && (
                                                         )} */}
                                                         <Box>
-                                                            <Stack
-                                                                direction={'row'}
-                                                                alignItems={'center'}
-                                                            >
-                                                                <img
-                                                                    width={25}
-                                                                    height={25}
-                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
-                                                                    alt="icon"
-                                                                />
-                                                                <Typography
-                                                                    sx={{ fontWeight: 700 }}
-                                                                >
-                                                                    {item?.outAmount}{' '}
-                                                                    {item?.outCurrency}
-                                                                </Typography>
-                                                            </Stack>
-                                                            <span>${item?.outAmountInUSD}</span>
-                                                            <Typography>{item?.symbol}</Typography>
-                                                            {/* <Box sx={{ pt: '1em' }}>    
+                                                            {!item?.outAmount ? (
+                                                                '_'
+                                                            ) : (
+                                                                <>
+                                                                    <Stack
+                                                                        direction={'row'}
+                                                                        alignItems={'center'}
+                                                                    >
+                                                                        <img
+                                                                            width={25}
+                                                                            height={25}
+                                                                            src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
+                                                                            alt="icon"
+                                                                        />
+                                                                        <Typography
+                                                                            sx={{ fontWeight: 700 }}
+                                                                        >
+                                                                            {item?.outAmount}{' '}
+                                                                            {item?.outCurrency}
+                                                                        </Typography>
+                                                                    </Stack>
+                                                                    <span>
+                                                                        ${item?.outAmountInUSD}
+                                                                    </span>
+                                                                    <Typography>
+                                                                        {item?.symbol}
+                                                                    </Typography>
+                                                                    {/* <Box sx={{ pt: '1em' }}>    
                                                                 <Typography>
                                                                     {item.incoming?.costBasis}
                                                                 </Typography>
                                                             </Box> */}
+                                                                </>
+                                                            )}
                                                         </Box>
                                                     </Stack>
                                                 </StyledCell>
                                                 <StyledCell>
                                                     <Box>
-                                                        <Stack>
-                                                            <Typography sx={{ fontWeight: 700 }}>
-                                                                <img
-                                                                    width={25}
-                                                                    height={25}
-                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
-                                                                    alt="icon"
-                                                                />
-                                                                {item?.fee}
-                                                            </Typography>
-                                                            <span>${item.feeInUSD}</span>
-                                                        </Stack>
-                                                        <Box sx={{ pt: '1em' }}>
+                                                        {!item?.fee ? (
+                                                            '_'
+                                                        ) : (
+                                                            <>
+                                                                <Typography
+                                                                    sx={{
+                                                                        fontWeight: 700,
+                                                                        display: 'flex',
+                                                                        alignItems: 'center',
+                                                                        gap: '0.5em',
+                                                                    }}
+                                                                >
+                                                                    <img
+                                                                        width={25}
+                                                                        height={25}
+                                                                        src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
+                                                                        alt="icon"
+                                                                    />
+                                                                    {item?.fee}
+                                                                </Typography>
+                                                                <span>${item.feeInUSD}</span>
+                                                                {/* <Box sx={{ pt: '1em' }}>
                                                             <Typography>
                                                                 {item.fee?.costBasis}
                                                             </Typography>
-                                                        </Box>
+                                                        </Box> */}
+                                                            </>
+                                                        )}
                                                     </Box>
                                                 </StyledCell>
                                                 <StyledCell>{/* cell 5 */}</StyledCell>{' '}

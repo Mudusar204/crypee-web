@@ -1,14 +1,40 @@
 import { Box, Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import wcard1 from '../../images/wallets/wcard1.png';
 import wcard2 from '../../images/wallets/wcard2.png';
 import wcard3 from '../../images/wallets/wcard3.png';
 import wcard4 from '../../images/wallets/wcard4.png';
+import { DataContext } from '../../utils/ContextAPI';
+import { REACT_APP_BASE_URL } from '../../config';
 
 export default function WalletsCard() {
+    const [exchanges, setExchanges] = useState(0);
+    const { setLoader } = useContext(DataContext);
+    useEffect(() => {
+        const handleSyncExchangeClick = async () => {
+            try {
+                setLoader(true);
+                const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
+                const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getMyExchanges`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: localStorageData?.user?.token,
+                    },
+                });
+
+                const result = await response.json();
+                setExchanges(result.data);
+                setLoader(false);
+            } catch (error) {
+                setLoader(false);
+                console.error('Error syncing exchanges:', error.message);
+            }
+        };
+        handleSyncExchangeClick();
+    }, []);
     return (
-        <Box sx={{my: { xs: 5, md: 10 } }}>
+        <Box sx={{ my: { xs: 5, md: 10 } }}>
             <Container maxWidth="xl">
                 <Box
                     sx={{
@@ -63,7 +89,10 @@ export default function WalletsCard() {
                                     pb: 6,
                                 }}
                             >
-                                None added
+                                <span style={{ color: '#0B7BC4', fontWeight: '700' }}>
+                                    {exchanges.length}
+                                </span>{' '}
+                                exchanges added
                             </Box>
                         </Box>
                     </Grid>
@@ -108,7 +137,7 @@ export default function WalletsCard() {
                                     pb: 1,
                                 }}
                             >
-                                Ethereum Wallet ...0e85ea Updated 16 hours ago
+                                comming soon
                             </Box>
                             <Box
                                 sx={{
@@ -122,7 +151,7 @@ export default function WalletsCard() {
                                     pb: 2,
                                 }}
                             >
-                                PKR 304450
+                                {/* PKR 304450 */}
                             </Box>
                         </Box>
                     </Grid>
@@ -164,7 +193,7 @@ export default function WalletsCard() {
                                     pb: 6,
                                 }}
                             >
-                                None added
+                                comming soon
                             </Box>
                         </Box>
                     </Grid>
@@ -209,7 +238,7 @@ export default function WalletsCard() {
                                     pb: 1,
                                 }}
                             >
-                                Other transactions
+                                comming soon
                             </Box>
                             <Box
                                 sx={{
@@ -223,7 +252,7 @@ export default function WalletsCard() {
                                     pb: 4,
                                 }}
                             >
-                                PKR 0.00
+                                {/* PKR 0.00 */}
                             </Box>
                         </Box>
                     </Grid>

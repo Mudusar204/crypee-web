@@ -343,13 +343,7 @@ const Transactions = () => {
             }
         };
 
-        // const handlePageFocus = () => {};
         fetchTransactions();
-
-        // window.addEventListener('focus', handlePageFocus);
-        // return () => {
-        //     window.removeEventListener('focus', handlePageFocus);
-        // };
     }, [page, rowsPerPage]);
 
     return (

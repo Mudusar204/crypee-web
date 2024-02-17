@@ -14,6 +14,7 @@ import { AddwalletDropdown } from '../../Components/DropdownMenus';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 import { DataContext } from '../../utils/ContextAPI';
+import { useNavigate } from 'react-router';
 
 const rtransactiondata = [
     {
@@ -90,7 +91,9 @@ export default function Index() {
     const [graphData, setGraphData] = useState([]);
     const [assets, setAssets] = useState([]);
     const [cryptoTaxes, setCryptoTaxes] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const { setLoader } = useContext(DataContext);
+    const navigate = useNavigate();
     const fetchData = async () => {
         try {
             setLoader(true);
@@ -113,7 +116,7 @@ export default function Index() {
     useEffect(() => {
         fetchData();
     }, []);
-
+    // crypto taxes
     useEffect(() => {
         const cryptotaxes = async () => {
             try {
@@ -135,6 +138,34 @@ export default function Index() {
             }
         };
         cryptotaxes();
+    }, []);
+    // transaction
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                setLoader(true);
+                const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
+                const response = await fetch(
+                    `${REACT_APP_BASE_URL}/api/data/getTransactions?limit=${4}&page=${1}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Authorization: localStorageData?.user?.token,
+                        },
+                    },
+                );
+
+                const result = await response.json();
+                setTransactions(result?.data?.transactions);
+                console.log(result, '-=-=-=-result');
+                setLoader(false);
+            } catch (error) {
+                setLoader(false);
+                console.error('Error fetching Transactions Dashboard:', error?.response?.data);
+            }
+        };
+
+        fetchTransactions();
     }, []);
     return (
         <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
@@ -211,6 +242,10 @@ export default function Index() {
                                             textAlign: 'center',
                                             color: '#333',
                                             borderBottom: '1px solid #FFFFFF',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => {
+                                            navigate('/taxes');
                                         }}
                                     >
                                         See details
@@ -254,130 +289,68 @@ export default function Index() {
                                         Tax
                                     </Typography>
                                 </Stack>
-                                {cryptoTaxes?.map((data, index) => (
-                                    <Stack
-                                        key={index}
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        mt={5}
-                                    >
-                                        <Typography
-                                            fontFamily={'Gmarket'}
-                                            sx={{
-                                                fontStyle: 'normal',
-                                                fontWeight: '400',
-                                                fontSize: '10px',
-                                                lineHeight: '16px',
-                                                color: '#333',
-                                                textAlign: 'center !important',
-                                            }}
+                                {cryptoTaxes.length > 0 ? (
+                                    cryptoTaxes.map((data, index) => (
+                                        <Stack
+                                            key={index}
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            mt={5}
                                         >
-                                            {data?.year}
-                                        </Typography>
-                                        <Typography
-                                            fontFamily={'Gmarket'}
-                                            sx={{
-                                                fontStyle: 'normal',
-                                                fontWeight: '400',
-                                                fontSize: '10px',
-                                                lineHeight: '16px',
-                                                color: '#333',
-                                            }}
-                                        >
-                                            $ {data?.totalCapitalGains}
-                                        </Typography>
-                                        <Typography
-                                            fontFamily={'Gmarket'}
-                                            sx={{
-                                                fontStyle: 'normal',
-                                                fontWeight: '700',
-                                                fontSize: '10px',
-                                                lineHeight: '16px',
-                                                color: '#333',
-                                            }}
-                                        >
-                                            $ {data?.totalTax.toFixed(2)}
-                                        </Typography>
-                                    </Stack>
-                                ))}
-
-                                {/* <Stack direction="row" justifyContent="space-between" mt={5}>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        2022
-                                    </Typography>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        +PKR4****
-                                    </Typography>
-                                    <Typography
-                                        sx={{
-                                            fontFamily: 'Poppins',
-                                            fontStyle: 'normal',
-                                            fontWeight: '700',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        PKR0.00
-                                    </Typography>
-                                </Stack>
-                                <Stack direction="row" justifyContent="space-between" mt={5}>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        2021
-                                    </Typography>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        +PKR4****
-                                    </Typography>
+                                            <Typography
+                                                fontFamily={'Gmarket'}
+                                                sx={{
+                                                    fontStyle: 'normal',
+                                                    fontWeight: '400',
+                                                    fontSize: '10px',
+                                                    lineHeight: '16px',
+                                                    color: '#333',
+                                                    textAlign: 'center !important',
+                                                }}
+                                            >
+                                                {data?.year}
+                                            </Typography>
+                                            <Typography
+                                                fontFamily={'Gmarket'}
+                                                sx={{
+                                                    fontStyle: 'normal',
+                                                    fontWeight: '400',
+                                                    fontSize: '10px',
+                                                    lineHeight: '16px',
+                                                    color: '#333',
+                                                }}
+                                            >
+                                                $ {data?.totalCapitalGains}
+                                            </Typography>
+                                            <Typography
+                                                fontFamily={'Gmarket'}
+                                                sx={{
+                                                    fontStyle: 'normal',
+                                                    fontWeight: '700',
+                                                    fontSize: '10px',
+                                                    lineHeight: '16px',
+                                                    color: '#333',
+                                                }}
+                                            >
+                                                $ {data?.totalTax.toFixed(2)}
+                                            </Typography>
+                                        </Stack>
+                                    ))
+                                ) : (
                                     <Typography
                                         fontFamily={'Gmarket'}
                                         sx={{
                                             fontStyle: 'normal',
                                             fontWeight: '700',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
+                                            fontSize: '12px',
                                             color: '#333',
+                                            textAlign: 'center !important',
+                                            my: 2,
                                         }}
                                     >
-                                        PKR0.00
+                                        Data Not found
                                     </Typography>
-                                </Stack> */}
+                                )}
                             </Box>
 
                             {/* -----recent-------- */}
@@ -418,56 +391,116 @@ export default function Index() {
                                             textAlign: 'center',
                                             color: '#333',
                                             borderBottom: '1px solid #FFFFFF',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => {
+                                            navigate('/transactions');
                                         }}
                                     >
                                         See details
                                     </Typography>
                                 </Stack>
-                                {rtransactiondata.map((transaction, index) => (
-                                    <Box
-                                        key={index}
-                                        display={'flex'}
-                                        justifyContent={'space-between'}
-                                        alignItems={'center'}
-                                    >
-                                        <Box display={'flex'} gap="10px" my={1}>
-                                            <Box sx={transaction.style}>{transaction.icon1}</Box>
+                                {transactions.length > 0 ? (
+                                    transactions.map((item, i) => (
+                                        <Box
+                                            key={i}
+                                            display={'flex'}
+                                            justifyContent={'space-between'}
+                                            alignItems={'center'}
+                                        >
+                                            <Box display={'flex'} gap="10px" my={1}>
+                                                <Box
+                                                    sx={{
+                                                        background: '#D8EDFF',
+                                                        width: '24px',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        px: 3,
+                                                        py: 1,
+                                                        borderRadius: '3px',
+                                                    }}
+                                                >
+                                                    {['in', 'deposit', 'buy'].includes(
+                                                        item.txType?.toLowerCase(),
+                                                    ) ? (
+                                                        <ArrowDownwardIcon />
+                                                    ) : ['out', 'withdrawal', 'sell'].includes(
+                                                          item.txType?.toLowerCase(),
+                                                      ) ? (
+                                                        <ArrowUpwardIcon />
+                                                    ) : (
+                                                        <CompareArrowsIcon />
+                                                    )}
+                                                </Box>
+                                                <Stack>
+                                                    <Typography
+                                                        fontFamily={'Gmarket'}
+                                                        fontSize={'10px'}
+                                                        fontWeight={500}
+                                                    >
+                                                        {item?.txType}
+                                                    </Typography>
+                                                    <Typography
+                                                        fontFamily={'Gmarket'}
+                                                        fontSize={'8px'}
+                                                        fontWeight={300}
+                                                    >
+                                                        {item?.completeTime}
+                                                    </Typography>
+                                                </Stack>
+                                            </Box>
                                             <Stack>
                                                 <Typography
                                                     fontFamily={'Gmarket'}
                                                     fontSize={'10px'}
-                                                    fontWeight={500}
+                                                    fontWeight={700}
                                                 >
-                                                    {transaction.title1}
+                                                    {['in', 'deposit', 'buy'].includes(
+                                                        item.txType?.toLowerCase(),
+                                                    )
+                                                        ? item?.inAmount
+                                                        : ['out', 'withdrawal', 'sell'].includes(
+                                                              item.txType?.toLowerCase(),
+                                                          )
+                                                        ? item?.outAmount
+                                                        : item?.outAmount}
                                                 </Typography>
                                                 <Typography
-                                                    fontFamily={'Gmarket'}
                                                     fontSize={'8px'}
+                                                    fontStyle={'normal'}
                                                     fontWeight={300}
+                                                    fontFamily={'Gmarket'}
                                                 >
-                                                    {transaction.title2}
+                                                    ${' '}
+                                                    {['in', 'deposit', 'buy'].includes(
+                                                        item.txType?.toLowerCase(),
+                                                    )
+                                                        ? item?.inAmountInUSD
+                                                        : ['out', 'withdrawal', 'sell'].includes(
+                                                              item.txType?.toLowerCase(),
+                                                          )
+                                                        ? item?.outAmountInUSD
+                                                        : item?.outAmountInUSD}
                                                 </Typography>
                                             </Stack>
                                         </Box>
-                                        <Stack>
-                                            <Typography
-                                                fontFamily={'Gmarket'}
-                                                fontSize={'10px'}
-                                                fontWeight={700}
-                                            >
-                                                {transaction.title1value}
-                                            </Typography>
-                                            <Typography
-                                                fontSize={'8px'}
-                                                fontStyle={'normal'}
-                                                fontWeight={300}
-                                                fontFamily={'Gmarket'}
-                                            >
-                                                {transaction.title2value}
-                                            </Typography>
-                                        </Stack>
-                                    </Box>
-                                ))}
+                                    ))
+                                ) : (
+                                    <Typography
+                                        fontFamily={'Gmarket'}
+                                        sx={{
+                                            fontStyle: 'normal',
+                                            fontWeight: '700',
+                                            fontSize: '12px',
+                                            color: '#333',
+                                            textAlign: 'center !important',
+                                            my: 2,
+                                        }}
+                                    >
+                                        Data Not found
+                                    </Typography>
+                                )}
                             </Box>
                         </Box>
                     </Grid>
