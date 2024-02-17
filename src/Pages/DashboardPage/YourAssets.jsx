@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Avatar,
     Box,
@@ -20,6 +20,7 @@ import assetlogo3 from '../../images/assetlogo3.png';
 import assetlogo4 from '../../images/assetlogo4.png';
 import assetlogo5 from '../../images/assetlogo5.png';
 import assertsbg from '../../images/dashboard/assertsbg.png';
+import { DataContext } from '../../utils/ContextAPI';
 
 const rows = [
     {
@@ -71,8 +72,10 @@ const rows = [
 
 export default function YourAssets({ data }) {
     const [assetsData, setAssetsData] = useState([]);
+    const { setLoader } = useContext(DataContext);
     useEffect(() => {
         const handleData = async () => {
+            setLoader(true);
             let assetArray = [];
             for (let [key, value] of Object.entries(data)) {
                 assetArray.push({
@@ -81,8 +84,10 @@ export default function YourAssets({ data }) {
                 });
             }
             setAssetsData(assetArray);
+            setLoader(false);
         };
         handleData();
+        console.log(assetsData, 'assetsData');
     }, [data]);
     return (
         <>
@@ -203,7 +208,7 @@ export default function YourAssets({ data }) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {assetsData.map(({ name, data }, i) => (
+                                {assetsData?.map(({ name, data }, i) => (
                                     <TableRow
                                         key={i}
                                         sx={{
@@ -262,7 +267,7 @@ export default function YourAssets({ data }) {
                                                     color: 'var(--Text-Black, #333)',
                                                 }}
                                             >
-                                                {`($ ${data?.balanceInUSD})`}
+                                                {`($ ${name && data?.balanceInUSD})`}
                                             </Box>
                                         </TableCell>
                                         <TableCell>
@@ -277,7 +282,7 @@ export default function YourAssets({ data }) {
                                                         color: 'var(--Text-Black, #333)',
                                                     }}
                                                 >
-                                                    {data?.amount}
+                                                    {name && data?.amount}
                                                 </Box>
                                             </Stack>
                                         </TableCell>

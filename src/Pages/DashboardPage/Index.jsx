@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Menu, MenuItem, Stack, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Profile from './Profile';
 import cryptocard from '../../images/dashboard/cryptocard.png';
 import dashboardbg from '../../images/dashboard/dashboardbg.png';
@@ -13,6 +13,7 @@ import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { AddwalletDropdown } from '../../Components/DropdownMenus';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
+import { DataContext } from '../../utils/ContextAPI';
 
 const rtransactiondata = [
     {
@@ -88,8 +89,11 @@ const rtransactiondata = [
 export default function Index() {
     const [graphData, setGraphData] = useState([]);
     const [assets, setAssets] = useState([]);
+    const [cryptoTaxes, setCryptoTaxes] = useState([]);
+    const { setLoader } = useContext(DataContext);
     const fetchData = async () => {
         try {
+            setLoader(true);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -100,12 +104,37 @@ export default function Index() {
             });
             setGraphData(response.data?.data?.graphData);
             setAssets(response.data?.data?.assets);
+            setLoader(false);
         } catch (error) {
+            setLoader(false);
             console.log(error?.response?.data);
         }
     };
     useEffect(() => {
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const cryptotaxes = async () => {
+            try {
+                setLoader(true);
+                const refreshToken = localStorage.getItem('persistMe')
+                    ? JSON.parse(localStorage.getItem('persistMe'))
+                    : null;
+                let response = await axios.get(`${REACT_APP_BASE_URL}/api/data/getMyExchangeTax`, {
+                    headers: {
+                        Authorization: refreshToken?.user?.token,
+                    },
+                });
+                // console.log(response.data?.data, 'response.data');
+                setCryptoTaxes(response.data?.data);
+                setLoader(false);
+            } catch (error) {
+                setLoader(false);
+                console.log(error?.response?.data);
+            }
+        };
+        cryptotaxes();
     }, []);
     return (
         <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
@@ -222,49 +251,57 @@ export default function Index() {
                                             color: '#333',
                                         }}
                                     >
-                                        Tax.Income
+                                        Tax
                                     </Typography>
                                 </Stack>
-                                <Stack direction="row" justifyContent="space-between" mt={5}>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                            textAlign: 'center !important',
-                                        }}
+                                {cryptoTaxes?.map((data, index) => (
+                                    <Stack
+                                        key={index}
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        mt={5}
                                     >
-                                        2023
-                                    </Typography>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '400',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        +PKR4****
-                                    </Typography>
-                                    <Typography
-                                        fontFamily={'Gmarket'}
-                                        sx={{
-                                            fontStyle: 'normal',
-                                            fontWeight: '700',
-                                            fontSize: '10px',
-                                            lineHeight: '16px',
-                                            color: '#333',
-                                        }}
-                                    >
-                                        PKR0.00
-                                    </Typography>
-                                </Stack>
-                                <Stack direction="row" justifyContent="space-between" mt={5}>
+                                        <Typography
+                                            fontFamily={'Gmarket'}
+                                            sx={{
+                                                fontStyle: 'normal',
+                                                fontWeight: '400',
+                                                fontSize: '10px',
+                                                lineHeight: '16px',
+                                                color: '#333',
+                                                textAlign: 'center !important',
+                                            }}
+                                        >
+                                            {data?.year}
+                                        </Typography>
+                                        <Typography
+                                            fontFamily={'Gmarket'}
+                                            sx={{
+                                                fontStyle: 'normal',
+                                                fontWeight: '400',
+                                                fontSize: '10px',
+                                                lineHeight: '16px',
+                                                color: '#333',
+                                            }}
+                                        >
+                                            $ {data?.totalCapitalGains}
+                                        </Typography>
+                                        <Typography
+                                            fontFamily={'Gmarket'}
+                                            sx={{
+                                                fontStyle: 'normal',
+                                                fontWeight: '700',
+                                                fontSize: '10px',
+                                                lineHeight: '16px',
+                                                color: '#333',
+                                            }}
+                                        >
+                                            $ {data?.totalTax.toFixed(2)}
+                                        </Typography>
+                                    </Stack>
+                                ))}
+
+                                {/* <Stack direction="row" justifyContent="space-between" mt={5}>
                                     <Typography
                                         fontFamily={'Gmarket'}
                                         sx={{
@@ -340,7 +377,7 @@ export default function Index() {
                                     >
                                         PKR0.00
                                     </Typography>
-                                </Stack>
+                                </Stack> */}
                             </Box>
 
                             {/* -----recent-------- */}

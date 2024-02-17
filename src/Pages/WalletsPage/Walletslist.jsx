@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Avatar, Box, Button, Container, Grid, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -10,10 +10,12 @@ import gns from '../../images/wallets/gns.png';
 import usdt from '../../images/wallets/usdt.png';
 import WalletsDialog from './WalletsDialog';
 import AddWalletDialog from './AddWalletDialog';
-import { addWalletFunction, fetchData, syncWallet,  } from './Index';
+import { addWalletFunction, fetchData, syncWallet } from './Index';
 import { setWalletData } from '../../redux/slices/userWalletData';
 import { useDispatch } from 'react-redux';
 import useMakeToast from '../../hooks/makeToast';
+import { DataContext } from '../../utils/ContextAPI';
+import { AddwalletDropdown } from '../../Components/DropdownMenus';
 
 const data = [
     {
@@ -73,53 +75,54 @@ export default function Walletslist() {
     const [wallet, setwallet] = useState(false);
     const [addWallet, setAddWallet] = useState(false);
     const [syncData, setsyncData] = useState(null);
-    const [walletData,setwalletData] = useState([]);
-    console.log('walletData',walletData);
+    const [walletData, setwalletData] = useState([]);
+    const { setLoader } = useContext(DataContext);
 
     const handleSyncWalletClick = async () => {
         try {
-          const result = await syncWallet();
-          setsyncData(result);
-          if (result) {
-            makeToast('Wallet synced successfully', 'success', 3);
-          } else {
-            makeToast('Error syncing wallet', 'error', 3);
-          }
-      
+            setLoader(true);
+            const result = await syncWallet();
+            setsyncData(result);
+            if (result) {
+                makeToast('Wallet synced successfully', 'success', 3);
+            } else {
+                makeToast('Error syncing wallet', 'error', 3);
+            }
+            setLoader(false);
         } catch (error) {
-          makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
-          console.error('Error syncing wallet:', error.message);
+            setLoader(false);
+            makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
+            console.error('Error syncing wallet:', error.message);
         }
-      };
-// ==========addwallet============
-const handleAddWalletClick = async () => {
-    try {
-      const result = await addWalletFunction();
-      if (result) {
-        makeToast(`Wallet added successfully: ${result.message}`, 'success', 3);
-        setwalletData(result.data);
-        localStorage.setItem('walletdata', JSON.stringify(result?.data));
-        dispatch(setWalletData(result?.data));
-      } else {
-        makeToast('Error adding wallet', 'error', 3);
-      }
-    } catch (error) {
-      makeToast(`Error adding wallet: ${error.message}`, 'error', 3);
-      console.error('Error adding wallet:', error.message);
-    }
-  };
-  
+    };
+    // ==========syncExchange===============
+    const handleSyncExchangeClick = async () => {
+        try {
+            setLoader(true);
+            const result = await addWalletFunction();
+            if (result) {
+                makeToast(`Wallet exchanges synced successfully: ${result.message}`, 'success', 3);
+                setwalletData(result.data);
+                localStorage.setItem('walletdata', JSON.stringify(result?.data));
+                dispatch(setWalletData(result?.data));
+            } else {
+                makeToast('Error Sync Exchanges', 'error', 3);
+            }
+            setLoader(false);
+        } catch (error) {
+            setLoader(false);
+            makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
+            console.error('Error syncing exchanges:', error.message);
+        }
+    };
 
-  
     const handleWallet = () => {
         setwallet((preState) => !preState);
     };
     const handleAddWallet = () => {
         setAddWallet((preState) => !preState);
     };
-  
 
- 
     return (
         <Box>
             <AddWalletDialog
@@ -132,37 +135,23 @@ const handleAddWalletClick = async () => {
                 handleWallet={handleWallet}
                 handleAddWallet={handleAddWallet}
             />
-            <Box >
+            <Box>
                 <Stack direction="row" gap={5} pt={0}>
-                <Button
-        variant="btn2"
-        sx={{
-          fontFamily: 'Gmarket',
-          fontStyle: 'normal',
-          fontWeight: '600',
-          fontSize: '16px',
-          lineHeight: '24px',
-          p: { xs: '5px 15px', sm: '10px 20px' },
-        }}
-        onClick={handleSyncWalletClick}
-      >
-        Sync wallet
-      </Button>
                     <Button
-                        variant="btn1"
+                        variant="btn2"
                         sx={{
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Gmarket',
                             fontStyle: 'normal',
                             fontWeight: '600',
                             fontSize: '16px',
                             lineHeight: '24px',
                             p: { xs: '5px 15px', sm: '10px 20px' },
                         }}
-                        onClick={handleAddWalletClick}
-                        
+                        onClick={handleSyncExchangeClick}
                     >
-                        Add wallet
+                        Sync Exchanges
                     </Button>
+                    <AddwalletDropdown />
                 </Stack>
                 <Box
                     sx={{
@@ -181,13 +170,7 @@ const handleAddWalletClick = async () => {
                         gap={2}
                         mb={5}
                     >
-                        <Stack
-                        mb={3}
-                            direction="row"
-                            gap={{ xs: 2, md: 5 }}
-                            flexWrap="wrap"
-                            
-                        >
+                        <Stack mb={3} direction="row" gap={{ xs: 2, md: 5 }} flexWrap="wrap">
                             <Box>
                                 <Box
                                     sx={{
@@ -245,68 +228,66 @@ const handleAddWalletClick = async () => {
                             PKR528,325.22 <ArrowDropDownIcon />
                         </Box>
                     </Stack>
-                    <Box sx={{background:'#F9FCFF',borderRadius:'10px',px:2}}>
-                    <Grid container spacing={5} >
-                        {walletData.map((item, i) => (
-                            <Grid key={i} item xs={12} md={6}>
-                                <Stack
-                                    direction="row"
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                    width={{ xs: '100%', md: '80%' }}
-                                >
-                                    <Stack direction="row" gap={1}>
-                                       
+                    <Box sx={{ background: '#F9FCFF', borderRadius: '10px', px: 2 }}>
+                        <Grid container spacing={5}>
+                            {walletData.map((item, i) => (
+                                <Grid key={i} item xs={12} md={6}>
+                                    <Stack
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        width={{ xs: '100%', md: '80%' }}
+                                    >
+                                        <Stack direction="row" gap={1}>
+                                            <Box>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: 'Gmarket',
+                                                        fontStyle: 'normal',
+                                                        fontWeight: '600',
+                                                        fontSize: '14px',
+                                                        lineHeight: '18px',
+                                                        color: ' var(--Text-Black, #333)',
+                                                    }}
+                                                >
+                                                    {item.id}
+                                                </Box>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: 'Gmarket',
+                                                        fontStyle: 'normal',
+                                                        fontWeight: '400',
+                                                        fontSize: '10px',
+                                                        lineHeight: '18px',
+                                                        color: ' var(--Text-Black, #333)',
+                                                    }}
+                                                >
+                                                    {item.name}
+                                                </Box>
+                                            </Box>
+                                        </Stack>
                                         <Box>
                                             <Box
                                                 sx={{
                                                     fontFamily: 'Gmarket',
                                                     fontStyle: 'normal',
                                                     fontWeight: '600',
-                                                    fontSize: '14px',
+                                                    fontSize: { xs: '12px', sm: '15px' },
                                                     lineHeight: '18px',
                                                     color: ' var(--Text-Black, #333)',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
                                                 }}
                                             >
-                                                {item.id}
-                                            </Box>
-                                            <Box
-                                                sx={{
-                                                    fontFamily: 'Gmarket',
-                                                    fontStyle: 'normal',
-                                                    fontWeight: '400',
-                                                    fontSize: '10px',
-                                                    lineHeight: '18px',
-                                                    color: ' var(--Text-Black, #333)',
-                                                }}
-                                            >
-                                                {item.name}
+                                                {item.user}
+                                                {/* <ArrowDropDownIcon /> */}
                                             </Box>
                                         </Box>
                                     </Stack>
-                                    <Box>
-                                        <Box
-                                            sx={{
-                                                fontFamily: 'Gmarket',
-                                                fontStyle: 'normal',
-                                                fontWeight: '600',
-                                                fontSize: { xs: '12px', sm: '15px' },
-                                                lineHeight: '18px',
-                                                color: ' var(--Text-Black, #333)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            {item.user} <ArrowDropDownIcon />
-                                        </Box>
-                                        
-                                    </Box>
-                                </Stack>
-                            </Grid>
-                        ))}
-                    </Grid>
+                                </Grid>
+                            ))}
+                        </Grid>
                     </Box>
-                  
                 </Box>
             </Box>
         </Box>
