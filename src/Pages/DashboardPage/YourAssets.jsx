@@ -87,7 +87,7 @@ export default function YourAssets({ data }) {
             setLoader(false);
         };
         handleData();
-        console.log(assetsData, 'assetsData');
+        // console.log(assetsData, 'assetsData');
     }, [data]);
     return (
         <>

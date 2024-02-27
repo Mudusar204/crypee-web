@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Box, Container } from '@mui/material';
-// import axios from 'axios';
+import axios from 'axios';
 import usdtIcon from '../../images/usdt_icon.png';
 import ethIcon from '../../images/eth_icon.png';
 import Navigation from '../../Components/Navigation';
@@ -12,6 +12,7 @@ import receiveIcon from '../../images/receive_icon.png';
 import { REACT_APP_BASE_URL } from '../../config';
 import useMakeToast from '../../hooks/makeToast';
 import { DataContext } from '../../utils/ContextAPI';
+import { useSelector } from 'react-redux';
 const transactionDetails = [
     {
         transaction: { icon: receiveIcon, status: 'Receive', theDate: 'March 1, 2022 1:55PM' },
@@ -298,11 +299,24 @@ const transactionDetails = [
 ];
 
 // ===================Transaction===============
-export const addTransaction = async (limit, page) => {
+export const addTransaction = async (limit, page, type, currency, wallet, date) => {
     try {
+        // const type = ['Deposits', 'Withdrawals'];
+        // const wallet = ['Wallet1', 'Wallet2'];
+        // const currency = ['BTC', 'ETH'];
+        // const date = [{ from: 'Mon Feb 05 2024', to: 'Mon Feb 10 2024' }];
+        const queryString = [
+            `limit=${limit}`,
+            `page=${page}`,
+            ...type.map((value) => `type=${encodeURIComponent(value)}`),
+            ...wallet.map((value) => `wallet=${encodeURIComponent(value)}`),
+            ...currency.map((value) => `currency=${encodeURIComponent(value)}`),
+            `from=${encodeURIComponent(date[0]?.from)}`,
+            `to=${encodeURIComponent(date[0]?.to)}`,
+        ].join('&');
         const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
         const response = await fetch(
-            `${REACT_APP_BASE_URL}/api/data/getTransactions?limit=${limit}&page=${page}`,
+            `${REACT_APP_BASE_URL}/api/data/getTransactions?${queryString}`,
             {
                 method: 'GET',
                 headers: {
@@ -319,6 +333,9 @@ export const addTransaction = async (limit, page) => {
     }
 };
 const Transactions = () => {
+    const queryData = useSelector((state) => state.filterTransactionSlice.filterQuery);
+    console.log(queryData, '=================query data');
+
     const [records, setRecords] = useState([]);
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -326,12 +343,62 @@ const Transactions = () => {
     const makeToast = useMakeToast();
     const { setLoader } = useContext(DataContext);
 
+    const [wallets, setWallets] = useState([]);
+    const [currency, setCurrency] = useState([]);
+
+    useEffect(() => {
+        try {
+            const getExchanges = async () => {
+                const refreshToken = localStorage.getItem('persistMe')
+                    ? JSON.parse(localStorage.getItem('persistMe'))
+                    : null;
+                let exchanges = await axios.get(`${REACT_APP_BASE_URL}/api/avlExchanges`, {
+                    headers: {
+                        Authorization: refreshToken?.user?.token,
+                    },
+                });
+                setWallets(exchanges.data.data);
+            };
+            getExchanges();
+        } catch (error) {}
+    }, []);
+
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
+                const typeFilters = queryData
+                    .filter((filter) => filter.query === 'Type')
+                    .map((filter) => filter.name);
+                const currencyFilters = queryData
+                    .filter((filter) => filter.query === 'Currency')
+                    .map((filter) => filter.name);
+                const walletFilters = queryData
+                    .filter((filter) => filter.query === 'Wallet')
+                    .map((filter) => filter.name);
+                const dateFilters = queryData
+                    .filter((filter) => filter.query === 'Date')
+                    .map((filter) => ({ from: filter.from, to: filter.to }));
+
                 setLoader(true);
-                const result = await addTransaction(rowsPerPage, page);
-                console.log(result, '-=-=-=-result');
+
+                console.log(
+                    typeFilters,
+                    'type',
+                    currencyFilters,
+                    'currency',
+                    walletFilters,
+                    'wallet filter',
+                    dateFilters,
+                    'date filters',
+                );
+                const result = await addTransaction(
+                    rowsPerPage,
+                    page,
+                    typeFilters,
+                    currencyFilters,
+                    walletFilters,
+                    dateFilters,
+                );
                 makeToast(result?.message, 'success', 3);
                 setTotalPages(result?.data?.numberOfPages);
                 setRecords(result?.data?.transactions);
@@ -344,13 +411,13 @@ const Transactions = () => {
         };
 
         fetchTransactions();
-    }, [page, rowsPerPage]);
+    }, [page, rowsPerPage, queryData]);
 
     return (
         <>
             <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
                 <Navigation />
-                <Sorting />
+                <Sorting wallets={wallets} />
                 <History
                     forTransactionsPage={true}
                     historyDetails={records}
