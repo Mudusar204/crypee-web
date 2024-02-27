@@ -5,10 +5,14 @@ import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
-import { useNavigate ,useLocation} from 'react-router';
-
+import { useNavigate, useLocation } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterQuery } from '../redux/slices/filterTransectionSlice';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { toast } from 'react-toastify';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -108,20 +112,57 @@ export const NavigationDropdown = ({ nameToShow, items }) => {
     );
 };
 
-export const SortingDropdown = ({ items }) => {
+export const SortingDropdown = ({ sortItem, setChecked, index }) => {
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
-
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const setQuery = (item, i) => {
+        setChecked(index, i);
+        dispatch(setFilterQuery({ ...item, query: sortItem.name }));
     };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
+    const validateStartDate = (date) => {
+        if (date > endDate) {
+            toast.error('invalid Start and End date');
+            // setEndDate(date);
+            return;
+        }
+        setStartDate(date);
+        let dateObject = {
+            from: date.toDateString(),
+            to: endDate.toDateString(),
+            checked: false,
+        };
+
+        setQuery(dateObject, 1);
+    };
+
+    const validateEndDate = (date) => {
+        if (date < startDate) {
+            toast.error('invalid Start and End date');
+            return;
+            // setStartDate(date);
+        }
+        setEndDate(date);
+        let dateObject = {
+            from: startDate.toDateString(),
+            to: date.toDateString(),
+            checked: false,
+        };
+        setQuery(dateObject, 2);
+    };
+
     return (
         <>
-            {/* <Box sx={{display:'flex'}}> */}
             <Button
                 sx={{
                     border: '1px solid #3696D2',
@@ -133,10 +174,9 @@ export const SortingDropdown = ({ items }) => {
                 }}
                 onClick={handleClick}
             >
-                {items.name}
+                {sortItem.name}
                 <ArrowDropDownIcon />
             </Button>
-            {/* </Box> */}
             <StyledMenu
                 open={Boolean(anchorEl)}
                 MenuListProps={{
@@ -145,10 +185,58 @@ export const SortingDropdown = ({ items }) => {
                 anchorEl={anchorEl}
                 onClose={handleClose}
             >
-                {items?.items?.map((item, i) => {
+                {sortItem?.items?.map((item, i) => {
                     return (
                         <StyledLink key={i}>
-                            <StyledMenuItem onClick={handleClose}>{item}</StyledMenuItem>
+                            {sortItem.name === 'Date' ? (
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        gap: '50px',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <StyledMenuItem
+                                        sx={{ height: 280, width: 200, marginLeft: '40px' }}
+                                    >
+                                        <DatePicker
+                                            dropdownMode="select"
+                                            popperPlacement="bottom"
+                                            open={true}
+                                            selected={startDate}
+                                            placeholderText={'Set StartDate'}
+                                            onChange={validateStartDate}
+                                        />
+                                    </StyledMenuItem>
+                                    <StyledMenuItem sx={{ height: 280, width: 220 }}>
+                                        <DatePicker
+                                            dropdownMode="select"
+                                            popperPlacement="bottom"
+                                            open={true}
+                                            selected={endDate}
+                                            placeholderText={'Set EndDate'}
+                                            onChange={validateEndDate}
+                                        />
+                                    </StyledMenuItem>
+                                </div>
+                            ) : (
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'between',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <input type="checkbox" checked={item.checked} />
+                                    <StyledMenuItem
+                                        onClick={() => {
+                                            setQuery(item, i), handleClose();
+                                        }}
+                                    >
+                                        {item.name}
+                                    </StyledMenuItem>
+                                </div>
+                            )}
                         </StyledLink>
                     );
                 })}
@@ -366,7 +454,7 @@ export const AddwalletDropdown = () => {
             <Button
                 sx={{
                     textTransform: 'capitalize',
-                    fontSize: {lg:'14px',xs:'12px',sm:'13px',md:'13px'},
+                    fontSize: { lg: '14px', xs: '12px', sm: '13px', md: '13px' },
                 }}
                 variant="btn1"
                 endIcon={<ArrowDropDownIcon />}
@@ -383,30 +471,28 @@ export const AddwalletDropdown = () => {
                 {Array.isArray(exchangeData) && exchangeData.length > 0 ? (
                     exchangeData.map((exchange, i) => {
                         return (
-                           
-                                <StyledMenuItem key={i} sx={{ color: 'black' }}>
-                                    <Box
-                                        display="flex"
-                                        alignItems={'center'}
-                                        gap={'10px'}
-                                        onClick={() => {
-                                            let path = `/addewallet/${exchange.name}`;
-                                            navigate(path, {
-                                                state: {
-                                                    exchangeData: exchange,
-                                                },
-                                            });
-                                        }}
-                                    >
-                                        <img
-                                            src={REACT_APP_BASE_URL + exchange.img}
-                                            alt={REACT_APP_BASE_URL + exchange.img}
-                                            width={'20px'}
-                                        />
-                                        <Typography>{exchange.name}</Typography>
-                                    </Box>
-                                </StyledMenuItem>
-                           
+                            <StyledMenuItem key={i} sx={{ color: 'black' }}>
+                                <Box
+                                    display="flex"
+                                    alignItems={'center'}
+                                    gap={'10px'}
+                                    onClick={() => {
+                                        let path = `/addewallet/${exchange.name}`;
+                                        navigate(path, {
+                                            state: {
+                                                exchangeData: exchange,
+                                            },
+                                        });
+                                    }}
+                                >
+                                    <img
+                                        src={REACT_APP_BASE_URL + exchange.img}
+                                        alt={REACT_APP_BASE_URL + exchange.img}
+                                        width={'20px'}
+                                    />
+                                    <Typography>{exchange.name}</Typography>
+                                </Box>
+                            </StyledMenuItem>
                         );
                     })
                 ) : (

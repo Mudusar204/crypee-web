@@ -375,151 +375,177 @@ const History = ({
                                 },
                             }}
                         >
-                            {historyDetails?.map((item, i) => {
-                                console.log(
-                                    url + item.incoming?.icon,
-                                    'item.incoming.icon',
-                                    url + item.outgoing?.icon,
-                                    'item.outgoing.icon',
-                                );
-                                let date = new Date(item?.completeTime).toLocaleDateString();
-                                let time = new Date(item?.completeTime).toLocaleTimeString();
-                                return (
-                                    <TableRow key={i}>
-                                        {forTransactionsPage ? (
-                                            <>
-                                                <StyledCell sx={{ textAlign: 'unset' }}>
-                                                    <Stack
-                                                        direction={'row'}
-                                                        alignItems={'center'}
-                                                        gap={2}
-                                                    >
-                                                        {['in', 'deposit', 'buy'].includes(
-                                                            item.txType?.toLowerCase(),
-                                                        ) ? (
-                                                            <img
-                                                                width={25}
-                                                                height={25}
-                                                                src={receiveIcon}
-                                                                alt="icon"
-                                                            />
-                                                        ) : ['out', 'withdrawal', 'sell'].includes(
-                                                              item.txType?.toLowerCase(),
-                                                          ) ? (
-                                                            <img
-                                                                width={25}
-                                                                height={25}
-                                                                src={sendIcon}
-                                                                alt="icon"
-                                                            />
-                                                        ) : (
-                                                            <>
-                                                                <img
-                                                                    width={25}
-                                                                    height={25}
-                                                                    src={sendIcon}
-                                                                    alt="icon"
-                                                                />
+                            {historyDetails && historyDetails.length > 0 ? (
+                                historyDetails.map((item, i) => {
+                                    console.log(
+                                        url + item.incoming?.icon,
+                                        'item.incoming.icon',
+                                        url + item.outgoing?.icon,
+                                        'item.outgoing.icon',
+                                    );
+                                    let date = new Date(item?.completeTime).toLocaleDateString();
+                                    let time = new Date(item?.completeTime).toLocaleTimeString();
+                                    return (
+                                        <TableRow key={i}>
+                                            {forTransactionsPage ? (
+                                                <>
+                                                    <StyledCell sx={{ textAlign: 'unset' }}>
+                                                        <Stack
+                                                            direction={'row'}
+                                                            alignItems={'center'}
+                                                            gap={2}
+                                                        >
+                                                            {['in', 'deposit', 'buy'].includes(
+                                                                item.txType?.toLowerCase(),
+                                                            ) ? (
                                                                 <img
                                                                     width={25}
                                                                     height={25}
                                                                     src={receiveIcon}
                                                                     alt="icon"
                                                                 />
-                                                            </>
-                                                        )}
-                                                        <Box>
-                                                            <Typography
-                                                                color="text.lightblue"
-                                                                sx={{
-                                                                    fontSize: {
-                                                                        xs: '0.75rem',
-                                                                        sm: '1rem',
-                                                                    },
-                                                                    fontWeight: 600,
-                                                                }}
-                                                            >
-                                                                {item?.txType}
-                                                            </Typography>
-                                                            <Typography>{date}</Typography>
-                                                            <Typography>{time}</Typography>
-                                                        </Box>
-                                                    </Stack>
-                                                </StyledCell>
-                                                <StyledCell>
-                                                    <Stack
-                                                        alignItems={'start'}
-                                                        direction={'row'}
-                                                        gap={2}
-                                                    >
-                                                        {/* {item.outgoing.icon && (
-                                                            <img
-                                                                src={`${url + item.outgoing.icon}`}
-                                                                alt={url + item.outgoing.icon}
-                                                            />
-                                                        )} */}
-                                                        <Box>
-                                                            {!item?.inAmount ? (
-                                                                '_'
+                                                            ) : [
+                                                                  'out',
+                                                                  'withdrawal',
+                                                                  'sell',
+                                                              ].includes(
+                                                                  item.txType?.toLowerCase(),
+                                                              ) ? (
+                                                                <img
+                                                                    width={25}
+                                                                    height={25}
+                                                                    src={sendIcon}
+                                                                    alt="icon"
+                                                                />
                                                             ) : (
                                                                 <>
-                                                                    <Stack
-                                                                        direction={'row'}
-                                                                        alignItems={'center'}
-                                                                    >
-                                                                        <img
-                                                                            width={25}
-                                                                            height={25}
-                                                                            src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.inCoinId}.png`}
-                                                                            alt="icon"
-                                                                        />
-                                                                        <Typography
-                                                                            sx={{ fontWeight: 700 }}
-                                                                        >
-                                                                            {item?.inAmount}{' '}
-                                                                            {item?.inCurrency}
-                                                                        </Typography>
-                                                                    </Stack>
-                                                                    <span>
-                                                                        (${item?.inAmountInUSD})
-                                                                    </span>
-                                                                    <Typography>
-                                                                        {item?.symbol}
-                                                                    </Typography>
-                                                                    {/* <Box sx={{ pt: '1em' }}>
-                                                                <Typography>
-                                                                    {item.outgoing?.costBasis}
-                                                                </Typography>
-                                                                <Typography
-                                                                    sx={{
-                                                                        fontWeight: 600,
-                                                                        color: '#5BBFFF',
-                                                                    }}
-                                                                >
-                                                                    {item.outgoing?.gain}
-                                                                </Typography>
-                                                            </Box> */}
+                                                                    <img
+                                                                        width={25}
+                                                                        height={25}
+                                                                        src={sendIcon}
+                                                                        alt="icon"
+                                                                    />
+                                                                    <img
+                                                                        width={25}
+                                                                        height={25}
+                                                                        src={receiveIcon}
+                                                                        alt="icon"
+                                                                    />
                                                                 </>
                                                             )}
-                                                        </Box>
-                                                    </Stack>
-                                                </StyledCell>
-                                                <StyledCell>
-                                                    <Stack
-                                                        alignItems={'center'}
-                                                        direction={'row'}
-                                                        gap={2}
-                                                    >
-                                                        {/* {item.incoming.icon && (
-                                                        )} */}
+                                                            <Box>
+                                                                <Typography
+                                                                    color="text.lightblue"
+                                                                    sx={{
+                                                                        fontSize: {
+                                                                            xs: '0.75rem',
+                                                                            sm: '1rem',
+                                                                        },
+                                                                        fontWeight: 600,
+                                                                    }}
+                                                                >
+                                                                    {item?.txType}
+                                                                </Typography>
+                                                                <Typography>{date}</Typography>
+                                                                <Typography>{time}</Typography>
+                                                            </Box>
+                                                        </Stack>
+                                                    </StyledCell>
+                                                    <StyledCell>
+                                                        <Stack
+                                                            alignItems={'start'}
+                                                            direction={'row'}
+                                                            gap={2}
+                                                        >
+                                                            <Box>
+                                                                {!item?.inAmount ? (
+                                                                    '_'
+                                                                ) : (
+                                                                    <>
+                                                                        <Stack
+                                                                            direction={'row'}
+                                                                            alignItems={'center'}
+                                                                        >
+                                                                            <img
+                                                                                width={25}
+                                                                                height={25}
+                                                                                src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.inCoinId}.png`}
+                                                                                alt="icon"
+                                                                            />
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    fontWeight: 700,
+                                                                                }}
+                                                                            >
+                                                                                {item?.inAmount}{' '}
+                                                                                {item?.inCurrency}
+                                                                            </Typography>
+                                                                        </Stack>
+                                                                        <span>
+                                                                            (${item?.inAmountInUSD})
+                                                                        </span>
+                                                                        <Typography>
+                                                                            {item?.symbol}
+                                                                        </Typography>
+                                                                    </>
+                                                                )}
+                                                            </Box>
+                                                        </Stack>
+                                                    </StyledCell>
+                                                    <StyledCell>
+                                                        <Stack
+                                                            alignItems={'center'}
+                                                            direction={'row'}
+                                                            gap={2}
+                                                        >
+                                                            <Box>
+                                                                {!item?.outAmount ? (
+                                                                    '_'
+                                                                ) : (
+                                                                    <>
+                                                                        <Stack
+                                                                            direction={'row'}
+                                                                            alignItems={'center'}
+                                                                        >
+                                                                            <img
+                                                                                width={25}
+                                                                                height={25}
+                                                                                src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
+                                                                                alt="icon"
+                                                                            />
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    fontWeight: 700,
+                                                                                }}
+                                                                            >
+                                                                                {item?.outAmount}{' '}
+                                                                                {item?.outCurrency}
+                                                                            </Typography>
+                                                                        </Stack>
+                                                                        <span>
+                                                                            ${item?.outAmountInUSD}
+                                                                        </span>
+                                                                        <Typography>
+                                                                            {item?.symbol}
+                                                                        </Typography>
+                                                                    </>
+                                                                )}
+                                                            </Box>
+                                                        </Stack>
+                                                    </StyledCell>
+                                                    <StyledCell>
                                                         <Box>
-                                                            {!item?.outAmount ? (
+                                                            {!item?.fee ? (
                                                                 '_'
                                                             ) : (
                                                                 <>
-                                                                    <Stack
-                                                                        direction={'row'}
-                                                                        alignItems={'center'}
+                                                                    <Typography
+                                                                        sx={{
+                                                                            fontWeight: 700,
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            gap: '0.5em',
+                                                                        }}
                                                                     >
                                                                         <img
                                                                             width={25}
@@ -527,108 +553,71 @@ const History = ({
                                                                             src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
                                                                             alt="icon"
                                                                         />
-                                                                        <Typography
-                                                                            sx={{ fontWeight: 700 }}
-                                                                        >
-                                                                            {item?.outAmount}{' '}
-                                                                            {item?.outCurrency}
-                                                                        </Typography>
-                                                                    </Stack>
-                                                                    <span>
-                                                                        ${item?.outAmountInUSD}
-                                                                    </span>
-                                                                    <Typography>
-                                                                        {item?.symbol}
+                                                                        {item?.fee}
                                                                     </Typography>
-                                                                    {/* <Box sx={{ pt: '1em' }}>    
-                                                                <Typography>
-                                                                    {item.incoming?.costBasis}
-                                                                </Typography>
-                                                            </Box> */}
+                                                                    <span>${item.feeInUSD}</span>
                                                                 </>
                                                             )}
                                                         </Box>
-                                                    </Stack>
-                                                </StyledCell>
-                                                <StyledCell>
-                                                    <Box>
-                                                        {!item?.fee ? (
-                                                            '_'
-                                                        ) : (
-                                                            <>
+                                                    </StyledCell>
+                                                    <StyledCell>{/* cell 5 */}</StyledCell>{' '}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <StyledCell
+                                                        sx={{ textAlign: 'start', pl: '3em' }}
+                                                    >
+                                                        <Stack
+                                                            alignItems={'center'}
+                                                            direction={'row'}
+                                                            gap={1}
+                                                        >
+                                                            <img
+                                                                width={40}
+                                                                height={40}
+                                                                src={icons[item.coin.icon]}
+                                                                alt="icon"
+                                                            />
+                                                            <Box>
                                                                 <Typography
                                                                     sx={{
-                                                                        fontWeight: 700,
-                                                                        display: 'flex',
-                                                                        alignItems: 'center',
-                                                                        gap: '0.5em',
+                                                                        fontSize: {
+                                                                            xs: '0.75rem',
+                                                                            sm: '1rem',
+                                                                        },
+                                                                        fontWeight: 600,
                                                                     }}
                                                                 >
-                                                                    <img
-                                                                        width={25}
-                                                                        height={25}
-                                                                        src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.outCoinId}.png`}
-                                                                        alt="icon"
-                                                                    />
-                                                                    {item?.fee}
+                                                                    {item.coin.short}
                                                                 </Typography>
-                                                                <span>${item.feeInUSD}</span>
-                                                                {/* <Box sx={{ pt: '1em' }}>
-                                                            <Typography>
-                                                                {item.fee?.costBasis}
-                                                            </Typography>
-                                                        </Box> */}
-                                                            </>
-                                                        )}
-                                                    </Box>
-                                                </StyledCell>
-                                                <StyledCell>{/* cell 5 */}</StyledCell>{' '}
-                                            </>
-                                        ) : (
-                                            <>
-                                                <StyledCell sx={{ textAlign: 'start', pl: '3em' }}>
-                                                    <Stack
-                                                        alignItems={'center'}
-                                                        direction={'row'}
-                                                        gap={1}
-                                                    >
-                                                        <img
-                                                            width={40}
-                                                            height={40}
-                                                            src={icons[item.coin.icon]}
-                                                            alt="icon"
-                                                        />
-                                                        <Box>
-                                                            <Typography
-                                                                sx={{
-                                                                    fontSize: {
-                                                                        xs: '0.75rem',
-                                                                        sm: '1rem',
-                                                                    },
-                                                                    fontWeight: 600,
-                                                                }}
-                                                            >
-                                                                {item.coin.short}
-                                                            </Typography>
-                                                            <Typography sx={{ fontSize: '12px' }}>
-                                                                {item.coin.coinName}
-                                                            </Typography>
-                                                        </Box>
-                                                    </Stack>
-                                                </StyledCell>
-                                                <StyledCell>
-                                                    {item.price.currency}
-                                                    {item.price.value}
-                                                </StyledCell>
-                                                <StyledCell>{item.oneDayChange}</StyledCell>
-                                                <StyledCell>{item.marketCap}</StyledCell>
-                                                <StyledCell>{item.oneDayVolume}</StyledCell>
-                                                <StyledCell>{item.supply}</StyledCell>
-                                            </>
-                                        )}
-                                    </TableRow>
-                                );
-                            })}
+                                                                <Typography
+                                                                    sx={{ fontSize: '12px' }}
+                                                                >
+                                                                    {item.coin.coinName}
+                                                                </Typography>
+                                                            </Box>
+                                                        </Stack>
+                                                    </StyledCell>
+                                                    <StyledCell>
+                                                        {item.price.currency}
+                                                        {item.price.value}
+                                                    </StyledCell>
+                                                    <StyledCell>{item.oneDayChange}</StyledCell>
+                                                    <StyledCell>{item.marketCap}</StyledCell>
+                                                    <StyledCell>{item.oneDayVolume}</StyledCell>
+                                                    <StyledCell>{item.supply}</StyledCell>
+                                                </>
+                                            )}
+                                        </TableRow>
+                                    );
+                                })
+                            ) : (
+                                <TableRow>
+                                    <StyledCell colSpan={7} sx={{ textAlign: 'center' }}>
+                                        No record found
+                                    </StyledCell>
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                     <PaginationWrapper

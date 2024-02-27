@@ -1,45 +1,71 @@
+// import React from 'react';
+import { useState, useEffect } from 'react';
 import { Typography, Button, Stack, Box, useMediaQuery } from '@mui/material';
-
+// import axios from 'axios';
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 // import sortingBg from '../../images/sorting_bg.png';
-import {  SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
-
-const sortingItems = [
-    {
-        name: 'Type',
-        items: ['Type 1', 'Type 2', 'Type 3', 'Type 4'],
-    },
-    {
-        name: 'Wallet',
-        items: ['Wallet 1', 'Wallet 2', 'Wallet 3'],
-    },
-
-    {
-        name: 'Currency',
-        items: ['Currency 1', 'Currency 2', 'Currency 3'],
-    },
-    {
-        name: 'Sync Method',
-        items: ['Sync Method 1', 'Sync Method 2', 'Sync Method 3'],
-    },
-    {
-        name: 'Status',
-        items: ['Status 1', 'Status 2', 'Status 3'],
-    },
-    {
-        name: 'Date',
-        items: ['Date 1', 'Date 2', 'Date 3'],
-    },
-    {
-        name: 'Tag',
-        items: ['Tag 1', 'Tag 2', 'Tag 3'],
-    },
-];
+import { SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
 
 const sortByNewest = ['Newest', 'Oldest'];
 
-const Sorting = () => {
+const Sorting = (props) => {
+    const [sortingItems, setSortingItems] = useState([]);
+    useEffect(() => {
+        setSortingItems([
+            {
+                name: 'Type',
+                items: [
+                    { name: 'Deposit', checked: false },
+                    { name: 'Withdrawal', checked: false },
+                    { name: 'Buy', checked: false },
+                    { name: 'Sell', checked: false },
+                    { name: 'Trade', checked: false },
+                ],
+            },
+            {
+                name: 'Wallet',
+                items: props?.wallets,
+            },
+
+            {
+                name: 'Currency',
+                items: [
+                    { name: 'BTC', checked: false },
+                    { name: 'USDT', checked: false },
+                    { name: 'BNB', checked: false },
+                    { name: 'ETH', checked: false },
+                ],
+            },
+
+            {
+                name: 'Date',
+                items: [
+                    { name: 'Start date', checked: false },
+                ],
+            },
+        ]);
+    }, [props.wallets]);
+    const setChecked = (parentId, itemId) => {
+        console.log(parentId, 'parent id', itemId, 'itemId');
+
+        let newArray = sortingItems.map((item, i) => {
+            if (parentId === i) {
+                let subItem = item.items.map((child, index) => {
+                    if (itemId === index) {
+                        return { ...child, checked: true };
+                    } else {
+                        return child;
+                    }
+                });
+                return { name: item.name, items: subItem };
+            } else {
+                return item;
+            }
+        });
+        console.log(newArray, 'updated array');
+        setSortingItems(newArray);
+    };
     const sortingDisplay = useMediaQuery('(min-width: 1000px)');
 
     return (
@@ -99,15 +125,22 @@ const Sorting = () => {
             {sortingDisplay ? (
                 <Box
                     sx={{
-                       background:'#F9FCFF',
-                       borderRadius:'15px',
-                       border:'1px solid #D8F0FF',
-                       my:5,
+                        background: '#F9FCFF',
+                        borderRadius: '15px',
+                        border: '1px solid #D8F0FF',
+                        my: 5,
                     }}
                 >
                     <Stack direction={'row'} justifyContent={'space-evenly'}>
                         {sortingItems?.map((item, i) => {
-                            return <SortingDropdown key={i} items={item} />;
+                            return (
+                                <SortingDropdown
+                                    key={i}
+                                    index={i}
+                                    sortItem={item}
+                                    setChecked={setChecked}
+                                />
+                            );
                         })}
                     </Stack>
                 </Box>
