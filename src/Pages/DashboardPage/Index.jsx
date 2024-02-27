@@ -157,7 +157,7 @@ export default function Index() {
 
                 const result = await response.json();
                 setTransactions(result?.data?.transactions);
-                console.log(result, '-=-=-=-result');
+                // console.log(result?.data, '-=-=-=-result');
                 setLoader(false);
             } catch (error) {
                 setLoader(false);
@@ -400,7 +400,7 @@ export default function Index() {
                                         See details
                                     </Typography>
                                 </Stack>
-                                {transactions.length > 0 ? (
+                                {transactions?.length > 0 ? (
                                     transactions.map((item, i) => (
                                         <Box
                                             key={i}
