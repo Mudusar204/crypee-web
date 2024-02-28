@@ -89,7 +89,7 @@ const Taxes = () => {
                                 textTransform: 'uppercase',
                             }}
                         >
-                            2023 Taxes
+                            
                             <KeyboardArrowDown />
                         </Typography>
                         <Typography
