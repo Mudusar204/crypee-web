@@ -1,10 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { Box, Button, Menu, MenuItem, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Container,
+    Dialog,
+    Grid,
+    IconButton,
+    Input,
+    InputBase,
+    Menu,
+    MenuItem,
+    Typography,
+    useMediaQuery,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Search, Close, ArrowBack } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
 import { useNavigate, useLocation } from 'react-router';
@@ -13,6 +27,10 @@ import { setFilterQuery } from '../redux/slices/filterTransectionSlice';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { toast } from 'react-toastify';
+import { useDropzone } from 'react-dropzone';
+import upload from '../images/AddWallet/upload.png';
+import useMakeToast from '../hooks/makeToast';
+
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -419,9 +437,9 @@ export const AssetsDropdown = ({ categories }) => {
 export const AddwalletDropdown = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [exchangeData, setExchangeData] = useState([]);
+    let storedData = JSON.parse(localStorage.getItem('persistMe'));
     const navigate = useNavigate();
     const location = useLocation();
-    let storedData = JSON.parse(localStorage.getItem('persistMe'));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -499,6 +517,420 @@ export const AddwalletDropdown = () => {
                     <StyledMenuItem sx={{ color: 'black' }}>No available exchanges</StyledMenuItem>
                 )}
             </StyledMenu>
+        </>
+    );
+};
+
+export const AddWalletDialog = ({ open, setOpen }) => {
+    const [openAdd, setOpenAdd] = useState(false);
+    const [search, setSearch] = useState('');
+    const [searchData, setSearchData] = useState([]);
+    const [exchangeData, setExchangeData] = useState([]);
+    const [addExchangeData, setAddExchangeData] = useState({});
+    const makeToast = useMakeToast();
+    let storedData = JSON.parse(localStorage.getItem('persistMe'));
+
+    // fetch exchange data
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${REACT_APP_BASE_URL}/api/avlExchanges`, {
+                    headers: {
+                        Authorization: storedData?.user?.token,
+                    },
+                });
+                const result = await response.json();
+                setExchangeData(result.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [storedData]);
+    const handleClose = () => {
+        setOpenAdd(false);
+        setOpen(false);
+        setSearch('');
+    };
+
+    // filter for search wallets or exchanges
+    useEffect(() => {
+        function filterByName() {
+            const filterData = exchangeData.filter((item) =>
+                item.name.toLowerCase().includes(search.toLowerCase()),
+            );
+            if (!filterData || filterData.length === 0) {
+                setSearchData(exchangeData);
+            } else {
+                setSearchData(exchangeData);
+            }
+            setSearchData(filterData);
+        }
+        filterByName();
+    }, [search]);
+
+    // add Exchnage or Wallet =-=-=--=-=--=--=-=-=-=--=-==-=-=-=
+    const [apiKey, setApiKey] = useState('');
+    const [apiSecret, setApiSecret] = useState('');
+    const [exchangeId, setExchangeId] = useState('');
+    const [file, setFile] = useState(null);
+
+    useEffect(() => {
+        if (exchangeData.id) {
+            setExchangeId(exchangeData?.id);
+        }
+    }, [exchangeData?.id]);
+
+    const onDrop = useCallback((acceptedFiles) => {
+        // Do something with the files
+        console.log(acceptedFiles, 'acceptedFiles');
+        setFile(acceptedFiles[0]);
+    }, []);
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        multiple: false,
+        accept: 'text/csv, application/csv',
+    });
+
+    const handleSubmit = async () => {
+        try {
+            const data = new FormData();
+            let csvPresence = addExchangeData?.requiredFields?.includes('csv');
+            if (csvPresence) {
+                if (!file) {
+                    return makeToast('Please select file', 'error', 3);
+                } else {
+                    data.append('exchangeId', exchangeId);
+                    data.append('file', file);
+                }
+            } else {
+                if (!apiKey || apiKey === '') {
+                    return makeToast('Please enter ApiKey', 'error', 3);
+                } else if (!apiSecret || apiSecret === '') {
+                    return makeToast('Please enter ApiSecret', 'error', 3);
+                } else {
+                    data.append('exchangeId', exchangeId);
+                    data.append('key[ApiKey]', apiKey);
+                    data.append('key[ApiSecret]', apiSecret);
+                }
+            }
+
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/api/user/${csvPresence ? 'addExchangeCsv' : 'addExchange'}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Authorization: storedData?.user?.token,
+                    },
+                    body: data,
+                },
+            );
+
+            const result = await response.json();
+            if (response.ok) {
+                makeToast(result?.message, 'success', 3);
+                handleClose();
+            } else {
+                makeToast(result?.message, 'error', 3);
+            }
+            console.log('Adding Exchange  =-=-=-:', result);
+        } catch (error) {
+            makeToast(error.message, 'error', 3);
+            console.error('Error Adding Exchange :', error);
+        }
+    };
+
+    const handleCloseAlternate = () => {
+        setOpenAdd(false);
+        setOpen(true);
+        setAddExchangeData({});
+        setFile(null);
+        setApiKey('');
+        setApiSecret('');
+        setExchangeId('');
+    };
+    return (
+        <>
+            {open ? (
+                <Dialog
+                    open={open}
+                    // onClose={() => handleClose}
+                    BackdropProps={{
+                        sx: {
+                            bgcolor: 'rgba(255, 255, 255, 0.85)',
+                        },
+                    }}
+                    sx={{
+                        '& .MuiDialog-paper': {
+                            width: { xs: '300px', sm: '500px', md: '700px' },
+                            maxWidth: '100%',
+                            borderRadius: '12px',
+                            overflow: 'hidden',
+                            py: { xs: 2, sm: 3, md: 4 },
+                        },
+                    }}
+                >
+                    <Container>
+                        <IconButton
+                            sx={{ display: 'flex', ml: 'auto' }}
+                            onClick={() => handleClose()}
+                        >
+                            <Close />
+                        </IconButton>
+                        <Box sx={{ width: { xs: '95%', sm: '80%' }, mx: 'auto' }}>
+                            <Box
+                                sx={{
+                                    fontFamily: 'Gmarket Sans TTF',
+                                    fontSize: { xs: '22px', sm: '26px', md: '32px' },
+                                    fontWeight: '700',
+                                    textAlign: 'center',
+                                    color: '#0B7BC3',
+                                }}
+                            >
+                                Add Wallet
+                            </Box>
+                            <InputBase
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                sx={{
+                                    width: '100%',
+                                    my: { xs: 1.5, sm: 2.5 },
+                                    p: { xs: 0.5, sm: 1 },
+                                    borderRadius: '12px',
+                                    border: '1px solid #DDF2FF',
+                                    alignItems: 'center',
+                                    fontSize: { xs: '10px', sm: '11.5px', md: '13px' },
+                                    '& ::placeholder': {
+                                        color: 'gray',
+                                        fontSize: { xs: '8px', sm: '11px', md: '13px' },
+                                    },
+                                }}
+                                placeholder="Search for your integration or paste your public address, HD wallet key, or ENS "
+                                startAdornment={
+                                    <Search
+                                        sx={{
+                                            ml: { xs: 0, sm: 1, md: 2 },
+                                            fontSize: { xs: '15px', sm: '20px', md: '25px' },
+                                        }}
+                                    />
+                                }
+                            />
+                            <Grid
+                                container
+                                spacing={{ xs: 1.5, sm: 2 }}
+                                sx={{
+                                    maxHeight: { xs: '350px', sm: '400px', md: '500px' },
+                                    overflow: 'auto',
+                                    my: { xs: 0.5 },
+                                }}
+                            >
+                                {Array.isArray(searchData) && searchData.length > 0 ? (
+                                    searchData.map((exchange, i) => {
+                                        return (
+                                            <Grid item xs={6} sm={4} md={3} key={i}>
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: { xs: 1, sm: 1.5 },
+                                                        border: '1px solid #0B7BC350',
+                                                        borderRadius: '12px',
+                                                        p: 1,
+                                                        height: '100%',
+                                                    }}
+                                                    onClick={() => {
+                                                        setAddExchangeData(exchange);
+                                                        setOpen(false);
+                                                        setOpenAdd(true);
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={REACT_APP_BASE_URL + exchange.img}
+                                                        // alt={REACT_APP_BASE_URL + exchange.img}
+                                                        width={'20px'}
+                                                    />
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: {
+                                                                xs: '10px',
+                                                                sm: '12px',
+                                                                md: '14px',
+                                                            },
+                                                        }}
+                                                    >
+                                                        {exchange.name}
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                        );
+                                    })
+                                ) : (
+                                    <Box
+                                        sx={{
+                                            color: 'black',
+                                            textAlign: 'center',
+                                            my: { xs: 2, sm: 3, md: 4 },
+                                        }}
+                                    >
+                                        No available exchanges
+                                    </Box>
+                                )}
+                            </Grid>
+                        </Box>
+                    </Container>
+                </Dialog>
+            ) : (
+                <>
+                    <Dialog
+                        open={openAdd}
+                        BackdropProps={{
+                            sx: {
+                                bgcolor: 'rgba(255, 255, 255, 0.75)',
+                            },
+                        }}
+                        sx={{
+                            '& .MuiDialog-paper': {
+                                width: { xs: '300px', sm: '450px' },
+                                maxWidth: '100%',
+                                borderRadius: '12px',
+                                overflow: 'hidden',
+                                py: { xs: 2, sm: 3, md: 4 },
+                            },
+                        }}
+                    >
+                        <Container>
+                            {/* Header */}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    gap: { xs: 2, sm: 3 },
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        handleCloseAlternate();
+                                    }}
+                                >
+                                    <ArrowBack />
+                                </IconButton>
+                                {/* Header middle text */}
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: { xs: 1, sm: 2 },
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <img
+                                        src={REACT_APP_BASE_URL + addExchangeData.img}
+                                        alt={addExchangeData.img}
+                                        style={{
+                                            borderRadius: '10px',
+                                            objectFit: 'cover',
+                                            width: '30px',
+                                        }}
+                                    />
+                                    <Typography variant="h6" color="black">
+                                        Add {addExchangeData.name}
+                                    </Typography>
+                                </Box>
+                                <IconButton
+                                    onClick={() => {
+                                        handleClose();
+                                    }}
+                                >
+                                    <Close />
+                                </IconButton>
+                            </Box>
+                            {/* Body */}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: { xs: '95%', sm: '80%' },
+                                    mx: 'auto',
+                                }}
+                            >
+                                {!addExchangeData?.requiredFields?.includes('csv') ? (
+                                    <Box sx={{ my: { xs: 1, sm: 2, md: 3 } }}>
+                                        <InputBase
+                                            placeholder="API Key"
+                                            variant="outlined"
+                                            onChange={(e) => setApiKey(e.target.value)}
+                                            value={apiKey}
+                                            sx={{
+                                                border: '1px solid #0B7BC350',
+                                                width: '100%',
+                                                borderRadius: '12px',
+                                                p: { xs: 0.7, sm: 1 },
+                                                my: { xs: 1, sm: 1.5 },
+                                            }}
+                                        />
+
+                                        <InputBase
+                                            placeholder="API Secret"
+                                            variant="outlined"
+                                            onChange={(e) => setApiSecret(e.target.value)}
+                                            value={apiSecret}
+                                            sx={{
+                                                border: '1px solid #0B7BC350',
+                                                width: '100%',
+                                                borderRadius: '12px',
+                                                p: { xs: 0.7, sm: 1 },
+                                                my: { xs: 1, sm: 1.5 },
+                                            }}
+                                        />
+                                    </Box>
+                                ) : (
+                                    <>
+                                        <Box
+                                            {...getRootProps()}
+                                            sx={{
+                                                width: '100%',
+                                                cursor: 'pointer',
+                                                border: '2px dashed #000',
+                                                borderRadius: '5px',
+                                                py: 5,
+                                                px: 10,
+                                                my: { xs: 2, sm: 3 },
+                                            }}
+                                        >
+                                            <input {...getInputProps()} />
+                                            {isDragActive ? (
+                                                <p>Drop the files here ...</p>
+                                            ) : (
+                                                <Box
+                                                    component="img"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        width: '80px',
+                                                        mx: 'auto',
+                                                    }}
+                                                    src={upload}
+                                                    alt=""
+                                                />
+                                            )}
+                                        </Box>
+                                    </>
+                                )}
+
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => handleSubmit()}
+                                >
+                                    Add {addExchangeData.name}
+                                </Button>
+                            </Box>
+                        </Container>
+                    </Dialog>
+                </>
+            )}
         </>
     );
 };

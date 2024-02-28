@@ -10,7 +10,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { styled } from '@mui/styles';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { AddwalletDropdown } from '../../Components/DropdownMenus';
+import { AddWalletDialog, AddwalletDropdown } from '../../Components/DropdownMenus';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 import { DataContext } from '../../utils/ContextAPI';
@@ -88,6 +88,7 @@ const rtransactiondata = [
 ];
 
 export default function Index() {
+    const [addWalletState, setAddWalletState] = useState(false);
     const [graphData, setGraphData] = useState([]);
     const [assets, setAssets] = useState([]);
     const [cryptoTaxes, setCryptoTaxes] = useState([]);
@@ -170,6 +171,7 @@ export default function Index() {
     return (
         <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
             <Navigation />
+            <AddWalletDialog open={addWalletState} setOpen={setAddWalletState} />
 
             <Box
                 sx={{
@@ -187,7 +189,25 @@ export default function Index() {
                     <Grid item xs={12} lg={3.5} md={4}>
                         <Box>
                             <Stack direction="row" justifyContent="center" gap={5} py={5}>
-                                <AddwalletDropdown />
+                                {/* <AddwalletDropdown /> */}
+                                <Button
+                                    variant="btn1"
+                                    sx={{
+                                        fontFamily: 'Poppins',
+                                        fontStyle: 'normal',
+                                        fontWeight: '600',
+                                        fontSize: {
+                                            lg: '14px',
+                                            xs: '12px',
+                                            sm: '13px',
+                                            md: '13px',
+                                        },
+                                        lineHeight: '24px',
+                                    }}
+                                    onClick={() => setAddWalletState(true)}
+                                >
+                                    Add Wallet
+                                </Button>
                                 <Button
                                     variant="btn1"
                                     sx={{
