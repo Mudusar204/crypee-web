@@ -182,7 +182,7 @@ export default function Index() {
             >
                 <Grid container spacing={{ xs: 3, md: 5 }} px={3} py={3}>
                     <Grid item xs={12} lg={8.5} md={8}>
-                        <Profile data={graphData} />
+                        <Profile dataprops={graphData} />
                     </Grid>
                     <Grid item xs={12} lg={3.5} md={4}>
                         <Box>
