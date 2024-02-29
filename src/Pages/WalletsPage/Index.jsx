@@ -25,8 +25,8 @@ export const syncWallet = async () => {
         throw error;
     }
 };
-// ===============addwallet=========================
-export const addWalletFunction = async () => {
+// ===============get my exchanges=========================
+export const getExchanges = async () => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
         const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getMyExchanges`, {
@@ -49,32 +49,22 @@ const Index = () => {
     const makeToast = useMakeToast();
     const { setLoader } = useContext(DataContext);
 
-    useEffect(() => {
-        const syncWalletState = async () => {
-            try {
-                setLoader(true);
-                const result = await syncWallet();
-                setData(result);
-                makeToast(result?.message, 'success', 3);
-                setLoader(false);
-            } catch (error) {
-                setLoader(false);
-                makeToast(error.message, 'error', 3);
-                console.error('Error setting data:', error.message);
-            }
-        };
-        const handlePageFocus = () => {
-            setLoader(true);
-            syncWalletState();
-            addWalletFunction();
-            setLoader(false);
-        };
-
-        window.addEventListener('focus', handlePageFocus);
-        return () => {
-            window.removeEventListener('focus', handlePageFocus);
-        };
-    }, [syncWallet, addWalletFunction]);
+    // useEffect(() => {
+    //     const syncWalletState = async () => {
+    //         try {
+    //             setLoader(true);
+    //             const result = await getExchanges();
+    //             setData(result);
+    //             makeToast(result?.message, 'success', 3);
+    //             setLoader(false);
+    //         } catch (error) {
+    //             setLoader(false);
+    //             makeToast(error.message, 'error', 3);
+    //             console.error('Error setting data:', error.message);
+    //         }
+    //     };
+    //     syncWalletState()
+    // }, [ ]);
     return (
         <>
             <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>

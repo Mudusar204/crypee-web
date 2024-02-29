@@ -10,7 +10,7 @@ import gns from '../../images/wallets/gns.png';
 import usdt from '../../images/wallets/usdt.png';
 import WalletsDialog from './WalletsDialog';
 import AddWalletDialog from './AddWalletDialog';
-import { addWalletFunction, fetchData, syncWallet } from './Index';
+import { getExchanges, fetchData, syncWallet } from './Index';
 import { setWalletData } from '../../redux/slices/userWalletData';
 import { useDispatch } from 'react-redux';
 import useMakeToast from '../../hooks/makeToast';
@@ -81,28 +81,28 @@ export default function Walletslist() {
     const [profile, setProfile] = useState();
     const { setLoader } = useContext(DataContext);
 
-    const handleSyncWalletClick = async () => {
-        try {
-            setLoader(true);
-            const result = await syncWallet();
-            setsyncData(result);
-            if (result) {
-                makeToast('Wallet synced successfully', 'success', 3);
-            } else {
-                makeToast('Error syncing wallet', 'error', 3);
-            }
-            setLoader(false);
-        } catch (error) {
-            setLoader(false);
-            makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
-            console.error('Error syncing wallet:', error.message);
-        }
-    };
+    // const handleSyncWalletClick = async () => {
+    //     try {
+    //         setLoader(true);
+    //         const result = await syncWallet();
+    //         setsyncData(result);
+    //         if (result) {
+    //             makeToast('Wallet synced successfully', 'success', 3);
+    //         } else {
+    //             makeToast('Error syncing wallet', 'error', 3);
+    //         }
+    //         setLoader(false);
+    //     } catch (error) {
+    //         setLoader(false);
+    //         makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
+    //         console.error('Error syncing wallet:', error.message);
+    //     }
+    // };
     // ==========syncExchange===============
     const handleSyncExchangeClick = async () => {
         try {
             setLoader(true);
-            const result = await addWalletFunction();
+            const result = await getExchanges();
             if (result) {
                 makeToast(`Wallet exchanges synced successfully: ${result.message}`, 'success', 3);
                 setwalletData(result.data);
@@ -149,6 +149,7 @@ export default function Walletslist() {
     };
     useEffect(() => {
         fetchProfile();
+        handleSyncExchangeClick()
     }, []);
 
     return (
@@ -170,14 +171,14 @@ export default function Walletslist() {
                         sx={{
                             fontFamily: 'Gmarket',
                             fontStyle: 'normal',
-                            fontWeight: '600',
+                          fontWeight: '600',
                             fontSize: '16px',
                             lineHeight: '24px',
                             p: { xs: '5px 15px', sm: '10px 20px' },
                         }}
-                        onClick={handleSyncExchangeClick}
+                        onClick={syncWallet}
                     >
-                        Sync Exchanges
+                        Sync Wallet
                     </Button>
                     <AddwalletDropdown />
                 </Stack>
@@ -208,7 +209,7 @@ export default function Walletslist() {
                                 color: ' var(--Text-Black, #333)',
                             }}
                         >
-                            Wallet Exchanges
+                            Your Exchanges
                         </Box>
                         <Box
                             sx={{
