@@ -7,6 +7,8 @@ import { DataContext } from '../../utils/ContextAPI';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 
+import Skeleton from '@mui/material/Skeleton';
+
 echarts.registerTheme('my_theme', {
     // backgroundColor: '#f4cccc'
 });
@@ -35,7 +37,7 @@ export default function Profile({ dataprops }) {
 
     const fetchProfile = async () => {
         try {
-            setLoader(true);
+            // setLoader(true);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -62,9 +64,9 @@ export default function Profile({ dataprops }) {
             setValue(valueArray);
             setAllValue(valueArray);
 
-            setLoader(false);
+            // setLoader(false);
         } catch (error) {
-            setLoader(false);
+            // setLoader(false);
             console.log(error);
         }
     };
@@ -137,13 +139,13 @@ export default function Profile({ dataprops }) {
             case 'All':
                 // No filtering, show all data
                 filteredData = alldate;
-                // filteredValue = allvalue;
-                setValue(allvalue);
+                filteredValue = allvalue;
+                // setValue(allvalue);
 
                 break;
             default:
-                // Default case: no filtering
-                filteredData = date;
+            // Default case: no filtering
+            // filteredData = date;
         }
 
         // Update state with filtered data
@@ -189,7 +191,7 @@ export default function Profile({ dataprops }) {
                         },
                     ]),
                 },
-                data: value,
+                data: value ? `${value}` : 'Not Found Specific Data',
                 tooltip: {
                     formatter: (params) => `$ ${params.value}`,
                 },
@@ -235,55 +237,110 @@ export default function Profile({ dataprops }) {
                             marginRight: '10px',
                         }}
                     >
-                        <sup
-                            style={{
-                                position: 'relative',
-                                top: '-6px',
-                                fontSize: '15px',
-                                fontWeight: '500',
-                            }}
-                        >
-                            $
-                        </sup>
-                        {profile?.balance ? (+profile?.balance).toFixed(4) : profile?.balance}
+                        {profile ? (
+                            <>
+                                <sup
+                                    style={{
+                                        position: 'relative',
+                                        top: '-6px',
+                                        fontSize: '15px',
+                                        fontWeight: '500',
+                                    }}
+                                >
+                                    $
+                                </sup>
+                                {profile?.balance.toFixed(4)}
+                            </>
+                        ) : (
+                            <>
+                                <Skeleton
+                                    animation="wave"
+                                    variant="rectangular"
+                                    width="99px"
+                                    height="26px"
+                                    style={{ borderRadius: '5px' }}
+                                />
+                            </>
+                        )}
+
                         {/* 555,701 */}
                     </Typography>
-                    <Box
-                        sx={{
-                            minWidth: '35px',
-                            height: '26px',
-                            width: '62px',
-                            background: '#0B7BC3',
-                            borderRadius: '5px',
-                            color: '#fff',
-                            fontSize: '10px',
-                            p: 1,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {/* -39.23% */}
-                        {/* {profile?.balance.toFixed(4)} */}
-                        {asset && asset.toFixed(4)} %
-                    </Box>
-                    <Box
-                        sx={{
-                            marginRight: '10px',
-                            minWidth: '35px',
-                            height: '35px',
-                            // background: '#0B7BC3',
-                            borderRadius: '5px',
-                            color: '#0B7BC3',
-                            p: 1,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {/* -358.318 PKR */}
-                        {assetper && assetper.toFixed(4)}
-                    </Box>
+
+                    {asset ? (
+                        <>
+                            <Box
+                                sx={{
+                                    minWidth: '35px',
+                                    height: '26px',
+                                    width: '62px',
+                                    background: '#0B7BC3',
+                                    borderRadius: '5px',
+                                    color: '#fff',
+                                    fontSize: '10px',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {/* -39.23% */}
+                                {/* {profile?.balance.toFixed(4)} */}
+                                {asset && asset.toFixed(3)} %
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            <Skeleton
+                                animation="wave"
+                                variant="rectangular"
+                                width="62px"
+                                height="26px"
+                                style={{ borderRadius: '5px' }}
+                            />
+                        </>
+                    )}
+
+                    {assetper ? (
+                        <>
+                            <Box
+                                sx={{
+                                    marginRight: '10px',
+                                    minWidth: '35px',
+                                    height: '35px',
+                                    // background: '#0B7BC3',
+                                    borderRadius: '5px',
+                                    color: '#0B7BC3',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {assetper && assetper.toFixed(5)}
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            <Skeleton
+                                animation="wave"
+                                variant="rectangular"
+                                width="62px"
+                                height="26px"
+                                sx={{
+                                    marginLeft: '10px',
+                                    minWidth: '35px',
+                                    height: '35px',
+                                    // background: '#0B7BC3',
+                                    borderRadius: '5px',
+                                    color: '#0B7BC3',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            />
+                        </>
+                    )}
                 </Stack>
 
                 <Stack direction="row" alignItems="center" overflow={'auto'}>
@@ -306,10 +363,36 @@ export default function Profile({ dataprops }) {
                             }}
                             onClick={() => handleFilter(val)}
                         >
-                            {val}
+                            {profile ? (
+                                val
+                            ) : (
+                                <>
+                                    {' '}
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="circular"
+                                        sx={{
+                                            color: activeButton === val ? '#fff' : '#0B7BC4',
+                                            // minWidth: { xs: '40px', md: '44px' },
+                                            height: '35px',
+                                            width: '40px',
+                                            borderRadius: '10px  ',
+                                            fontSize: '12px',
+                                            fontWeight: '300',
+                                            backgroundColor:
+                                                activeButton === val ? '#0B7BC3' : 'transparent',
+                                        }}
+                                    />
+                                </>
+                            )}
                         </Button>
                     ))}
                 </Stack>
+                {/* {profile ? (<>
+                
+              </>) : (<>
+                <Skeleton animation="wave" variant="rectangular" width="264px" height="35px" />
+              </>) } */}
             </Stack>
 
             <Stack
@@ -366,23 +449,47 @@ export default function Profile({ dataprops }) {
                     </Typography>
                 </Stack>
                 <Stack direction="row" gap={0} spacing={1} alignItems="center">
-                    <Box
-                        sx={{
-                            minWidth: '35px',
-                            height: '23px',
-                            fontSize: '10px',
+                    {profile ? (
+                        <>
+                            <Box
+                                sx={{
+                                    minWidth: '35px',
+                                    height: '23px',
+                                    fontSize: '10px',
 
-                            background: '#0B7BC3',
-                            borderRadius: '5px',
-                            color: '#fff',
-                            p: 1,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {profile?.netProceeds}
-                    </Box>
+                                    background: '#0B7BC3',
+                                    borderRadius: '5px',
+                                    color: '#fff',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {profile?.netProceeds}
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            <Skeleton
+                                animation="wave"
+                                variant="circular"
+                                sx={{
+                                    minWidth: '35px',
+                                    height: '23px',
+                                    fontSize: '10px',
+
+                                    background: '#0B7BC3',
+                                    borderRadius: '5px',
+                                    color: '#fff',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            />
+                        </>
+                    )}
                     <Typography
                         sx={{
                             color: '#0B7BC4',
@@ -395,21 +502,43 @@ export default function Profile({ dataprops }) {
                     >
                         Market value + Net proceeds
                     </Typography>
-                    <Box
-                        sx={{
-                            minWidth: '35px',
-                            height: '25px',
-                            background: '#F3F3F3',
-                            borderRadius: '5px',
-                            color: '#3333335e',
-                            p: 1,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {profile?.netCost}
-                    </Box>
+                    {profile ? (
+                        <>
+                            <Box
+                                sx={{
+                                    minWidth: '35px',
+                                    height: '25px',
+                                    background: '#F3F3F3',
+                                    borderRadius: '5px',
+                                    color: '#3333335e',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {profile?.netCost}
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            <Skeleton
+                                animation="wave"
+                                variant="circular"
+                                sx={{
+                                    minWidth: '35px',
+                                    height: '25px',
+                                    background: '#F3F3F3',
+                                    borderRadius: '5px',
+                                    color: '#3333335e',
+                                    p: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            />
+                        </>
+                    )}
                     <Typography
                         sx={{
                             color: '#0B7BC4',
@@ -433,16 +562,29 @@ export default function Profile({ dataprops }) {
                     py: { lg: 9, xs: 2, md: 3, sm: 2 },
                 }}
             >
-                <ReactEcharts
-                    option={Option}
-                    style={{ width: '100%', height: '400px' }}
-                    className="echarts-for-echarts"
-                    theme="my_theme"
-                    notMerge={true}
-                    lazyUpdate={true}
-                ></ReactEcharts>
+                {profile ? (
+                    <div>
+                        <ReactEcharts
+                            option={Option}
+                            style={{ width: '100%', height: '400px' }}
+                            className="echarts-for-echarts"
+                            theme="my_theme"
+                            notMerge={true}
+                            lazyUpdate={true}
+                        ></ReactEcharts>
+                    </div>
+                ) : (
+                    <div>
+                        <Skeleton
+                            animation="wave"
+                            variant="rectangular"
+                            width="100%"
+                            height="700px"
+                        />
+                    </div>
+                )}
 
-                {date ? <div>{date}</div> : <div>Loading...</div>}
+                {/* {date ? (<div>{date}</div>) : (<div>Loading...</div>)} */}
 
                 {/* {date ? (<div style={{color: "black"}}>{date}</div>) : (<div style={{color: 'black'}}>Loading</div>)} */}
             </Box>
