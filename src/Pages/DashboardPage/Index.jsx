@@ -16,6 +16,8 @@ import { REACT_APP_BASE_URL } from '../../config';
 import { DataContext } from '../../utils/ContextAPI';
 import { useNavigate } from 'react-router';
 
+import Skeleton from '@mui/material/Skeleton';
+
 const rtransactiondata = [
     {
         title1: 'Received',
@@ -95,9 +97,12 @@ export default function Index() {
     const [transactions, setTransactions] = useState([]);
     const { setLoader } = useContext(DataContext);
     const navigate = useNavigate();
+
+    const [isAssetFetched, setIsAssetFetched] = useState(false);
+
     const fetchData = async () => {
         try {
-            setLoader(true);
+            // setLoader(true);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -108,9 +113,12 @@ export default function Index() {
             });
             setGraphData(response.data?.data?.graphData);
             setAssets(response.data?.data?.assets);
-            setLoader(false);
+            if (response.data?.data?.assets) {
+                setIsAssetFetched(true);
+            }
+            // setLoader(false);
         } catch (error) {
-            setLoader(false);
+            // setLoader(false);
             console.log(error?.response?.data);
         }
     };
@@ -121,7 +129,7 @@ export default function Index() {
     useEffect(() => {
         const cryptotaxes = async () => {
             try {
-                setLoader(true);
+                // setLoader(true);
                 const refreshToken = localStorage.getItem('persistMe')
                     ? JSON.parse(localStorage.getItem('persistMe'))
                     : null;
@@ -132,9 +140,9 @@ export default function Index() {
                 });
                 // console.log(response.data?.data, 'response.data');
                 setCryptoTaxes(response.data?.data);
-                setLoader(false);
+                // setLoader(false);
             } catch (error) {
-                setLoader(false);
+                // setLoader(false);
                 console.log(error?.response?.data);
             }
         };
@@ -144,7 +152,7 @@ export default function Index() {
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                setLoader(true);
+                // setLoader(true);
                 const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
                 const response = await fetch(
                     `${REACT_APP_BASE_URL}/api/data/getTransactions?limit=${4}&page=${1}`,
@@ -159,9 +167,9 @@ export default function Index() {
                 const result = await response.json();
                 setTransactions(result?.data?.transactions);
                 // console.log(result?.data, '-=-=-=-result');
-                setLoader(false);
+                // setLoader(false);
             } catch (error) {
-                setLoader(false);
+                // setLoader(false);
                 console.error('Error fetching Transactions Dashboard:', error?.response?.data);
             }
         };
@@ -309,6 +317,7 @@ export default function Index() {
                                         Tax
                                     </Typography>
                                 </Stack>
+
                                 {cryptoTaxes.length > 0 ? (
                                     cryptoTaxes.map((data, index) => (
                                         <Stack
@@ -357,7 +366,23 @@ export default function Index() {
                                         </Stack>
                                     ))
                                 ) : (
-                                    <Typography
+                                    <>
+                                        <Skeleton
+                                            animation="wave"
+                                            variant="rectangular"
+                                            width="230px"
+                                            height="16px"
+                                            sx={{
+                                                fontStyle: 'normal',
+                                                fontWeight: '400',
+                                                fontSize: '10px',
+                                                lineHeight: '16px',
+                                                color: '#333',
+                                                textAlign: 'center !important',
+                                                marginTop: '35px',
+                                            }}
+                                        />
+                                        {/* <Typography
                                         fontFamily={'Gmarket'}
                                         sx={{
                                             fontStyle: 'normal',
@@ -369,7 +394,8 @@ export default function Index() {
                                         }}
                                     >
                                         Data Not found
-                                    </Typography>
+                                    </Typography> */}
+                                    </>
                                 )}
                             </Box>
 
@@ -507,7 +533,8 @@ export default function Index() {
                                         </Box>
                                     ))
                                 ) : (
-                                    <Typography
+                                    <>
+                                        {/* <Typography
                                         fontFamily={'Gmarket'}
                                         sx={{
                                             fontStyle: 'normal',
@@ -519,7 +546,54 @@ export default function Index() {
                                         }}
                                     >
                                         Data Not found
-                                    </Typography>
+                                    </Typography> */}
+
+                                        <div style={{ marginTop: '10px' }}>
+                                            <Skeleton
+                                                animation="wave"
+                                                variant="rectangular"
+                                                width="200px"
+                                                height="40px"
+                                                style={{
+                                                    borderRadius: '2px',
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+
+                                            <Skeleton
+                                                animation="wave"
+                                                variant="rectangular"
+                                                width="200px"
+                                                height="40px"
+                                                style={{
+                                                    borderRadius: '2px',
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+
+                                            <Skeleton
+                                                animation="wave"
+                                                variant="rectangular"
+                                                width="200px"
+                                                height="40px"
+                                                style={{
+                                                    borderRadius: '2px',
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+
+                                            <Skeleton
+                                                animation="wave"
+                                                variant="rectangular"
+                                                width="200px"
+                                                height="40px"
+                                                style={{
+                                                    borderRadius: '2px',
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+                                        </div>
+                                    </>
                                 )}
                             </Box>
                         </Box>
@@ -537,7 +611,7 @@ export default function Index() {
                     my: { xs: 5, md: 8 },
                 }}
             >
-                <YourAssets data={assets} />
+                <YourAssets data={assets} isAssetFetched={isAssetFetched} />
             </Box>
         </Box>
     );

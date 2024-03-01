@@ -21,6 +21,7 @@ import assetlogo4 from '../../images/assetlogo4.png';
 import assetlogo5 from '../../images/assetlogo5.png';
 import assertsbg from '../../images/dashboard/assertsbg.png';
 import { DataContext } from '../../utils/ContextAPI';
+import Skeleton from '@mui/material/Skeleton';
 
 const rows = [
     {
@@ -70,7 +71,7 @@ const rows = [
     },
 ];
 
-export default function YourAssets({ data }) {
+export default function YourAssets({ data, isAssetFetched }) {
     const [assetsData, setAssetsData] = useState([]);
     const { setLoader } = useContext(DataContext);
     useEffect(() => {
@@ -207,10 +208,104 @@ export default function YourAssets({ data }) {
                                     </TableCell> */}
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
-                                {assetsData?.map(({ name, data }, i) => (
+
+                            {isAssetFetched === true ? (
+                                <>
+                                    <TableBody>
+                                        {assetsData ? (
+                                            assetsData.map(({ name, data }, i) => (
+                                                <TableRow
+                                                    key={i}
+                                                    sx={{
+                                                        '& td': {
+                                                            borderColor: '#125A86',
+                                                            borderWidth: '2px',
+                                                        },
+                                                        '&:last-child td, &:last-child th': {
+                                                            border: 0,
+                                                        },
+                                                    }}
+                                                >
+                                                    <TableCell>
+                                                        <Stack direction="row" gap={1}>
+                                                            <img
+                                                                src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
+                                                                alt="logo"
+                                                                width={'40px'}
+                                                            />
+                                                            <Box>
+                                                                <Box
+                                                                    sx={{
+                                                                        fontFamily: 'Gmarket',
+                                                                        fontStyle: 'normal',
+                                                                        fontWeight: '600',
+                                                                        fontSize: '12px',
+                                                                        lineHeight: '18px',
+                                                                        color: 'var(--Text-Black, #333)',
+                                                                    }}
+                                                                >
+                                                                    {data?.exchange}
+                                                                </Box>
+                                                                <Box
+                                                                    sx={{
+                                                                        fontFamily: 'Poppins',
+                                                                        fontStyle: 'normal',
+                                                                        fontWeight: '400',
+                                                                        fontSize: '10px',
+                                                                        lineHeight: '18px',
+                                                                        color: 'var(--Text-Black, #333)',
+                                                                    }}
+                                                                >
+                                                                    {data?.symbol}
+                                                                </Box>
+                                                            </Box>
+                                                        </Stack>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Box
+                                                            sx={{
+                                                                fontFamily: 'Gmarket',
+                                                                fontStyle: 'normal',
+                                                                fontWeight: '400',
+                                                                fontSize: '15px',
+                                                                lineHeight: '18px',
+                                                                color: 'var(--Text-Black, #333)',
+                                                            }}
+                                                        >
+                                                            {`($ ${name && data?.balanceInUSD})`}
+                                                        </Box>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Stack
+                                                            direction="row"
+                                                            gap={1}
+                                                            alignItems={'center'}
+                                                        >
+                                                            <Box
+                                                                sx={{
+                                                                    fontFamily: 'Poppins',
+                                                                    fontStyle: 'normal',
+                                                                    fontWeight: '700',
+                                                                    fontSize: '15px',
+                                                                    lineHeight: '18px',
+                                                                    color: 'var(--Text-Black, #333)',
+                                                                }}
+                                                            >
+                                                                {name && data?.amount}
+                                                            </Box>
+                                                        </Stack>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                        ) : (
+                                            <div style={{ color: 'black' }}>Loading.....</div>
+                                        )}
+                                    </TableBody>
+                                </>
+                            ) : (
+                                <TableBody>
                                     <TableRow
-                                        key={i}
+                                        // key={i}
                                         sx={{
                                             '& td': {
                                                 borderColor: '#125A86',
@@ -223,88 +318,43 @@ export default function YourAssets({ data }) {
                                     >
                                         <TableCell>
                                             <Stack direction="row" gap={1}>
-                                                <img
+                                                {/* <img
                                                     src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
                                                     alt="logo"
                                                     width={'40px'}
+                                                /> */}
+                                                <Skeleton
+                                                    animation="wave"
+                                                    variant="rectangular"
+                                                    width="100%"
+                                                    height="26px"
+                                                    style={{ borderRadius: '5px' }}
                                                 />
-                                                <Box>
-                                                    <Box
-                                                        sx={{
-                                                            fontFamily: 'Gmarket',
-                                                            fontStyle: 'normal',
-                                                            fontWeight: '600',
-                                                            fontSize: '12px',
-                                                            lineHeight: '18px',
-                                                            color: 'var(--Text-Black, #333)',
-                                                        }}
-                                                    >
-                                                        {data?.exchange}
-                                                    </Box>
-                                                    <Box
-                                                        sx={{
-                                                            fontFamily: 'Poppins',
-                                                            fontStyle: 'normal',
-                                                            fontWeight: '400',
-                                                            fontSize: '10px',
-                                                            lineHeight: '18px',
-                                                            color: 'var(--Text-Black, #333)',
-                                                        }}
-                                                    >
-                                                        {data?.symbol}
-                                                    </Box>
-                                                </Box>
                                             </Stack>
                                         </TableCell>
                                         <TableCell>
-                                            <Box
-                                                sx={{
-                                                    fontFamily: 'Gmarket',
-                                                    fontStyle: 'normal',
-                                                    fontWeight: '400',
-                                                    fontSize: '15px',
-                                                    lineHeight: '18px',
-                                                    color: 'var(--Text-Black, #333)',
-                                                }}
-                                            >
-                                                {`($ ${name && data?.balanceInUSD})`}
-                                            </Box>
+                                            <Skeleton
+                                                animation="wave"
+                                                variant="rectangular"
+                                                width="100%"
+                                                height="26px"
+                                                style={{ borderRadius: '5px' }}
+                                            />
                                         </TableCell>
                                         <TableCell>
                                             <Stack direction="row" gap={1} alignItems={'center'}>
-                                                <Box
-                                                    sx={{
-                                                        fontFamily: 'Poppins',
-                                                        fontStyle: 'normal',
-                                                        fontWeight: '700',
-                                                        fontSize: '15px',
-                                                        lineHeight: '18px',
-                                                        color: 'var(--Text-Black, #333)',
-                                                    }}
-                                                >
-                                                    {name && data?.amount}
-                                                </Box>
+                                                <Skeleton
+                                                    animation="wave"
+                                                    variant="rectangular"
+                                                    width="100%"
+                                                    height="26px"
+                                                    style={{ borderRadius: '5px' }}
+                                                />
                                             </Stack>
                                         </TableCell>
-                                        {/* <TableCell align="right">
-                                            <Button variant="btn1">-39.72%</Button>
-                                            <Box
-                                                sx={{
-                                                    mt: 1,
-                                                    fontFamily: 'Gmarket',
-                                                    fontStyle: 'normal',
-                                                    fontWeight: '500',
-                                                    fontSize: '13px',
-                                                    lineHeight: '18px',
-                                                    color: 'var(--Text-Black, #333)',
-                                                }}
-                                            >
-                                                returncap
-                                            </Box>
-                                        </TableCell> */}
                                     </TableRow>
-                                ))}
-                            </TableBody>
+                                </TableBody>
+                            )}
                         </Table>
                     </TableContainer>
                 </Box>
