@@ -5,7 +5,6 @@ import { Twitter, LinkedIn } from '@mui/icons-material';
 import Slider from 'react-slick';
 import './userlove.css';
 
-
 import garry1 from '../../images/garry1.png';
 import garry2 from '../../images/garry2.png';
 import garry3 from '../../images/garry3.png';
@@ -196,8 +195,7 @@ const UserLove = () => {
                         mt: 0.5,
                         textAlign: 'center',
                         color: `${theme.palette.text.lightbrown}`,
-                        px:4,
-
+                        px: 4,
                     }}
                 >
                     See what cryptocurrency users around the world are saying about us
@@ -230,7 +228,7 @@ const UserLove = () => {
                                 >
                                     <Box
                                         component="img"
-                                        sx={{ marginTop: '-3.5rem' }}
+                                        sx={{ marginTop: '-5rem' }}
                                         src={user.image}
                                         alt={`userimg${user.id}`}
                                     />

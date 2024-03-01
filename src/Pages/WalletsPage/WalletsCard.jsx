@@ -12,7 +12,7 @@ export default function WalletsCard() {
     const [exchanges, setExchanges] = useState(0);
     const { setLoader } = useContext(DataContext);
     useEffect(() => {
-        const handleSyncExchangeClick = async () => {
+        const getMyExchanges = async () => {
             try {
                 setLoader(true);
                 const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
@@ -31,7 +31,7 @@ export default function WalletsCard() {
                 console.error('Error syncing exchanges:', error.message);
             }
         };
-        handleSyncExchangeClick();
+        getMyExchanges();
     }, []);
     return (
         <Box sx={{ my: { xs: 5, md: 10 } }}>

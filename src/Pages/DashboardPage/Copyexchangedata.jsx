@@ -351,7 +351,8 @@ export const AddwalletDropdown = () => {
         };
 
         fetchData();
-    }, [storedData]);
+    }, []);
+// }, [storedData]);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
