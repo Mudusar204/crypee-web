@@ -5,12 +5,10 @@ import Pastdatesorting from './Pastdatasorting';
 
 const Pastperformance = () => {
     return (
-        <Box  mx={{lg:7,xs:2,md:4,sm:3}}>
+        <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
             <Navigation />
-          
-                <Pastdatesorting/>
-                <PortfolioInsights />
-           
+            <Pastdatesorting />
+            <PortfolioInsights />
         </Box>
     );
 };

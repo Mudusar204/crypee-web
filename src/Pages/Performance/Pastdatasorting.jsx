@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, ButtonGroup, Box } from '@mui/material';
+import { Typography, Button, Stack, ButtonGroup, Box, Grid } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 // import pastdayBg from '../../images/pastday_bg.png';
@@ -50,6 +50,7 @@ const sortByNewest = ['Newest', 'Oldest'];
 
 const Pastdatesorting = () => {
     const [graphData, setGraphData] = useState([]);
+    const [balanceDetails, setBalanceDetails] = useState([]);
     const fetchData = async () => {
         try {
             const refreshToken = localStorage.getItem('persistMe')
@@ -61,6 +62,28 @@ const Pastdatesorting = () => {
                 },
             });
             setGraphData(response.data?.data?.graphData);
+            setBalanceDetails([
+                {
+                    title: 'Unrealized Return',
+                    price: response?.data?.data?.unrealizedReturn?.toFixed(4),
+                },
+                {
+                    title: 'Net Cost',
+                    price: response?.data?.data?.netCost?.toFixed(4),
+                },
+                {
+                    title: 'Net Proceeds',
+                    price: response?.data?.data?.netProceeds?.toFixed(4),
+                },
+                {
+                    title: 'Gains',
+                    price: response?.data?.data?.gains?.toFixed(4),
+                },
+                {
+                    title: 'balance',
+                    price: response?.data?.data?.balance?.toFixed(4),
+                },
+            ]);
         } catch (error) {
             console.log(error?.response?.data);
         }
@@ -156,6 +179,56 @@ const Pastdatesorting = () => {
                 </Box>
             </Box>
 
+            {/* ========== ================ */}
+            <Grid
+                container
+                sx={{ margin: '65px 0px', flexWrap: 'wrap' }}
+                direction={'row'}
+                align="center"
+                justifyContent={'space-evenly'}
+            >
+                {balanceDetails?.map((item, i) => {
+                    console.log(item, 'item');
+                    return (
+                        <Grid sx={{ my: '1em' }} key={i} item lg={2.2} md={2.5} sm={6} xs={12}>
+                            <Box
+                                sx={{
+                                    background: 'white',
+                                    border: '1px solid #D8F0FF',
+                                    borderRadius: '15px',
+                                    display: 'flex',
+                                    gap: '15px',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: 'fit-content',
+                                    px: 3,
+                                    py: 2,
+                                }}
+                            >
+                                {/* <img src={item.icon} alt="icon" width="56px"></img> */}
+
+                                <Typography
+                                    fontWeight={500}
+                                    color={'#A3AED0'}
+                                    sx={{ fontSize: { md: '14px', xs: '10px' } }}
+                                    display={'flex'}
+                                    flexDirection={'column'}
+                                    gap="5px"
+                                >
+                                    {item.title}
+                                    <Typography
+                                        color={'#2B3674'}
+                                        fontSize={'20px'}
+                                        fontWeight={700}
+                                    >
+                                        ${item.price}
+                                    </Typography>
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    );
+                })}
+            </Grid>
             {/* ===========portfolio================ */}
             <Box
                 my={5}
