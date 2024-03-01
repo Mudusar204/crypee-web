@@ -93,7 +93,7 @@ export default function Walletslist() {
     const [walletData, setwalletData] = useState([]);
     const [walletAssets, setWalletAssets] = useState([]);
     const [profile, setProfile] = useState();
-    const [activeExchangeAssets, setActiveExchangeAssets] = useState('');
+    const [activeExchangeAssets, setActiveExchangeAssets] = useState({});
     const { setLoader } = useContext(DataContext);
 
     // const handleSyncWalletClick = async () => {
@@ -119,7 +119,7 @@ export default function Walletslist() {
             setLoader(true);
             const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
             const response = await fetch(
-                `${REACT_APP_BASE_URL}/api/data/getExchangeAssets?exchange=${activeExchangeAssets}`,
+                `${REACT_APP_BASE_URL}/api/data/getExchangeAssets?exchange=${activeExchangeAssets.name}`,
                 {
                     method: 'GET',
                     headers: {
@@ -140,7 +140,7 @@ export default function Walletslist() {
     };
     useEffect(() => {
         handleSyncSingleExchangeClick();
-    }, [activeExchangeAssets]);
+    }, [activeExchangeAssets?.name]);
 
     const handleSyncExchangeClick = async () => {
         try {
@@ -149,7 +149,7 @@ export default function Walletslist() {
             if (result) {
                 makeToast(`Wallet exchanges synced successfully: ${result.message}`, 'success', 3);
                 setwalletData(result.data);
-                setActiveExchangeAssets(result.data[0]?.name);
+                setActiveExchangeAssets(result.data[0]);
                 localStorage.setItem('walletdata', JSON.stringify(result?.data));
                 dispatch(setWalletData(result?.data));
             } else {
@@ -320,9 +320,7 @@ export default function Walletslist() {
                                                             i !== walletData?.length - 1 &&
                                                             '1px solid #fff',
                                                     }}
-                                                    onClick={() =>
-                                                        setActiveExchangeAssets(item.name)
-                                                    }
+                                                    onClick={() => setActiveExchangeAssets(item)}
                                                 >
                                                     <Stack
                                                         direction="row"
@@ -443,7 +441,7 @@ export default function Walletslist() {
                                                     },
                                                 }}
                                             >
-                                                Kraken
+                                                {activeExchangeAssets?.name}
                                             </Box>
                                             <Box
                                                 sx={{
@@ -456,7 +454,8 @@ export default function Walletslist() {
                                                     },
                                                 }}
                                             >
-                                                USDT 0.02
+                                                {activeExchangeAssets?.balance &&
+                                                    `USDT ${activeExchangeAssets?.balance}`}
                                             </Box>
                                         </Box>
                                         <Button
