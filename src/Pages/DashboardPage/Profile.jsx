@@ -28,16 +28,8 @@ export default function Profile({ dataprops }) {
 
     const { setLoader } = useContext(DataContext);
 
-    // useEffect(() => {
-    //     if(dataprops){
-
-    //     }
-
-    // }, [dataprops]);
-
     const fetchProfile = async () => {
         try {
-            // setLoader(true);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -63,18 +55,13 @@ export default function Profile({ dataprops }) {
             setAllDate(timeArray);
             setValue(valueArray);
             setAllValue(valueArray);
-
-            // setLoader(false);
         } catch (error) {
-            // setLoader(false);
             console.log(error);
         }
     };
     useEffect(() => {
         fetchProfile();
     }, []);
-
-    // handleDataChange();
 
     const handleFilter = async (filterType) => {
         let filteredData = [];
@@ -137,15 +124,11 @@ export default function Profile({ dataprops }) {
                 filteredData = date.filter((dateItem) => new Date(dateItem) >= oneYearAgos);
                 break;
             case 'All':
-                // No filtering, show all data
                 filteredData = alldate;
                 filteredValue = allvalue;
-                // setValue(allvalue);
 
                 break;
             default:
-            // Default case: no filtering
-            // filteredData = date;
         }
 
         // Update state with filtered data
@@ -249,7 +232,7 @@ export default function Profile({ dataprops }) {
                                 >
                                     $
                                 </sup>
-                                {profile?.balance.toFixed(4)}
+                                {profile?.balance ? (+profile?.balance).toFixed(4) : '0.00'}
                             </>
                         ) : (
                             <>
@@ -262,8 +245,6 @@ export default function Profile({ dataprops }) {
                                 />
                             </>
                         )}
-
-                        {/* 555,701 */}
                     </Typography>
 
                     {asset ? (
@@ -285,7 +266,7 @@ export default function Profile({ dataprops }) {
                             >
                                 {/* -39.23% */}
                                 {/* {profile?.balance.toFixed(4)} */}
-                                {asset && asset.toFixed(3)} %
+                                {asset && (+asset).toFixed(3)} %
                             </Box>
                         </>
                     ) : (
@@ -316,7 +297,7 @@ export default function Profile({ dataprops }) {
                                     alignItems: 'center',
                                 }}
                             >
-                                {assetper && assetper.toFixed(5)}
+                                {assetper && (+assetper).toFixed(5)}
                             </Box>
                         </>
                     ) : (
