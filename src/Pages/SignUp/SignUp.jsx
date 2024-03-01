@@ -132,6 +132,7 @@ const Signup = () => {
         console.log('accesToken', accessToken);
         try {
             const response = await handleRegister({ googleToken: accessToken });
+            
 
             if (response?.data?.status == 'success') {
                 makeToast(response?.data?.message, 'success', 3);
@@ -156,6 +157,7 @@ const Signup = () => {
     const responseFacebook = async (response) => {
         try {
             const resp = await handleRegister({ FbToken: response });
+            
             if (resp?.data?.status == 'success') {
                 makeToast(resp?.data?.message, 'success', 3);
                 navigate('/login');

@@ -38,7 +38,7 @@ export const handleRefresh = async () => {
 
 export const handleRegister = async (data) => {
     try {
-        const response = axios.post(`${REACT_APP_BASE_URL}/user/signup`, data);
+        const response = axios.post(`${REACT_APP_BASE_URL}/api/user/socialLogin`, data);
         return response;
     } catch (err) {
         console.log('reg err', err);
