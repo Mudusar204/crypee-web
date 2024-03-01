@@ -548,7 +548,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
         };
 
         fetchData();
-    }, [storedData]);
+    }, []);
     const handleClose = () => {
         setOpenAdd(false);
         setOpen(false);
@@ -578,10 +578,10 @@ export const AddWalletDialog = ({ open, setOpen }) => {
     const [file, setFile] = useState(null);
 
     useEffect(() => {
-        if (exchangeData.id) {
-            setExchangeId(exchangeData?.id);
+        if (addExchangeData.id) {
+            setExchangeId(addExchangeData?.id);
         }
-    }, [exchangeData?.id]);
+    }, [addExchangeData?.id]);
 
     const onDrop = useCallback((acceptedFiles) => {
         // Do something with the files
@@ -606,6 +606,8 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                     data.append('file', file);
                 }
             } else {
+                console.log(exchangeId,"id of exchage");
+
                 if (!apiKey || apiKey === '') {
                     return makeToast('Please enter ApiKey', 'error', 3);
                 } else if (!apiSecret || apiSecret === '') {

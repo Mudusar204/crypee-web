@@ -18,7 +18,8 @@ import { DataContext } from '../../utils/ContextAPI';
 import { AddwalletDropdown } from '../../Components/DropdownMenus';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
-import imgs from "../../images/exchangeImgs/binance.png"
+import moment from 'moment/moment';
+import imgs from '../../images/exchangeImgs/binance.png';
 const data = [
     {
         img: eth,
@@ -152,6 +153,31 @@ export default function Walletslist() {
         handleSyncExchangeClick();
     }, []);
 
+    function getLastSyncDate(savedDate) {
+        const diff = moment(new Date()).diff(moment(savedDate));
+
+        // Get the duration in days, hours, or minutes
+        const duration = moment.duration(diff);
+        console.log(duration, 'duration');
+        // Get the difference in days, hours, or minutes
+        const days = duration.days();
+        const hours = duration.hours();
+        const minutes = duration.minutes();
+
+        // Construct the output string based on the difference
+        let output;
+        if (days > 0) {
+            output = days + ' day' + (days > 1 ? 's' : '') + ' ago';
+        } else if (hours > 0) {
+            output = hours + ' hour' + (hours > 1 ? 's' : '') + ' ago';
+        } else if (minutes > 0) {
+            output = minutes + ' minute' + (minutes > 1 ? 's' : '') + ' ago';
+        } else {
+            output = 'Just now';
+        }
+        return output;
+    }
+
     return (
         <Box>
             <AddWalletDialog
@@ -227,11 +253,19 @@ export default function Walletslist() {
                         </Box>
                     </Stack>
                     <Box>
-                        <Grid container spacing={5}>
+                        <Grid
+                            container
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                marginTop: '20px',
+                            }}
+                            spacing={5}
+                        >
                             <Grid
                                 xs={12}
                                 md={4}
-                                sx={{ background: 'red', borderRadius: '10px', px: 2 }}
+                                sx={{ background: 'whitesmoke', borderRadius: '10px', px: 2 }}
                             >
                                 {walletData?.length > 0 ? (
                                     walletData.map((item, i) => {
@@ -241,25 +275,66 @@ export default function Walletslist() {
                                                 direction="row"
                                                 justifyContent="space-between"
                                                 alignItems="center"
-                                                width={{ xs: '100%', md: '80%' }}
+                                                width={{ xs: '100%' }}
+                                                mt={'10px'}
                                             >
-                                                <Stack direction="row" gap={1}>
-                                                        <Box
-                                                            sx={{
-                                                                fontFamily: 'Gmarket',
-                                                                fontStyle: 'normal',
-                                                                fontWeight: '400',
-                                                                fontSize: '10px',
-                                                                lineHeight: '18px',
-                                                                color: ' var(--Text-Black, #333)',
+                                                <Stack
+                                                    direction="row"
+                                                    style={{ alignItems: 'center' }}
+                                                    gap={1}
+                                                >
+                                                    <Box>
+                                                        <img
+                                                            style={{ borderRadius: '50%' }}
+                                                            src={require(`../../images/exchangeImgs/${item.name}.png`)}
+                                                            height={50}
+                                                            width={50}
+                                                            alt=""
+                                                        />
+                                                    </Box>
+                                                    <Box
+                                                        sx={{
+                                                            fontFamily: 'Gmarket',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: '400',
+                                                            fontSize: '14px',
+                                                            color: ' var(--Text-Black, #333)',
+                                                        }}
+                                                    >
+                                                        <p
+                                                            style={{
+                                                                fontSize: '16px',
+                                                                fontWeight: '600',
                                                             }}
                                                         >
                                                             {item.name}
-                                                    </Box>
-                                                    <Box>
-                                                        <img src="../../images/exchangeImgs/binance.png" height={50} width={50} alt="" />
+                                                        </p>
+                                                        <p style={{ marginTop: '-10px' }}>
+                                                            {item?.allAssets?.length}
+                                                        </p>
                                                     </Box>
                                                 </Stack>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: 'Gmarket',
+                                                        fontStyle: 'normal',
+                                                        fontWeight: '400',
+                                                        fontSize: '14px',
+                                                        color: ' var(--Text-Black, #333)',
+                                                    }}
+                                                >
+                                                    <p
+                                                        style={{
+                                                            fontSize: '16px',
+                                                            fontWeight: '600',
+                                                        }}
+                                                    >
+                                                        {item.balance}
+                                                    </p>
+                                                    <p style={{ marginTop: '-10px' }}>
+                                                        {getLastSyncDate(item?.lastSync)}
+                                                    </p>
+                                                </Box>
                                             </Stack>
                                         );
                                     })
@@ -288,8 +363,8 @@ export default function Walletslist() {
                             <Grid
                                 xs={12}
                                 sm={12}
-                                md={8}
-                                sx={{ background: 'blue', borderRadius: '10px', px: 2 }}
+                                md={7.8}
+                                sx={{ background: 'whitesmoke', borderRadius: '10px', px: 2 }}
                             ></Grid>
                         </Grid>
                     </Box>
