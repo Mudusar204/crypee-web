@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import useMakeToast from './../../hooks/makeToast';
 import {
     Table,
     TableBody,
@@ -17,6 +17,9 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { url } from '../../URL';
+
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import sendIcon from '../../images/send_icon.png';
 import receiveIcon from '../../images/receive_icon.png';
@@ -40,6 +43,9 @@ const History = ({
     setRowsPerPage,
 }) => {
     const theme = useTheme();
+
+    // const [copied, setCopied] = useState(false);
+    const makeToast = useMakeToast();
 
     const isMobile = useMediaQuery('(max-width: 900px)');
 
@@ -108,7 +114,8 @@ const History = ({
                                     <StyledHeadCell>Outgoing</StyledHeadCell>
                                     <StyledHeadCell>Incoming</StyledHeadCell>
                                     <StyledHeadCell>Fee</StyledHeadCell>
-                                    <StyledHeadCell>Downloading CSV</StyledHeadCell>
+                                    {/* <StyledHeadCell>Downloading CSV</StyledHeadCell> */}
+                                    <StyledHeadCell>Tx ID</StyledHeadCell>
                                 </>
                             ) : (
                                 <>
@@ -118,6 +125,7 @@ const History = ({
                                     <StyledHeadCell>Market Cap</StyledHeadCell>
                                     <StyledHeadCell>24 Hour Volume</StyledHeadCell>
                                     <StyledHeadCell>Supply</StyledHeadCell>
+                                    <StyledHeadCell>Tx</StyledHeadCell>
                                 </>
                             )}
                         </TableRow>
@@ -251,6 +259,45 @@ const History = ({
                                                                       <Typography>
                                                                           {item?.symbol}
                                                                       </Typography>
+
+                                                                      <Typography>
+                                                                          {['deposit'].includes(
+                                                                              item.txType?.toLowerCase(),
+                                                                          ) ? (
+                                                                              <Box>
+                                                                                  {/* {item?.address} */}
+
+                                                                                  <span>
+                                                                                      {item?.address.slice(
+                                                                                          0,
+                                                                                          4,
+                                                                                      ) +
+                                                                                          '...' +
+                                                                                          item?.address.slice(
+                                                                                              -3,
+                                                                                          )}
+                                                                                  </span>
+
+                                                                                  <CopyToClipboard
+                                                                                      text={
+                                                                                          item?.address
+                                                                                      }
+                                                                                      onCopy={(i) =>
+                                                                                          makeToast(
+                                                                                              'Copied',
+                                                                                              'success',
+                                                                                              3,
+                                                                                          )
+                                                                                      }
+                                                                                  >
+                                                                                      <span>
+                                                                                          &nbsp;&nbsp;&nbsp;
+                                                                                          <ContentCopyIcon fontSize="10px" />
+                                                                                      </span>
+                                                                                  </CopyToClipboard>
+                                                                              </Box>
+                                                                          ) : null}
+                                                                      </Typography>
                                                                   </>
                                                               )}
                                                           </Box>
@@ -292,6 +339,44 @@ const History = ({
                                                                       <Typography>
                                                                           {item?.symbol}
                                                                       </Typography>
+                                                                      <Typography>
+                                                                          {['withdrawal'].includes(
+                                                                              item.txType?.toLowerCase(),
+                                                                          ) ? (
+                                                                              <Box>
+                                                                                  {/* {item?.address} */}
+
+                                                                                  <span>
+                                                                                      {item?.address.slice(
+                                                                                          0,
+                                                                                          4,
+                                                                                      ) +
+                                                                                          '...' +
+                                                                                          item?.address.slice(
+                                                                                              -3,
+                                                                                          )}
+                                                                                  </span>
+
+                                                                                  <CopyToClipboard
+                                                                                      text={
+                                                                                          item?.address
+                                                                                      }
+                                                                                      onCopy={(i) =>
+                                                                                          makeToast(
+                                                                                              'Copied',
+                                                                                              'success',
+                                                                                              3,
+                                                                                          )
+                                                                                      }
+                                                                                  >
+                                                                                      <span>
+                                                                                          &nbsp;&nbsp;&nbsp;
+                                                                                          <ContentCopyIcon fontSize="10px" />
+                                                                                      </span>
+                                                                                  </CopyToClipboard>
+                                                                              </Box>
+                                                                          ) : null}
+                                                                      </Typography>
                                                                   </>
                                                               )}
                                                           </Box>
@@ -324,7 +409,51 @@ const History = ({
                                                           )}
                                                       </Box>
                                                   </StyledCell>
-                                                  <StyledCell>{/* cell 5 */}</StyledCell>{' '}
+                                                  <StyledCell>
+                                                      {item?.txId ? (
+                                                          <span>
+                                                              <Box
+                                                                  sx={{
+                                                                      display: 'flex',
+                                                                      flexDirection: 'row',
+                                                                      alignItems: 'end',
+                                                                  }}
+                                                              >
+                                                                  <span>
+                                                                      {item?.txId.slice(0, 4) +
+                                                                          '...' +
+                                                                          item?.txId.slice(-3)}
+                                                                  </span>
+
+                                                                  <CopyToClipboard
+                                                                      text={item?.txId}
+                                                                      onCopy={(i) =>
+                                                                          makeToast(
+                                                                              'Copied',
+                                                                              'success',
+                                                                              3,
+                                                                          )
+                                                                      }
+                                                                  >
+                                                                      <span>
+                                                                          &nbsp;&nbsp;&nbsp;
+                                                                          <ContentCopyIcon fontSize="10px" />
+                                                                      </span>
+                                                                  </CopyToClipboard>
+                                                              </Box>
+
+                                                              {/* makeToast(result?.message, 'success', 3); */}
+
+                                                              {/* {copied ? (
+                                                                  <span style={{ color: 'red' }}>
+                                                                      Copied.
+                                                                  </span>
+                                                              ) : null} */}
+                                                          </span>
+                                                      ) : (
+                                                          <div>...</div>
+                                                      )}
+                                                  </StyledCell>{' '}
                                               </>
                                           ) : (
                                               <>
@@ -367,7 +496,7 @@ const History = ({
                                                   <StyledCell>{item.oneDayChange}</StyledCell>
                                                   <StyledCell>{item.marketCap}</StyledCell>
                                                   <StyledCell>{item.oneDayVolume}</StyledCell>
-                                                  <StyledCell>{item.supply}</StyledCell>
+                                                  {/* <StyledCell>{item.supply}</StyledCell> */}
                                               </>
                                           )}
                                       </TableRow>
