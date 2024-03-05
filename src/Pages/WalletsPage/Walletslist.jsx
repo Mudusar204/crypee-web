@@ -5,6 +5,7 @@ import {
     Button,
     Container,
     Grid,
+    Skeleton,
     Stack,
     Table,
     TableBody,
@@ -94,29 +95,11 @@ export default function Walletslist() {
     const [walletAssets, setWalletAssets] = useState([]);
     const [profile, setProfile] = useState();
     const [activeExchangeAssets, setActiveExchangeAssets] = useState({});
-    const { setLoader } = useContext(DataContext);
 
-    // const handleSyncWalletClick = async () => {
-    //     try {
-    //         setLoader(true);
-    //         const result = await syncWallet();
-    //         setsyncData(result);
-    //         if (result) {
-    //             makeToast('Wallet synced successfully', 'success', 3);
-    //         } else {
-    //             makeToast('Error syncing wallet', 'error', 3);
-    //         }
-    //         setLoader(false);
-    //     } catch (error) {
-    //         setLoader(false);
-    //         makeToast(`Error syncing wallet: ${error.message}`, 'error', 3);
-    //         console.error('Error syncing wallet:', error.message);
-    //     }
-    // };
     // ==========syncExchange===============
     const handleSyncSingleExchangeClick = async () => {
         try {
-            setLoader(true);
+            setWalletAssets([]);
             const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
             const response = await fetch(
                 `${REACT_APP_BASE_URL}/api/data/getExchangeAssets?exchange=${activeExchangeAssets.name}`,
@@ -131,9 +114,7 @@ export default function Walletslist() {
             const result = await response.json();
             setWalletAssets(result.data);
             console.log(result, 'result single exchange assets');
-            setLoader(false);
         } catch (error) {
-            setLoader(false);
             console.log('Error syncing exchanges:', error.message);
             makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
         }
@@ -144,7 +125,6 @@ export default function Walletslist() {
 
     const handleSyncExchangeClick = async () => {
         try {
-            setLoader(true);
             const result = await getExchanges();
             if (result) {
                 makeToast(`Wallet exchanges synced successfully: ${result.message}`, 'success', 3);
@@ -155,9 +135,7 @@ export default function Walletslist() {
             } else {
                 makeToast('Error Sync Exchanges', 'error', 3);
             }
-            setLoader(false);
         } catch (error) {
-            setLoader(false);
             makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
             console.error('Error syncing exchanges:', error.message);
         }
@@ -173,7 +151,6 @@ export default function Walletslist() {
     // =================profile====================
     const fetchProfile = async () => {
         try {
-            setLoader(true);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -184,10 +161,7 @@ export default function Walletslist() {
             });
             // console.log(response.data.data, 'response.data');
             setProfile(response.data?.data);
-
-            setLoader(false);
         } catch (error) {
-            setLoader(false);
             console.log(error);
         }
     };
@@ -196,6 +170,7 @@ export default function Walletslist() {
         handleSyncExchangeClick();
     }, []);
 
+    // ===================sync wallet exchange time convert=======================
     function getLastSyncDate(savedDate) {
         const diff = moment(new Date()).diff(moment(savedDate));
 
@@ -220,8 +195,6 @@ export default function Walletslist() {
         }
         return output;
     }
-    // Get active Exchange Rcored
-    useEffect(() => {});
 
     return (
         <Box>
@@ -304,113 +277,132 @@ export default function Walletslist() {
                                         height: '100%',
                                     }}
                                 >
-                                    {walletData?.length > 0 ? (
-                                        walletData.map((item, i) => {
-                                            console.log(item, 'exchange');
-                                            return (
-                                                <Stack
-                                                    direction="row"
-                                                    key={i}
-                                                    sx={{
-                                                        justifyContent: 'space-between',
-                                                        alignItems: 'center',
-                                                        py: { xs: 1, md: 1.5 },
-                                                        cursor: 'pointer',
-                                                        borderBottom:
-                                                            i !== walletData?.length - 1 &&
-                                                            '1px solid #fff',
-                                                    }}
-                                                    onClick={() => setActiveExchangeAssets(item)}
-                                                >
-                                                    <Stack
-                                                        direction="row"
-                                                        sx={{
-                                                            alignItems: 'center',
-                                                            gap: { xs: 1, sm: 1.5 },
-                                                        }}
-                                                    >
-                                                        <Box>
-                                                            <img
-                                                                style={{
-                                                                    width: '25px',
-                                                                }}
-                                                                src={require(`../../images/exchangeImgs/${item.name}.png`)}
-                                                                alt=""
-                                                            />
-                                                        </Box>
-                                                        <Box
-                                                            sx={{
-                                                                fontFamily: 'Gmarket',
-                                                                fontStyle: 'normal',
-                                                                fontWeight: '400',
-                                                                fontSize: '12px',
-                                                                color: ' var(--Text-Black, #333)',
-                                                            }}
-                                                        >
-                                                            <Box
-                                                                sx={{
-                                                                    fontWeight: '600',
-                                                                    fontSize: '14px',
-                                                                }}
-                                                            >
-                                                                {item.name}
-                                                            </Box>
-                                                            <Box>
-                                                                {item?.allAssets?.length} assets
-                                                            </Box>
-                                                        </Box>
-                                                    </Stack>
-                                                    <Box
-                                                        sx={{
-                                                            fontFamily: 'Gmarket',
-                                                            fontStyle: 'normal',
-                                                            fontWeight: '400',
-                                                            fontSize: '14px',
-                                                            color: ' var(--Text-Black, #333)',
-                                                        }}
-                                                    >
-                                                        <Box
-                                                            sx={{
-                                                                fontSize: '14px',
-                                                                fontWeight: '600',
-                                                            }}
-                                                        >
-                                                            {item?.balance
-                                                                ? (+item?.balance)?.toFixed(4)
-                                                                : item?.balance}
-                                                        </Box>
-                                                        <Box
-                                                            sx={{
-                                                                fontSize: { xs: '9px', sm: '10px' },
-                                                            }}
-                                                        >
-                                                            {getLastSyncDate(item?.lastSync)}
-                                                        </Box>
-                                                    </Box>
-                                                </Stack>
-                                            );
-                                        })
-                                    ) : (
-                                        <Grid item xs={12}>
-                                            <Box
-                                                sx={{
-                                                    fontFamily: 'Gmarket',
-                                                    fontStyle: 'normal',
-                                                    fontWeight: '600',
-                                                    fontSize: { xs: '12px', sm: '15px' },
-                                                    lineHeight: '18px',
-                                                    color: ' var(--Text-Black, #333)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    my: { xs: 3, sm: 5, md: 7 },
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Wallet exchanges not found
-                                            </Box>
-                                        </Grid>
-                                    )}
+                                    {walletData?.length > 0
+                                        ? walletData.map((item, i) => {
+                                              return (
+                                                  <Stack
+                                                      direction="row"
+                                                      key={i}
+                                                      sx={{
+                                                          justifyContent: 'space-between',
+                                                          alignItems: 'center',
+                                                          py: { xs: 1, md: 1.5 },
+                                                          cursor: 'pointer',
+                                                          borderBottom:
+                                                              i !== walletData?.length - 1 &&
+                                                              '1px solid #fff',
+                                                      }}
+                                                      onClick={() => setActiveExchangeAssets(item)}
+                                                  >
+                                                      <Stack
+                                                          direction="row"
+                                                          sx={{
+                                                              alignItems: 'center',
+                                                              gap: { xs: 1, sm: 1.5 },
+                                                          }}
+                                                      >
+                                                          <Box>
+                                                              <img
+                                                                  style={{
+                                                                      width: '25px',
+                                                                  }}
+                                                                  src={require(`../../images/exchangeImgs/${item.name}.png`)}
+                                                                  alt=""
+                                                              />
+                                                          </Box>
+                                                          <Box
+                                                              sx={{
+                                                                  fontFamily: 'Gmarket',
+                                                                  fontStyle: 'normal',
+                                                                  fontWeight: '400',
+                                                                  fontSize: '12px',
+                                                                  color: ' var(--Text-Black, #333)',
+                                                              }}
+                                                          >
+                                                              <Box
+                                                                  sx={{
+                                                                      fontWeight: '600',
+                                                                      fontSize: '14px',
+                                                                  }}
+                                                              >
+                                                                  {item.name}
+                                                              </Box>
+                                                              <Box>
+                                                                  {item?.allAssets?.length} assets
+                                                              </Box>
+                                                          </Box>
+                                                      </Stack>
+                                                      <Box
+                                                          sx={{
+                                                              fontFamily: 'Gmarket',
+                                                              fontStyle: 'normal',
+                                                              fontWeight: '400',
+                                                              fontSize: '14px',
+                                                              color: ' var(--Text-Black, #333)',
+                                                          }}
+                                                      >
+                                                          <Box
+                                                              sx={{
+                                                                  fontSize: '14px',
+                                                                  fontWeight: '600',
+                                                              }}
+                                                          >
+                                                              {item?.balance
+                                                                  ? (+item?.balance)?.toFixed(4)
+                                                                  : item?.balance}
+                                                          </Box>
+                                                          <Box
+                                                              sx={{
+                                                                  fontSize: {
+                                                                      xs: '9px',
+                                                                      sm: '10px',
+                                                                  },
+                                                              }}
+                                                          >
+                                                              {getLastSyncDate(item?.lastSync)}
+                                                          </Box>
+                                                      </Box>
+                                                  </Stack>
+                                              );
+                                          })
+                                        : [1, 2, 3, 4, 5, 6].map((item, i) => (
+                                              <Box
+                                                  sx={{
+                                                      width: '100%',
+                                                      display: 'flex',
+                                                      justifyContent: 'space-between',
+                                                      alignItems: 'center',
+                                                  }}
+                                              >
+                                                  <Box
+                                                      sx={{
+                                                          display: 'flex',
+                                                          gap: { xs: 1, sm: 2 },
+                                                          alignItems: 'center',
+                                                      }}
+                                                  >
+                                                      <Skeleton
+                                                          sx={{ width: '40px', height: '70px' }}
+                                                      ></Skeleton>
+                                                      <Box>
+                                                          <Skeleton
+                                                              sx={{ width: '50px', my: 0 }}
+                                                          ></Skeleton>
+                                                          <Skeleton
+                                                              sx={{ width: '50px', my: 0 }}
+                                                          ></Skeleton>
+                                                      </Box>
+                                                  </Box>
+                                                  <Box>
+                                                      <Skeleton
+                                                          sx={{ width: '50px', my: 0 }}
+                                                      ></Skeleton>
+                                                      <Skeleton
+                                                          sx={{ width: '50px', my: 0 }}
+                                                      ></Skeleton>
+                                                  </Box>
+                                              </Box>
+                                          ))}
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={8}>
@@ -441,7 +433,11 @@ export default function Walletslist() {
                                                     },
                                                 }}
                                             >
-                                                {activeExchangeAssets?.name}
+                                                {activeExchangeAssets?.name ? (
+                                                    activeExchangeAssets?.name
+                                                ) : (
+                                                    <Skeleton sx={{ width: '100px' }}></Skeleton>
+                                                )}
                                             </Box>
                                             <Box
                                                 sx={{
@@ -454,8 +450,11 @@ export default function Walletslist() {
                                                     },
                                                 }}
                                             >
-                                                {activeExchangeAssets?.balance &&
-                                                    `USDT ${activeExchangeAssets?.balance}`}
+                                                {activeExchangeAssets?.balance ? (
+                                                    `USDT ${activeExchangeAssets?.balance}`
+                                                ) : (
+                                                    <Skeleton sx={{ width: '200px' }}></Skeleton>
+                                                )}
                                             </Box>
                                         </Box>
                                         <Button
@@ -487,37 +486,69 @@ export default function Walletslist() {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {walletAssets.map((item, i) => (
-                                                    <TableRow
-                                                        key={i}
-                                                        sx={{
-                                                            '&:last-child td, &:last-child th': {
-                                                                border: 0,
-                                                            },
-                                                        }}
-                                                    >
-                                                        <TableCell component="th" scope="row">
-                                                            <Stack direction={'row'} gap={2}>
-                                                                <img
-                                                                    style={{
-                                                                        width: '25px',
-                                                                    }}
-                                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.coinId}.png`}
-                                                                    alt=""
-                                                                />
-                                                                <Box>{item.symbol}</Box>
-                                                            </Stack>
-                                                        </TableCell>
-                                                        <TableCell align="right">
-                                                            <Box>
-                                                                <Box>{item?.amount}</Box>
-                                                            </Box>
-                                                        </TableCell>
-                                                        <TableCell align="right">
-                                                            {item.totalTransaction} Transactions
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
+                                                {walletAssets?.length > 0
+                                                    ? walletAssets.map((item, i) => (
+                                                          <TableRow
+                                                              key={i}
+                                                              sx={{
+                                                                  '&:last-child td, &:last-child th':
+                                                                      {
+                                                                          border: 0,
+                                                                      },
+                                                              }}
+                                                          >
+                                                              <TableCell component="th" scope="row">
+                                                                  <Stack direction={'row'} gap={2}>
+                                                                      <img
+                                                                          style={{
+                                                                              width: '25px',
+                                                                          }}
+                                                                          src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.coinId}.png`}
+                                                                          alt=""
+                                                                      />
+                                                                      <Box>{item.symbol}</Box>
+                                                                  </Stack>
+                                                              </TableCell>
+                                                              <TableCell align="right">
+                                                                  <Box>
+                                                                      <Box>{item?.amount}</Box>
+                                                                  </Box>
+                                                              </TableCell>
+                                                              <TableCell align="right">
+                                                                  {item.totalTransaction}{' '}
+                                                                  Transactions
+                                                              </TableCell>
+                                                          </TableRow>
+                                                      ))
+                                                    : ['1', '2', '3', '4'].map((item, i) => (
+                                                          <TableRow>
+                                                              <TableCell
+                                                                  sx={{
+                                                                      display: 'flex',
+                                                                      gap: 2,
+                                                                      alignItems: 'center',
+                                                                  }}
+                                                              >
+                                                                  <Skeleton
+                                                                      sx={{
+                                                                          width: '30px',
+                                                                          height: '45px',
+                                                                      }}
+                                                                  ></Skeleton>
+                                                                  <Skeleton
+                                                                      sx={{
+                                                                          width: '50px',
+                                                                      }}
+                                                                  ></Skeleton>
+                                                              </TableCell>
+                                                              <TableCell>
+                                                                  <Skeleton></Skeleton>
+                                                              </TableCell>
+                                                              <TableCell>
+                                                                  <Skeleton></Skeleton>
+                                                              </TableCell>
+                                                          </TableRow>
+                                                      ))}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
