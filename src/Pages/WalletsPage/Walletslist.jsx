@@ -372,6 +372,10 @@ export default function Walletslist() {
                                                       display: 'flex',
                                                       justifyContent: 'space-between',
                                                       alignItems: 'center',
+                                                      py: { xs: 1, md: 1.5 },
+                                                      borderBottom:
+                                                          i !== walletData?.length - 1 &&
+                                                          '1px solid #fff',
                                                   }}
                                               >
                                                   <Box
@@ -382,24 +386,17 @@ export default function Walletslist() {
                                                       }}
                                                   >
                                                       <Skeleton
-                                                          sx={{ width: '40px', height: '70px' }}
-                                                      ></Skeleton>
+                                                          variant="circular"
+                                                          sx={{ width: '40px', height: '40px' }}
+                                                      />
                                                       <Box>
-                                                          <Skeleton
-                                                              sx={{ width: '50px', my: 0 }}
-                                                          ></Skeleton>
-                                                          <Skeleton
-                                                              sx={{ width: '50px', my: 0 }}
-                                                          ></Skeleton>
+                                                          <Skeleton sx={{ width: '50px', my: 0 }} />
+                                                          <Skeleton sx={{ width: '50px', my: 0 }} />
                                                       </Box>
                                                   </Box>
                                                   <Box>
-                                                      <Skeleton
-                                                          sx={{ width: '50px', my: 0 }}
-                                                      ></Skeleton>
-                                                      <Skeleton
-                                                          sx={{ width: '50px', my: 0 }}
-                                                      ></Skeleton>
+                                                      <Skeleton sx={{ width: '50px', my: 0 }} />
+                                                      <Skeleton sx={{ width: '50px', my: 0 }} />
                                                   </Box>
                                               </Box>
                                           ))}
@@ -436,7 +433,7 @@ export default function Walletslist() {
                                                 {activeExchangeAssets?.name ? (
                                                     activeExchangeAssets?.name
                                                 ) : (
-                                                    <Skeleton sx={{ width: '100px' }}></Skeleton>
+                                                    <Skeleton sx={{ width: '100px' }} />
                                                 )}
                                             </Box>
                                             <Box
@@ -453,7 +450,7 @@ export default function Walletslist() {
                                                 {activeExchangeAssets?.balance ? (
                                                     `USDT ${activeExchangeAssets?.balance}`
                                                 ) : (
-                                                    <Skeleton sx={{ width: '200px' }}></Skeleton>
+                                                    <Skeleton sx={{ width: '200px' }} />
                                                 )}
                                             </Box>
                                         </Box>
@@ -530,22 +527,23 @@ export default function Walletslist() {
                                                                   }}
                                                               >
                                                                   <Skeleton
+                                                                      variant="circular"
                                                                       sx={{
-                                                                          width: '30px',
-                                                                          height: '45px',
+                                                                          width: '40px',
+                                                                          height: '40px',
                                                                       }}
-                                                                  ></Skeleton>
+                                                                  />
                                                                   <Skeleton
                                                                       sx={{
                                                                           width: '50px',
                                                                       }}
-                                                                  ></Skeleton>
+                                                                  />
                                                               </TableCell>
                                                               <TableCell>
-                                                                  <Skeleton></Skeleton>
+                                                                  <Skeleton />
                                                               </TableCell>
                                                               <TableCell>
-                                                                  <Skeleton></Skeleton>
+                                                                  <Skeleton />
                                                               </TableCell>
                                                           </TableRow>
                                                       ))}

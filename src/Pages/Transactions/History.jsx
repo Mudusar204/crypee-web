@@ -385,33 +385,34 @@ const History = ({
                                               }}
                                           >
                                               <Skeleton
-                                                  sx={{ height: '60px', width: '40px' }}
-                                              ></Skeleton>
+                                                  variant="circular"
+                                                  sx={{ height: '40px', width: '40px' }}
+                                              />
                                               <Box>
-                                                  <Skeleton sx={{ width: '40px' }}></Skeleton>
-                                                  <Skeleton sx={{ width: '80px' }}></Skeleton>
-                                                  <Skeleton sx={{ width: '100px' }}></Skeleton>
+                                                  <Skeleton sx={{ width: '40px' }} />
+                                                  <Skeleton sx={{ width: '80px' }} />
+                                                  <Skeleton sx={{ width: '100px' }} />
                                               </Box>
                                           </Box>
                                       </StyledCell>
                                       <StyledCell sx={{ textAlign: 'center' }}>
                                           <Box>
-                                              <Skeleton sx={{ width: '120px' }}></Skeleton>
-                                              <Skeleton sx={{ width: '100px' }}></Skeleton>
-                                              <Skeleton sx={{ width: '70px' }}></Skeleton>
+                                              <Skeleton sx={{ width: '120px' }} />
+                                              <Skeleton sx={{ width: '100px' }} />
+                                              <Skeleton sx={{ width: '70px' }} />
                                           </Box>
                                       </StyledCell>
                                       <StyledCell sx={{ textAlign: 'center' }}>
                                           <Box>
-                                              <Skeleton sx={{ width: '120px' }}></Skeleton>
-                                              <Skeleton sx={{ width: '100px' }}></Skeleton>
-                                              <Skeleton sx={{ width: '70px' }}></Skeleton>
+                                              <Skeleton sx={{ width: '120px' }} />
+                                              <Skeleton sx={{ width: '100px' }} />
+                                              <Skeleton sx={{ width: '70px' }} />
                                           </Box>
                                       </StyledCell>
                                       <StyledCell sx={{ textAlign: 'center' }}>
                                           <Box>
-                                              <Skeleton sx={{ width: '100px' }}></Skeleton>
-                                              <Skeleton sx={{ width: '70px' }}></Skeleton>
+                                              <Skeleton sx={{ width: '100px' }} />
+                                              <Skeleton sx={{ width: '70px' }} />
                                           </Box>
                                       </StyledCell>
                                   </TableRow>
