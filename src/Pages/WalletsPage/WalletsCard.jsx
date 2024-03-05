@@ -14,7 +14,6 @@ export default function WalletsCard() {
     useEffect(() => {
         const getMyExchanges = async () => {
             try {
-                setLoader(true);
                 const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
                 const response = await fetch(`${REACT_APP_BASE_URL}/api/data/getMyExchanges`, {
                     method: 'GET',
@@ -25,9 +24,7 @@ export default function WalletsCard() {
 
                 const result = await response.json();
                 setExchanges(result.data);
-                setLoader(false);
             } catch (error) {
-                setLoader(false);
                 console.error('Error syncing exchanges:', error.message);
             }
         };

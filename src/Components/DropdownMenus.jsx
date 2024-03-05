@@ -451,14 +451,15 @@ export const AddwalletDropdown = () => {
                 });
                 const result = await response.json();
                 setExchangeData(result.data);
+                console.log(result.data, 'result.data for result');
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchData();
-    // }, [storedData]);
-}, []);
+        // }, [storedData]);
+    }, []);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -542,6 +543,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                 });
                 const result = await response.json();
                 setExchangeData(result.data);
+                console.log(result.data, 'result.data for result');
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -569,7 +571,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
             setSearchData(filterData);
         }
         filterByName();
-    }, [search]);
+    }, [search, exchangeData]);
 
     // add Exchnage or Wallet =-=-=--=-=--=--=-=-=-=--=-==-=-=-=
     const [apiKey, setApiKey] = useState('');
@@ -606,7 +608,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                     data.append('file', file);
                 }
             } else {
-                console.log(exchangeId,"id of exchage");
+                console.log(exchangeId, 'id of exchage');
 
                 if (!apiKey || apiKey === '') {
                     return makeToast('Please enter ApiKey', 'error', 3);

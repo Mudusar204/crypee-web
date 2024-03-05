@@ -45,32 +45,12 @@ export const getExchanges = async () => {
 };
 
 const Index = () => {
-    const [data, setData] = useState(null);
-    const makeToast = useMakeToast();
-    const { setLoader } = useContext(DataContext);
-
-    // useEffect(() => {
-    //     const syncWalletState = async () => {
-    //         try {
-    //             setLoader(true);
-    //             const result = await getExchanges();
-    //             setData(result);
-    //             makeToast(result?.message, 'success', 3);
-    //             setLoader(false);
-    //         } catch (error) {
-    //             setLoader(false);
-    //             makeToast(error.message, 'error', 3);
-    //             console.error('Error setting data:', error.message);
-    //         }
-    //     };
-    //     syncWalletState()
-    // }, [ ]);
     return (
         <>
             <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
                 <Navigation />
-                <WalletsCard data={data} />
-                <Walletslist data={data} />
+                <WalletsCard />
+                <Walletslist />
             </Box>
         </>
     );
