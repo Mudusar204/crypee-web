@@ -26,7 +26,7 @@ import WalletsDialog from './WalletsDialog';
 import AddWalletDialog from './AddWalletDialog';
 import { getExchanges, fetchData, syncWallet } from './Index';
 import { setWalletData } from '../../redux/slices/userWalletData';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import useMakeToast from '../../hooks/makeToast';
 import { DataContext } from '../../utils/ContextAPI';
 import { AddwalletDropdown } from '../../Components/DropdownMenus';
@@ -95,6 +95,7 @@ export default function Walletslist() {
     const [walletAssets, setWalletAssets] = useState([]);
     const [profile, setProfile] = useState();
     const [activeExchangeAssets, setActiveExchangeAssets] = useState({});
+    const loading=useSelector((state)=>state.commonSlice.loading)
 
     // ==========syncExchange===============
     const handleSyncSingleExchangeClick = async () => {
@@ -220,8 +221,9 @@ export default function Walletslist() {
                             lineHeight: '24px',
                             p: { xs: '5px 15px', sm: '10px 20px' },
                         }}
-                        onClick={syncWallet}
+                        onClick={()=>syncWallet(null,dispatch)}
                     >
+                        
                         Sync Wallet
                     </Button>
                     <AddwalletDropdown />
@@ -464,9 +466,10 @@ export default function Walletslist() {
                                                 p: { xs: '5px 15px', sm: '7px 20px' },
                                                 height: 'max-content',
                                             }}
-                                            // onClick={syncWallet}
+                                            onClick={()=>syncWallet(activeExchangeAssets,dispatch)}
                                         >
-                                            Sync kraken
+                                           {loading ? "wait...": `Sync ${ activeExchangeAssets?.name}`}
+                                           {/* ddd */}
                                         </Button>
                                     </Stack>
                                     {/* Data Table */}
