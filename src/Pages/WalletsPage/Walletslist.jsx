@@ -113,7 +113,7 @@ export default function Walletslist() {
 
             const result = await response.json();
             setWalletAssets(result.data);
-            console.log(result, 'result single exchange assets');
+            // console.log(result, 'result single exchange assets');
         } catch (error) {
             console.log('Error syncing exchanges:', error.message);
             makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
@@ -176,7 +176,7 @@ export default function Walletslist() {
 
         // Get the duration in days, hours, or minutes
         const duration = moment.duration(diff);
-        console.log(duration, 'duration');
+        // console.log(duration, 'duration');
         // Get the difference in days, hours, or minutes
         const days = duration.days();
         const hours = duration.hours();

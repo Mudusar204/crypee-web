@@ -148,12 +148,12 @@ const History = ({
                         {/* historyDetails && historyDetails.length > 0 */}
                         {historyDetails && historyDetails.length > 0
                             ? historyDetails.map((item, i) => {
-                                  console.log(
-                                      url + item.incoming?.icon,
-                                      'item.incoming.icon',
-                                      url + item.outgoing?.icon,
-                                      'item.outgoing.icon',
-                                  );
+                                  //   console.log(
+                                  //       url + item.incoming?.icon,
+                                  //       'item.incoming.icon',
+                                  //       url + item.outgoing?.icon,
+                                  //       'item.outgoing.icon',
+                                  //   );
                                   let date = new Date(item?.completeTime).toLocaleDateString();
                                   let time = new Date(item?.completeTime).toLocaleTimeString();
                                   return (
@@ -503,7 +503,7 @@ const History = ({
                                   );
                               })
                             : [1, 2, 3, 4, 5].map((item, i) => (
-                                  <TableRow>
+                                  <TableRow key={i}>
                                       <StyledCell sx={{ textAlign: 'center' }}>
                                           <Box
                                               sx={{

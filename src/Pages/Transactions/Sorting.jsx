@@ -1,10 +1,5 @@
-// import React from 'react';
 import { useState, useEffect } from 'react';
 import { Typography, Button, Stack, Box, useMediaQuery } from '@mui/material';
-// import axios from 'axios';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-// import sortingBg from '../../images/sorting_bg.png';
 import { SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
 
 const sortByNewest = ['Newest', 'Oldest'];
@@ -40,9 +35,7 @@ const Sorting = (props) => {
 
             {
                 name: 'Date',
-                items: [
-                    { name: 'Start date', checked: false },
-                ],
+                items: [{ name: 'Start date', checked: false }],
             },
         ]);
     }, [props.wallets]);

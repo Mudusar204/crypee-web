@@ -451,7 +451,7 @@ export const AddwalletDropdown = () => {
                 });
                 const result = await response.json();
                 setExchangeData(result.data);
-                console.log(result.data, 'result.data for result');
+                // console.log(result.data, 'result.data for result');
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -543,7 +543,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                 });
                 const result = await response.json();
                 setExchangeData(result.data);
-                console.log(result.data, 'result.data for result');
+                // console.log(result.data, 'result.data for result');
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

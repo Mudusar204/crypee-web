@@ -272,7 +272,10 @@ export default function YourAssets({ data, isAssetFetched }) {
                                                                 color: 'var(--Text-Black, #333)',
                                                             }}
                                                         >
-                                                            {`($ ${name && data?.balanceInUSD})`}
+                                                            {`($ ${
+                                                                name &&
+                                                                (+data?.balanceInUSD).toFixed(5)
+                                                            })`}
                                                         </Box>
                                                     </TableCell>
                                                     <TableCell>
@@ -291,7 +294,7 @@ export default function YourAssets({ data, isAssetFetched }) {
                                                                     color: 'var(--Text-Black, #333)',
                                                                 }}
                                                             >
-                                                                {name && data?.amount}
+                                                                {name && (+data?.amount).toFixed(5)}
                                                             </Box>
                                                         </Stack>
                                                     </TableCell>
@@ -303,7 +306,7 @@ export default function YourAssets({ data, isAssetFetched }) {
                                     </TableBody>
                                 </>
                             ) : (
-                                <>
+                                [1, 2, 3, 4, 5].map((i) => (
                                     <TableBody>
                                         <TableRow
                                             // key={i}
@@ -318,166 +321,31 @@ export default function YourAssets({ data, isAssetFetched }) {
                                             }}
                                         >
                                             <TableCell>
-                                                <Stack direction="row" gap={1}>
-                                                    {/* <img
-                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
-                                                    alt="logo"
-                                                    width={'40px'}
-                                                /> */}
-                                                    <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
-                                                    />
-                                                </Stack>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton
-                                                    animation="wave"
-                                                    variant="rectangular"
-                                                    width="100%"
-                                                    height="26px"
-                                                    style={{ borderRadius: '5px' }}
-                                                />
-                                            </TableCell>
-                                            <TableCell>
                                                 <Stack
                                                     direction="row"
                                                     gap={1}
                                                     alignItems={'center'}
                                                 >
                                                     <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
+                                                        variant="circular"
+                                                        width="45px"
+                                                        height="45px"
                                                     />
+                                                    <Box>
+                                                        <Skeleton width="80px" height="25px" />
+                                                        <Skeleton width="40px" height="20px" />
+                                                    </Box>
                                                 </Stack>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton width="150px" height="26px" />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Skeleton width="100px" height="22px" />
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
-
-                                    <br />
-
-                                    <TableBody>
-                                        <TableRow
-                                            // key={i}
-                                            sx={{
-                                                '& td': {
-                                                    borderColor: '#125A86',
-                                                    borderWidth: '2px',
-                                                },
-                                                '&:last-child td, &:last-child th': {
-                                                    border: 0,
-                                                },
-                                            }}
-                                        >
-                                            <TableCell>
-                                                <Stack direction="row" gap={1}>
-                                                    {/* <img
-                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
-                                                    alt="logo"
-                                                    width={'40px'}
-                                                /> */}
-                                                    <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
-                                                    />
-                                                </Stack>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton
-                                                    animation="wave"
-                                                    variant="rectangular"
-                                                    width="100%"
-                                                    height="26px"
-                                                    style={{ borderRadius: '5px' }}
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <Stack
-                                                    direction="row"
-                                                    gap={1}
-                                                    alignItems={'center'}
-                                                >
-                                                    <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
-                                                    />
-                                                </Stack>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-
-                                    <br />
-
-                                    <TableBody>
-                                        <TableRow
-                                            // key={i}
-                                            sx={{
-                                                '& td': {
-                                                    borderColor: '#125A86',
-                                                    borderWidth: '2px',
-                                                },
-                                                '&:last-child td, &:last-child th': {
-                                                    border: 0,
-                                                },
-                                            }}
-                                        >
-                                            <TableCell>
-                                                <Stack direction="row" gap={1}>
-                                                    {/* <img
-                                                    src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
-                                                    alt="logo"
-                                                    width={'40px'}
-                                                /> */}
-                                                    <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
-                                                    />
-                                                </Stack>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Skeleton
-                                                    animation="wave"
-                                                    variant="rectangular"
-                                                    width="100%"
-                                                    height="26px"
-                                                    style={{ borderRadius: '5px' }}
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <Stack
-                                                    direction="row"
-                                                    gap={1}
-                                                    alignItems={'center'}
-                                                >
-                                                    <Skeleton
-                                                        animation="wave"
-                                                        variant="rectangular"
-                                                        width="100%"
-                                                        height="26px"
-                                                        style={{ borderRadius: '5px' }}
-                                                    />
-                                                </Stack>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-
-                                    <br />
-                                </>
+                                ))
                             )}
                         </Table>
                     </TableContainer>
