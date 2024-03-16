@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Typography, Button, Stack, Box, useMediaQuery } from '@mui/material';
-import { SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
+import { AddWalletDialog, SortByNewest, SortingDropdown } from '../../Components/DropdownMenus';
 
 const sortByNewest = ['Newest', 'Oldest'];
 
 const Sorting = (props) => {
+    const [addWalletState, setAddWalletState] = useState(false);
     const [sortingItems, setSortingItems] = useState([]);
     useEffect(() => {
         setSortingItems([
@@ -56,13 +57,14 @@ const Sorting = (props) => {
                 return item;
             }
         });
-        console.log(newArray, 'updated array');
+        // console.log(newArray, 'updated array');
         setSortingItems(newArray);
     };
     const sortingDisplay = useMediaQuery('(min-width: 1000px)');
 
     return (
         <>
+            <AddWalletDialog open={addWalletState} setOpen={setAddWalletState} />
             <Stack
                 direction={'row'}
                 justifyContent={{ xs: 'flex-end', sm: 'space-between' }}
@@ -81,7 +83,12 @@ const Sorting = (props) => {
                     Transactions
                 </Typography>
 
-                <Stack direction={'row'} alignItems={'center'} justifyContent={{ xs: 'center' }}>
+                <Stack
+                    direction={'row'}
+                    alignItems={'center'}
+                    gap={1}
+                    justifyContent={{ xs: 'center' }}
+                >
                     <Typography
                         sx={{ fontSize: { xs: '.5rem', sm: '.9rem', md: 'initial' } }}
                         color="black"
@@ -102,14 +109,15 @@ const Sorting = (props) => {
                         Add Transactions
                     </Button>
                     <Button
+                        variant="btn2"
                         sx={{
-                            padding: { xs: '.2em .4em', sm: '0.7em 0.8em' },
+                            fontFamily: 'Poppins',
+                            fontStyle: 'normal',
+                            fontWeight: '600',
                             fontSize: { xs: '.5rem', sm: '.9rem', md: 'initial' },
-                            textTransform: 'capitalize',
-                            marginLeft: '.3rem',
+                            lineHeight: { xs: '15px', sm: '28px', md: '32px' },
                         }}
-                        variant="btn4"
-                        disabled
+                        onClick={() => setAddWalletState(true)}
                     >
                         Add Wallet
                     </Button>

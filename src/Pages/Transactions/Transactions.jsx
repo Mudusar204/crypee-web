@@ -1,17 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
-import { Box, Container } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
-// import usdtIcon from '../../images/usdt_icon.png';
-// import ethIcon from '../../images/eth_icon.png';
 import Navigation from '../../Components/Navigation';
 import Sorting from './Sorting';
 import History from './History';
-// import { url } from '../../utils/utils';
-// import sendIcon from '../../images/send_icon.png';
-// import receiveIcon from '../../images/receive_icon.png';
 import { REACT_APP_BASE_URL } from '../../config';
 import useMakeToast from '../../hooks/makeToast';
-import { DataContext } from '../../utils/ContextAPI';
 import { useSelector } from 'react-redux';
 // const transactionDetails = [
 //     {
@@ -301,10 +295,6 @@ import { useSelector } from 'react-redux';
 // ===================Transaction===============
 export const addTransaction = async (limit, page, type, currency, wallet, date) => {
     try {
-        // const type = ['Deposits', 'Withdrawals'];
-        // const wallet = ['Wallet1', 'Wallet2'];
-        // const currency = ['BTC', 'ETH'];
-        // const date = [{ from: 'Mon Feb 05 2024', to: 'Mon Feb 10 2024' }];
         const queryString = [
             `limit=${limit}`,
             `page=${page}`,
@@ -334,17 +324,13 @@ export const addTransaction = async (limit, page, type, currency, wallet, date) 
 };
 const Transactions = () => {
     const queryData = useSelector((state) => state.filterTransactionSlice.filterQuery);
-    // console.log(queryData, '=================query data');
-
-    const [records, setRecords] = useState([]);
+    const [records, setRecords] = useState(null);
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
     const makeToast = useMakeToast();
-    const { setLoader } = useContext(DataContext);
 
     const [wallets, setWallets] = useState([]);
-    const [currency, setCurrency] = useState([]);
 
     useEffect(() => {
         try {
@@ -360,7 +346,9 @@ const Transactions = () => {
                 setWallets(exchanges.data.data);
             };
             getExchanges();
-        } catch (error) {}
+        } catch (error) {
+            console.log(error, 'error in avail exchanges');
+        }
     }, []);
 
     useEffect(() => {
@@ -378,17 +366,6 @@ const Transactions = () => {
                 const dateFilters = queryData
                     .filter((filter) => filter.query === 'Date')
                     .map((filter) => ({ from: filter.from, to: filter.to }));
-
-                // console.log(
-                //     typeFilters,
-                //     'type',
-                //     currencyFilters,
-                //     'currency',
-                //     walletFilters,
-                //     'wallet filter',
-                //     dateFilters,
-                //     'date filters',
-                // );
                 const result = await addTransaction(
                     rowsPerPage,
                     page,
@@ -397,11 +374,9 @@ const Transactions = () => {
                     walletFilters,
                     dateFilters,
                 );
-                makeToast(result?.message, 'success', 3);
                 setTotalPages(result?.data?.numberOfPages);
                 setRecords(result?.data?.transactions);
             } catch (error) {
-                makeToast(error.message, 'error', 3);
                 console.error('Error fetching data:', error.message);
             }
         };
@@ -417,8 +392,6 @@ const Transactions = () => {
                 <History
                     forTransactionsPage={true}
                     historyDetails={records}
-                    // historyDetails={transactionDetails}
-                    // total pages count remain to pass as params
                     totalPages={totalPages}
                     page={page}
                     setPage={setPage}

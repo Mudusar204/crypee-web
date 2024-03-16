@@ -3,30 +3,28 @@ import { Box, Button, Card, Stack, Typography } from '@mui/material';
 import ReactEcharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import { graphic, use } from 'echarts';
-import { DataContext } from '../../utils/ContextAPI';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 
 import Skeleton from '@mui/material/Skeleton';
+import sample1 from '../../images/sample1.svg';
 
 echarts.registerTheme('my_theme', {
     // backgroundColor: '#f4cccc'
 });
 
-export default function Profile({ dataprops }) {
+export default function Profile() {
     const [time, settime] = useState(0);
     const [date, setDate] = useState([]);
     const [value, setValue] = useState([]);
     const [alldate, setAllDate] = useState([]);
     const [allvalue, setAllValue] = useState([]);
-    const [profile, setProfile] = useState();
-    const [asset, setProfileAsset] = useState();
-    const [assetper, setProfilePerc] = useState();
+    const [profile, setProfile] = useState(null);
+    const [asset, setProfileAsset] = useState(null);
+    const [assetper, setProfilePerc] = useState(null);
     const [activeButton, setActiveButton] = useState(null);
 
     const [combineTimeValue, setCombineTimeValue] = useState({});
-
-    const { setLoader } = useContext(DataContext);
 
     const fetchProfile = async () => {
         try {
@@ -38,7 +36,7 @@ export default function Profile({ dataprops }) {
                     Authorization: refreshToken?.user?.token,
                 },
             });
-            // console.log(response.data?.data, 'response.data');
+            // console.log(response.data, 'response.data-=-=');
             setProfile(response.data?.data);
             setProfileAsset(response.data?.assets);
             setProfilePerc(response.data?.assetsPercentage);
@@ -181,7 +179,7 @@ export default function Profile({ dataprops }) {
             },
         ],
     };
-
+    // console.log(asset, 'asset'), assetper, 'assetper';
     return (
         <Box>
             <Stack direction="row" flexWrap="wrap" justifyContent="space-between" gap={3}>
@@ -242,7 +240,7 @@ export default function Profile({ dataprops }) {
                         )}
                     </Typography>
 
-                    {asset ? (
+                    {asset !== null ? (
                         <>
                             <Box
                                 sx={{
@@ -259,9 +257,7 @@ export default function Profile({ dataprops }) {
                                     alignItems: 'center',
                                 }}
                             >
-                                {/* -39.23% */}
-                                {/* {profile?.balance.toFixed(4)} */}
-                                {asset && (+asset).toFixed(3)} %
+                                {+asset > 0 ? (+asset).toFixed(3) : asset} %
                             </Box>
                         </>
                     ) : (
@@ -270,7 +266,7 @@ export default function Profile({ dataprops }) {
                         </>
                     )}
 
-                    {assetper ? (
+                    {assetper !== null ? (
                         <>
                             <Box
                                 sx={{
@@ -286,7 +282,7 @@ export default function Profile({ dataprops }) {
                                     alignItems: 'center',
                                 }}
                             >
-                                {assetper && (+assetper).toFixed(5)}
+                                {+assetper > 0 ? (+assetper).toFixed(5) : assetper}
                             </Box>
                         </>
                     ) : (
@@ -407,7 +403,9 @@ export default function Profile({ dataprops }) {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    {(+profile?.netProceeds).toFixed(4)}
+                                    {+profile?.netProceeds > 0
+                                        ? (+profile?.netProceeds).toFixed(4)
+                                        : profile?.netProceeds}
                                 </Box>
                             </>
                         ) : (
@@ -443,6 +441,7 @@ export default function Profile({ dataprops }) {
                                         background: '#F3F3F3',
                                         borderRadius: '5px',
                                         color: '#3333335e',
+                                        fontSize: '10px',
                                         p: 1,
                                         display: 'flex',
                                         justifyContent: 'center',
@@ -486,7 +485,7 @@ export default function Profile({ dataprops }) {
                     py: { lg: 9, xs: 2, md: 3, sm: 2 },
                 }}
             >
-                {profile ? (
+                {profile?.graphData?.length > 0 ? (
                     <div>
                         <ReactEcharts
                             option={Option}
@@ -497,6 +496,32 @@ export default function Profile({ dataprops }) {
                             lazyUpdate={true}
                         ></ReactEcharts>
                     </div>
+                ) : profile?.graphData?.length === 0 ? (
+                    <Box width={{ xs: '95%', sm: '80%', md: '50%' }} mx="auto" textAlign={'center'}>
+                        <Box
+                            component={'img'}
+                            src={sample1}
+                            alt=""
+                            sx={{ width: { xs: '80%', sm: 'max-content' } }}
+                        />
+                        <Typography
+                            sx={{
+                                fontSize: { xs: '14px', sm: '18px', md: '22px' },
+                                fontWeight: 900,
+                            }}
+                        >
+                            No Profile Data
+                        </Typography>
+                        <Typography
+                            sx={{
+                                fontSize: { xs: '12px', sm: '13.5px', md: '15px' },
+                                fontWeight: 400,
+                            }}
+                        >
+                            We don’t have performance history for your account. Add all your wallets
+                            to accurately track your portfolio.
+                        </Typography>
+                    </Box>
                 ) : (
                     <div>
                         <Skeleton

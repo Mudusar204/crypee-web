@@ -1,9 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    Avatar,
     Box,
-    Button,
-    Container,
     Stack,
     Table,
     TableBody,
@@ -14,81 +11,24 @@ import {
     Typography,
 } from '@mui/material';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import assetlogo1 from '../../images/assetlogo1.png';
-import assetlogo2 from '../../images/assetlog2.png';
-import assetlogo3 from '../../images/assetlogo3.png';
-import assetlogo4 from '../../images/assetlogo4.png';
-import assetlogo5 from '../../images/assetlogo5.png';
-import assertsbg from '../../images/dashboard/assertsbg.png';
-import { DataContext } from '../../utils/ContextAPI';
 import Skeleton from '@mui/material/Skeleton';
 
-const rows = [
-    {
-        name: 'Obortech',
-        subName: 'OBOT',
-        price: '6.57 PKR',
-        holding: '32,970.77 PKR',
-        subHolding: '15 GNS',
-        returnP: '-299,967.86 PKR',
-        logo: assetlogo1,
-    },
-    {
-        name: 'Gains Network',
-        subName: 'GNS',
-        price: '23.3494 PKR',
-        holding: '32,970.77 PKR',
-        subHolding: '15 GNS',
-        returnP: '-299,967.86 PKR',
-        logo: assetlogo2,
-    },
-    {
-        name: 'Tether',
-        subName: 'USDT',
-        price: '23.3494 PKR',
-        holding: '32,970.77 PKR',
-        subHolding: '15 GNS',
-        returnP: '-299,967.86 PKR',
-        logo: assetlogo3,
-    },
-    {
-        name: 'Gala',
-        subName: 'GALA',
-        price: '24545 PKR',
-        holding: '32,970.77 PKR',
-        subHolding: '15 GNS',
-        returnP: '-299,967.86 PKR',
-        logo: assetlogo4,
-    },
-    {
-        name: 'DEAPcoin',
-        subName: 'DEP',
-        price: '4545.45 PKR',
-        holding: '32,970.77 PKR',
-        subHolding: '15 GNS',
-        returnP: '-299,967.86 PKR',
-        logo: assetlogo5,
-    },
-];
-
-export default function YourAssets({ data, isAssetFetched }) {
-    const [assetsData, setAssetsData] = useState([]);
-    const { setLoader } = useContext(DataContext);
+export default function YourAssets({ data }) {
+    const [assetsData, setAssetsData] = useState(null);
     useEffect(() => {
         const handleData = async () => {
-            setLoader(true);
             let assetArray = [];
-            for (let [key, value] of Object.entries(data)) {
-                assetArray.push({
-                    name: key,
-                    data: value,
-                });
+            if (data) {
+                for (let [key, value] of Object?.entries(data)) {
+                    assetArray.push({
+                        name: key,
+                        data: value,
+                    });
+                }
             }
             setAssetsData(assetArray);
-            setLoader(false);
         };
         handleData();
-        // console.log(assetsData, 'assetsData');
     }, [data]);
     return (
         <>
@@ -188,128 +128,124 @@ export default function YourAssets({ data, isAssetFetched }) {
                                             <UnfoldMoreIcon />
                                         </Box>
                                     </TableCell>
-                                    {/* <TableCell align="right">
-                                        <Box
-                                            sx={{
-                                                fontFamily: 'Gmarket',
-                                                fontStyle: 'normal',
-                                                fontWeight: '500',
-                                                fontSize: '15px',
-                                                lineHeight: '18px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'end',
-                                                color: 'var(--Text-Black, #333)',
-                                            }}
-                                        >
-                                            All time unrealized return
-                                            <UnfoldMoreIcon />
-                                        </Box>
-                                    </TableCell> */}
                                 </TableRow>
                             </TableHead>
 
-                            {isAssetFetched === true ? (
-                                <>
-                                    <TableBody>
-                                        {assetsData ? (
-                                            assetsData.map(({ name, data }, i) => (
-                                                <TableRow
-                                                    key={i}
-                                                    sx={{
-                                                        '& td': {
-                                                            borderColor: '#125A86',
-                                                            borderWidth: '2px',
-                                                        },
-                                                        '&:last-child td, &:last-child th': {
-                                                            border: 0,
-                                                        },
-                                                    }}
-                                                >
-                                                    <TableCell>
-                                                        <Stack direction="row" gap={1}>
-                                                            <img
-                                                                src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
-                                                                alt="logo"
-                                                                width={'40px'}
-                                                            />
-                                                            <Box>
-                                                                <Box
-                                                                    sx={{
-                                                                        fontFamily: 'Gmarket',
-                                                                        fontStyle: 'normal',
-                                                                        fontWeight: '600',
-                                                                        fontSize: '12px',
-                                                                        lineHeight: '18px',
-                                                                        color: 'var(--Text-Black, #333)',
-                                                                    }}
-                                                                >
-                                                                    {data?.exchange}
-                                                                </Box>
-                                                                <Box
-                                                                    sx={{
-                                                                        fontFamily: 'Poppins',
-                                                                        fontStyle: 'normal',
-                                                                        fontWeight: '400',
-                                                                        fontSize: '10px',
-                                                                        lineHeight: '18px',
-                                                                        color: 'var(--Text-Black, #333)',
-                                                                    }}
-                                                                >
-                                                                    {data?.symbol}
-                                                                </Box>
-                                                            </Box>
-                                                        </Stack>
-                                                    </TableCell>
-                                                    <TableCell>
+                            <TableBody>
+                                {assetsData?.length > 0 ? (
+                                    assetsData.map(({ name, data }, i) => (
+                                        <TableRow
+                                            key={i}
+                                            sx={{
+                                                '& td': {
+                                                    borderColor: '#125A86',
+                                                    borderWidth: '2px',
+                                                },
+                                                '&:last-child td, &:last-child th': {
+                                                    border: 0,
+                                                },
+                                            }}
+                                        >
+                                            <TableCell>
+                                                <Stack direction="row" gap={1}>
+                                                    <img
+                                                        src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${data?.coinId}.png`}
+                                                        alt="logo"
+                                                        width={'40px'}
+                                                    />
+                                                    <Box>
                                                         <Box
                                                             sx={{
                                                                 fontFamily: 'Gmarket',
                                                                 fontStyle: 'normal',
-                                                                fontWeight: '400',
-                                                                fontSize: '15px',
+                                                                fontWeight: '600',
+                                                                fontSize: '12px',
                                                                 lineHeight: '18px',
                                                                 color: 'var(--Text-Black, #333)',
                                                             }}
                                                         >
-                                                            {`($ ${
-                                                                name &&
-                                                                (+data?.balanceInUSD).toFixed(5)
-                                                            })`}
+                                                            {data?.exchange}
                                                         </Box>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Stack
-                                                            direction="row"
-                                                            gap={1}
-                                                            alignItems={'center'}
+                                                        <Box
+                                                            sx={{
+                                                                fontFamily: 'Poppins',
+                                                                fontStyle: 'normal',
+                                                                fontWeight: '400',
+                                                                fontSize: '10px',
+                                                                lineHeight: '18px',
+                                                                color: 'var(--Text-Black, #333)',
+                                                            }}
                                                         >
-                                                            <Box
-                                                                sx={{
-                                                                    fontFamily: 'Poppins',
-                                                                    fontStyle: 'normal',
-                                                                    fontWeight: '700',
-                                                                    fontSize: '15px',
-                                                                    lineHeight: '18px',
-                                                                    color: 'var(--Text-Black, #333)',
-                                                                }}
-                                                            >
-                                                                {name && (+data?.amount).toFixed(5)}
-                                                            </Box>
-                                                        </Stack>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))
-                                        ) : (
-                                            <div style={{ color: 'black' }}>Loading.....</div>
-                                        )}
-                                    </TableBody>
-                                </>
-                            ) : (
-                                [1, 2, 3, 4, 5].map((i) => (
-                                    <TableBody>
+                                                            {data?.symbol}
+                                                        </Box>
+                                                    </Box>
+                                                </Stack>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: 'Gmarket',
+                                                        fontStyle: 'normal',
+                                                        fontWeight: '400',
+                                                        fontSize: '15px',
+                                                        lineHeight: '18px',
+                                                        color: 'var(--Text-Black, #333)',
+                                                    }}
+                                                >
+                                                    {`($ ${
+                                                        name && (+data?.balanceInUSD).toFixed(5)
+                                                    })`}
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Stack
+                                                    direction="row"
+                                                    gap={1}
+                                                    alignItems={'center'}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            fontFamily: 'Poppins',
+                                                            fontStyle: 'normal',
+                                                            fontWeight: '700',
+                                                            fontSize: '15px',
+                                                            lineHeight: '18px',
+                                                            color: 'var(--Text-Black, #333)',
+                                                        }}
+                                                    >
+                                                        {name && (+data?.amount).toFixed(5)}
+                                                    </Box>
+                                                </Stack>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : assetsData?.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={3}>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: { xs: 'left', sm: 'center' },
+                                                    height: { xs: '50vh', sm: '30vh' },
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        width: '100%',
+                                                        textAlign: { xs: 'left', sm: 'center' },
+                                                        fontSize: { xs: '13px', sm: '18px' },
+                                                    }}
+                                                >
+                                                    Add wallets or transactions to see a summary
+                                                </Typography>
+                                            </Box>
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    [1, 2, 3, 4, 5].map((i) => (
                                         <TableRow
-                                            // key={i}
+                                            key={i}
                                             sx={{
                                                 '& td': {
                                                     borderColor: '#125A86',
@@ -344,9 +280,9 @@ export default function YourAssets({ data, isAssetFetched }) {
                                                 <Skeleton width="100px" height="22px" />
                                             </TableCell>
                                         </TableRow>
-                                    </TableBody>
-                                ))
-                            )}
+                                    ))
+                                )}
+                            </TableBody>
                         </Table>
                     </TableContainer>
                 </Box>

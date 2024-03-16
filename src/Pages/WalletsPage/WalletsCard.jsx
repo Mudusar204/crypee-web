@@ -1,16 +1,14 @@
 import { Box, Container, Grid } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import wcard1 from '../../images/wallets/wcard1.png';
 import wcard2 from '../../images/wallets/wcard2.png';
 import wcard3 from '../../images/wallets/wcard3.png';
 import wcard4 from '../../images/wallets/wcard4.png';
-import { DataContext } from '../../utils/ContextAPI';
 import { REACT_APP_BASE_URL } from '../../config';
 
 export default function WalletsCard() {
     const [exchanges, setExchanges] = useState(0);
-    const { setLoader } = useContext(DataContext);
     useEffect(() => {
         const getMyExchanges = async () => {
             try {

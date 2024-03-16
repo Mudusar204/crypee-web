@@ -13,93 +13,33 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    Typography,
 } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import sample from '../../images/sample.svg';
 
-// import bg from '../../images/dashboard/assertsbg.png';
-import nft from '../../images/wallets/linknft.png';
-import eth from '../../images/wallets/eth.png';
-import obot from '../../images/wallets/obot.png';
-import gns from '../../images/wallets/gns.png';
-import usdt from '../../images/wallets/usdt.png';
-import WalletsDialog from './WalletsDialog';
-import AddWalletDialog from './AddWalletDialog';
-import { getExchanges, fetchData, syncWallet } from './Index';
+import { getExchanges, syncWallet } from './Index';
 import { setWalletData } from '../../redux/slices/userWalletData';
-import { useDispatch ,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useMakeToast from '../../hooks/makeToast';
-import { DataContext } from '../../utils/ContextAPI';
-import { AddwalletDropdown } from '../../Components/DropdownMenus';
+import { AddWalletDialog } from '../../Components/DropdownMenus';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 import moment from 'moment/moment';
-const data = [
-    {
-        img: eth,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: obot,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: gns,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: usdt,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: eth,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: obot,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-    {
-        img: gns,
-        name: 'ETH',
-        subName: '174 Transactions',
-        value: 'PKR755.20 ',
-        subValue: '0.00176896 DEP',
-    },
-];
 
 export default function Walletslist() {
-    const dispatch = useDispatch();
-    const makeToast = useMakeToast();
-    const [wallet, setwallet] = useState(false);
-    const [addWallet, setAddWallet] = useState(false);
-    const [syncData, setsyncData] = useState(null);
+    const [addWalletState, setAddWalletState] = useState(false);
     const [walletData, setwalletData] = useState([]);
     const [walletAssets, setWalletAssets] = useState([]);
     const [profile, setProfile] = useState();
-    const [activeExchangeAssets, setActiveExchangeAssets] = useState({});
-    const loading=useSelector((state)=>state.commonSlice.loading)
+    const [activeExchangeAssets, setActiveExchangeAssets] = useState(null);
+    const loading = useSelector((state) => state.commonSlice.loading);
 
     // ==========syncExchange===============
     const handleSyncSingleExchangeClick = async () => {
         try {
+            if (!activeExchangeAssets) {
+                return;
+            }
             setWalletAssets([]);
             const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
             const response = await fetch(
@@ -111,13 +51,11 @@ export default function Walletslist() {
                     },
                 },
             );
-
             const result = await response.json();
             setWalletAssets(result.data);
             // console.log(result, 'result single exchange assets');
         } catch (error) {
             console.log('Error syncing exchanges:', error.message);
-            makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
         }
     };
     useEffect(() => {
@@ -128,25 +66,13 @@ export default function Walletslist() {
         try {
             const result = await getExchanges();
             if (result) {
-                makeToast(`Wallet exchanges synced successfully: ${result.message}`, 'success', 3);
                 setwalletData(result.data);
                 setActiveExchangeAssets(result.data[0]);
-                localStorage.setItem('walletdata', JSON.stringify(result?.data));
-                dispatch(setWalletData(result?.data));
             } else {
-                makeToast('Error Sync Exchanges', 'error', 3);
             }
         } catch (error) {
-            makeToast(`Error syncing exchanges: ${error.message}`, 'error', 3);
             console.error('Error syncing exchanges:', error.message);
         }
-    };
-
-    const handleWallet = () => {
-        setwallet((preState) => !preState);
-    };
-    const handleAddWallet = () => {
-        setAddWallet((preState) => !preState);
     };
 
     // =================profile====================
@@ -160,7 +86,6 @@ export default function Walletslist() {
                     Authorization: refreshToken?.user?.token,
                 },
             });
-            // console.log(response.data.data, 'response.data');
             setProfile(response.data?.data);
         } catch (error) {
             console.log(error);
@@ -199,76 +124,128 @@ export default function Walletslist() {
 
     return (
         <Box>
-            <AddWalletDialog
-                handleWallet={handleWallet}
-                AddWallet={addWallet}
-                handleAddWallet={handleAddWallet}
-            />
-            <WalletsDialog
-                wallet={wallet}
-                handleWallet={handleWallet}
-                handleAddWallet={handleAddWallet}
-            />
-            <Box>
-                <Stack direction="row" gap={5} pt={0}>
-                    <Button
-                        variant="btn2"
+            <AddWalletDialog open={addWalletState} setOpen={setAddWalletState} />
+            {walletData?.length === 0 ? (
+                <Box width={{ xs: '95%', sm: '80%', md: '50%' }} mx="auto" textAlign={'center'}>
+                    <Box
+                        component={'img'}
+                        src={sample}
+                        alt=""
+                        sx={{ width: { xs: '80%', sm: 'max-content' } }}
+                    />
+                    <Typography
                         sx={{
-                            fontFamily: 'Gmarket',
+                            fontSize: { xs: '14px', sm: '18px', md: '22px' },
+                            fontWeight: 900,
+                        }}
+                    >
+                        No wallets found
+                    </Typography>
+                    <Typography
+                        sx={{
+                            fontSize: { xs: '12px', sm: '13.5px', md: '15px' },
+                            fontWeight: 400,
+                            my: { xs: 2, sm: 3 },
+                        }}
+                    >
+                        We don’t have performance history for your account. Add all your wallets to
+                        accurately track your portfolio.
+                    </Typography>
+                    <Button
+                        variant="btn1"
+                        sx={{
+                            fontFamily: 'Poppins',
                             fontStyle: 'normal',
                             fontWeight: '600',
-                            fontSize: '16px',
+                            fontSize: {
+                                lg: '14px',
+                                xs: '12px',
+                                sm: '13px',
+                                md: '13px',
+                            },
                             lineHeight: '24px',
-                            p: { xs: '5px 15px', sm: '10px 20px' },
                         }}
-                        onClick={()=>syncWallet(null,dispatch)}
+                        onClick={() => setAddWalletState(true)}
                     >
-                        
-                        Sync Wallet
+                        Add Wallet
                     </Button>
-                    <AddwalletDropdown />
-                </Stack>
-                <Box
-                    sx={{
-                        my: { xs: 3, md: 5 },
-                        px: { xs: 3, sm: 5, md: 7 },
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        flexWrap="wrap"
-                        gap={2}
-                        mb={5}
-                    >
-                        <Box
+                </Box>
+            ) : (
+                <Box>
+                    <Stack direction="row" gap={5} pt={0}>
+                        <Button
+                            variant="btn2"
                             sx={{
                                 fontFamily: 'Gmarket',
                                 fontStyle: 'normal',
                                 fontWeight: '600',
-                                fontSize: { xs: '14px', sm: '17px' },
-                                lineHeight: '18px',
-                                color: ' var(--Text-Black, #333)',
+                                fontSize: '16px',
+                                lineHeight: '24px',
+                                p: { xs: '5px 15px', sm: '10px 20px' },
                             }}
+                            onClick={() => syncWallet(null)}
                         >
-                            Your Exchanges
-                        </Box>
-                        <Box
+                            Sync Wallet
+                        </Button>
+                        <Button
+                            variant="btn1"
                             sx={{
-                                fontFamily: 'Gmarket',
+                                fontFamily: 'Poppins',
                                 fontStyle: 'normal',
                                 fontWeight: '600',
-                                fontSize: '15px',
-                                lineHeight: '18px',
-                                color: '#333',
-                                display: 'flex',
-                                alignItems: 'center',
+                                fontSize: {
+                                    lg: '14px',
+                                    xs: '12px',
+                                    sm: '13px',
+                                    md: '13px',
+                                },
+                                lineHeight: '24px',
                             }}
+                            onClick={() => setAddWalletState(true)}
                         >
-                            {profile?.balance}
-                        </Box>
+                            Add Wallet
+                        </Button>
                     </Stack>
-                    <Box>
+                    <Box
+                        sx={{
+                            my: { xs: 3, md: 5 },
+                            px: { xs: 3, sm: 5, md: 7 },
+                        }}
+                    >
+                        <Stack
+                            direction="row"
+                            justifyContent="space-between"
+                            flexWrap="wrap"
+                            gap={2}
+                            mb={5}
+                        >
+                            <Box
+                                sx={{
+                                    fontFamily: 'Gmarket',
+                                    fontStyle: 'normal',
+                                    fontWeight: '600',
+                                    fontSize: { xs: '14px', sm: '17px' },
+                                    lineHeight: '18px',
+                                    color: ' var(--Text-Black, #333)',
+                                }}
+                            >
+                                Your Exchanges
+                            </Box>
+                            <Box
+                                sx={{
+                                    fontFamily: 'Gmarket',
+                                    fontStyle: 'normal',
+                                    fontWeight: '600',
+                                    fontSize: '15px',
+                                    lineHeight: '18px',
+                                    color: '#333',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {profile?.balance}
+                            </Box>
+                        </Stack>
                         <Grid container spacing={{ xs: 2, sm: 4 }}>
                             <Grid item xs={12} md={4}>
                                 <Box
@@ -466,10 +443,12 @@ export default function Walletslist() {
                                                 p: { xs: '5px 15px', sm: '7px 20px' },
                                                 height: 'max-content',
                                             }}
-                                            onClick={()=>syncWallet(activeExchangeAssets,dispatch)}
+                                            onClick={() => syncWallet(activeExchangeAssets)}
                                         >
-                                           {loading ? "wait...": `Sync ${ activeExchangeAssets?.name}`}
-                                           {/* ddd */}
+                                            {loading
+                                                ? 'wait...'
+                                                : `Sync ${activeExchangeAssets?.name}`}
+                                            {/* ddd */}
                                         </Button>
                                     </Stack>
                                     {/* Data Table */}
@@ -558,7 +537,7 @@ export default function Walletslist() {
                         </Grid>
                     </Box>
                 </Box>
-            </Box>
+            )}
         </Box>
     );
 }

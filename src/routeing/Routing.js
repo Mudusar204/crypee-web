@@ -32,7 +32,6 @@ import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
 import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
 import PersistLogin from '../Components/persistLogin.jsx';
-import Addexchangedata from '../Pages/DashboardPage/Addexchangedata.jsx';
 
 export default function Routing() {
     return (
@@ -40,7 +39,6 @@ export default function Routing() {
             <Route element={<PersistLogin />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/wallets" element={<Wallets />} />
-                <Route path="/addewallet/:name"  element={<Addexchangedata/>}/>
                 <Route path="/loss-harvesting" element={<LossHarvesting />} />
                 <Route path="/tax-plans" element={<Plans />} />
                 <Route path="/taxes" element={<Taxes />} />

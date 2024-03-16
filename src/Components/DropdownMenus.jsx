@@ -587,13 +587,12 @@ export const AddWalletDialog = ({ open, setOpen }) => {
 
     const onDrop = useCallback((acceptedFiles) => {
         // Do something with the files
-        console.log(acceptedFiles, 'acceptedFiles');
         setFile(acceptedFiles[0]);
     }, []);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         multiple: false,
-        accept: 'text/csv, application/csv',
+        accept: { 'text/csv': ['.csv'] },
     });
 
     const handleSubmit = async () => {
@@ -743,6 +742,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                                                         borderRadius: '12px',
                                                         p: 1,
                                                         height: '100%',
+                                                        cursor: 'pointer',
                                                     }}
                                                     onClick={() => {
                                                         setAddExchangeData(exchange);
@@ -752,7 +752,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                                                 >
                                                     <img
                                                         src={REACT_APP_BASE_URL + exchange.img}
-                                                        // alt={REACT_APP_BASE_URL + exchange.img}
+                                                        alt={exchange.img}
                                                         width={'20px'}
                                                     />
                                                     <Typography
@@ -850,7 +850,6 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                                     <Close />
                                 </IconButton>
                             </Box>
-                            {/* Body */}
                             <Box
                                 sx={{
                                     display: 'flex',
@@ -925,7 +924,7 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                                 )}
 
                                 <Button
-                                    variant="contained"
+                                    variant="btn1"
                                     color="primary"
                                     onClick={() => handleSubmit()}
                                 >
