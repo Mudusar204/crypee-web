@@ -27,8 +27,9 @@ import { REACT_APP_BASE_URL } from '../../config';
 import moment from 'moment/moment';
 
 export default function Walletslist() {
+    const [syncState, setSyncState] = useState(false);
     const [addWalletState, setAddWalletState] = useState(false);
-    const [walletData, setwalletData] = useState([]);
+    const [walletData, setwalletData] = useState(null);
     const [walletAssets, setWalletAssets] = useState([]);
     const [profile, setProfile] = useState();
     const [activeExchangeAssets, setActiveExchangeAssets] = useState(null);
@@ -64,11 +65,13 @@ export default function Walletslist() {
 
     const handleSyncExchangeClick = async () => {
         try {
+            setwalletData(null);
             const result = await getExchanges();
             if (result) {
                 setwalletData(result.data);
                 setActiveExchangeAssets(result.data[0]);
             } else {
+                console.log('Wallet Exchanges:', result);
             }
         } catch (error) {
             console.error('Error syncing exchanges:', error.message);
@@ -174,6 +177,7 @@ export default function Walletslist() {
                 <Box>
                     <Stack direction="row" gap={5} pt={0}>
                         <Button
+                            disabled={syncState}
                             variant="btn2"
                             sx={{
                                 fontFamily: 'Gmarket',
@@ -183,7 +187,7 @@ export default function Walletslist() {
                                 lineHeight: '24px',
                                 p: { xs: '5px 15px', sm: '10px 20px' },
                             }}
-                            onClick={() => syncWallet(null)}
+                            onClick={() => syncWallet(null, setSyncState)}
                         >
                             Sync Wallet
                         </Button>
@@ -346,6 +350,7 @@ export default function Walletslist() {
                                           })
                                         : [1, 2, 3, 4, 5, 6].map((item, i) => (
                                               <Box
+                                                  key={i}
                                                   sx={{
                                                       width: '100%',
                                                       display: 'flex',
@@ -434,6 +439,7 @@ export default function Walletslist() {
                                             </Box>
                                         </Box>
                                         <Button
+                                            disabled={syncState}
                                             variant="btn2"
                                             sx={{
                                                 fontFamily: 'Gmarket',
@@ -443,18 +449,18 @@ export default function Walletslist() {
                                                 p: { xs: '5px 15px', sm: '7px 20px' },
                                                 height: 'max-content',
                                             }}
-                                            onClick={() => syncWallet(activeExchangeAssets)}
+                                            onClick={() =>
+                                                syncWallet(activeExchangeAssets, setSyncState)
+                                            }
                                         >
-                                            {loading
-                                                ? 'wait...'
+                                            {!activeExchangeAssets?.name
+                                                ? 'loading...'
                                                 : `Sync ${activeExchangeAssets?.name}`}
-                                            {/* ddd */}
                                         </Button>
                                     </Stack>
-                                    {/* Data Table */}
 
                                     <TableContainer>
-                                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                        <Table sx={{ minWidth: 500 }} aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>Name</TableCell>
