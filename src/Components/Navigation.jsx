@@ -17,7 +17,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 
 import logo from '../images/logo.svg';
 
-import { CountryDropdown, NavigationDropdown } from './DropdownMenus';
+import { AccountMenu, CountryDropdown, NavigationDropdown } from './DropdownMenus';
 import { NavigationAccordion } from './MobileMenus';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slices/userSlice';
@@ -151,8 +151,9 @@ const Navigation = () => {
 
                 <Stack sx={{ display: { xs: 'none', md: 'flex' } }} direction={'row'} gap={2}>
                     <CountryDropdown countries={countries} />
+                    {/* <Avatar sx={{ bgcolor: '#0B7BC3', cursor: 'pointer' }} onClick={handleLogout} /> */}
 
-                    <Avatar sx={{ bgcolor: '#0B7BC3', cursor: 'pointer' }} onClick={handleLogout} />
+                    <AccountMenu />
                 </Stack>
                 <Hidden mdUp>
                     <Stack gap={2}>

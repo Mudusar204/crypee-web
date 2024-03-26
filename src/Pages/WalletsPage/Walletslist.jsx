@@ -30,7 +30,7 @@ export default function Walletslist() {
     const [syncState, setSyncState] = useState(false);
     const [addWalletState, setAddWalletState] = useState(false);
     const [walletData, setwalletData] = useState(null);
-    const [walletAssets, setWalletAssets] = useState([]);
+    const [walletAssets, setWalletAssets] = useState(null);
     const [profile, setProfile] = useState();
     const [activeExchangeAssets, setActiveExchangeAssets] = useState(null);
     const loading = useSelector((state) => state.commonSlice.loading);
@@ -41,7 +41,7 @@ export default function Walletslist() {
             if (!activeExchangeAssets) {
                 return;
             }
-            setWalletAssets([]);
+            setWalletAssets(null);
             const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
             const response = await fetch(
                 `${REACT_APP_BASE_URL}/api/data/getExchangeAssets?exchange=${activeExchangeAssets.name}`,
@@ -396,10 +396,12 @@ export default function Walletslist() {
                                     }}
                                 >
                                     <Stack
-                                        direction="row"
+                                        direction={{ xs: 'column', sm: 'row' }}
                                         sx={{
                                             justifyContent: 'space-between',
-                                            alignItems: 'center',
+                                            alignItems: { xs: 'left', sm: 'center' },
+                                            gap: { xs: 1, sm: 2, md: 3 },
+                                            h,
                                         }}
                                     >
                                         <Box>
@@ -432,7 +434,11 @@ export default function Walletslist() {
                                                 }}
                                             >
                                                 {activeExchangeAssets?.balance ? (
-                                                    `USDT ${activeExchangeAssets?.balance}`
+                                                    `USDT ${
+                                                        activeExchangeAssets?.balance > 0
+                                                            ? activeExchangeAssets?.balance
+                                                            : 0
+                                                    }`
                                                 ) : (
                                                     <Skeleton sx={{ width: '200px' }} />
                                                 )}
@@ -448,6 +454,7 @@ export default function Walletslist() {
                                                 fontSize: { xs: '12px', sm: '14px' },
                                                 p: { xs: '5px 15px', sm: '7px 20px' },
                                                 height: 'max-content',
+                                                width: 'max-content',
                                             }}
                                             onClick={() =>
                                                 syncWallet(activeExchangeAssets, setSyncState)
@@ -471,70 +478,90 @@ export default function Walletslist() {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {walletAssets?.length > 0
-                                                    ? walletAssets.map((item, i) => (
-                                                          <TableRow
-                                                              key={i}
-                                                              sx={{
-                                                                  '&:last-child td, &:last-child th':
-                                                                      {
-                                                                          border: 0,
-                                                                      },
-                                                              }}
-                                                          >
-                                                              <TableCell component="th" scope="row">
-                                                                  <Stack direction={'row'} gap={2}>
-                                                                      <img
-                                                                          style={{
-                                                                              width: '25px',
-                                                                          }}
-                                                                          src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.coinId}.png`}
-                                                                          alt=""
-                                                                      />
-                                                                      <Box>{item.symbol}</Box>
-                                                                  </Stack>
-                                                              </TableCell>
-                                                              <TableCell align="right">
-                                                                  <Box>
-                                                                      <Box>{item?.amount}</Box>
-                                                                  </Box>
-                                                              </TableCell>
-                                                              <TableCell align="right">
-                                                                  {item.totalTransaction}{' '}
-                                                                  Transactions
-                                                              </TableCell>
-                                                          </TableRow>
-                                                      ))
-                                                    : ['1', '2', '3', '4'].map((item, i) => (
-                                                          <TableRow>
-                                                              <TableCell
-                                                                  sx={{
-                                                                      display: 'flex',
-                                                                      gap: 2,
-                                                                      alignItems: 'center',
-                                                                  }}
-                                                              >
-                                                                  <Skeleton
-                                                                      variant="circular"
-                                                                      sx={{
-                                                                          width: '40px',
-                                                                          height: '40px',
-                                                                      }}
-                                                                  />
-                                                                  <Skeleton
-                                                                      sx={{
-                                                                          width: '50px',
-                                                                      }}
-                                                                  />
-                                                              </TableCell>
-                                                              <TableCell>
-                                                                  <Skeleton />
-                                                              </TableCell>
-                                                              <TableCell>
-                                                                  <Skeleton />
-                                                              </TableCell>
-                                                          </TableRow>
-                                                      ))}
+                                                {walletAssets?.length > 0 ? (
+                                                    walletAssets.map((item, i) => (
+                                                        <TableRow
+                                                            key={i}
+                                                            sx={{
+                                                                '&:last-child td, &:last-child th':
+                                                                    {
+                                                                        border: 0,
+                                                                    },
+                                                            }}
+                                                        >
+                                                            <TableCell component="th" scope="row">
+                                                                <Stack direction={'row'} gap={2}>
+                                                                    <img
+                                                                        style={{
+                                                                            width: '25px',
+                                                                        }}
+                                                                        src={`https://s2.coinmarketcap.com/static/img/coins/32x32/${item?.coinId}.png`}
+                                                                        alt=""
+                                                                    />
+                                                                    <Box>{item.symbol}</Box>
+                                                                </Stack>
+                                                            </TableCell>
+                                                            <TableCell align="right">
+                                                                <Box>
+                                                                    <Box>{item?.amount}</Box>
+                                                                </Box>
+                                                            </TableCell>
+                                                            <TableCell align="right">
+                                                                {item.totalTransaction} Transactions
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                ) : +walletAssets?.length !== 0 ? (
+                                                    ['1', '2', '3', '4'].map((item, i) => (
+                                                        <TableRow>
+                                                            <TableCell
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    gap: 2,
+                                                                    alignItems: 'center',
+                                                                }}
+                                                            >
+                                                                <Skeleton
+                                                                    variant="circular"
+                                                                    sx={{
+                                                                        width: '40px',
+                                                                        height: '40px',
+                                                                    }}
+                                                                />
+                                                                <Skeleton
+                                                                    sx={{
+                                                                        width: '50px',
+                                                                    }}
+                                                                />
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Skeleton />
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Skeleton />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                ) : (
+                                                    <TableRow>
+                                                        <TableCell
+                                                            align="center"
+                                                            colSpan={3}
+                                                            sx={{
+                                                                py: { xs: 5, ms: 10 },
+                                                                border: 'none',
+                                                                fontWeight: '600',
+                                                                color: 'gray',
+                                                                fontSize: {
+                                                                    xs: '16px',
+                                                                    sm: '22px',
+                                                                },
+                                                            }}
+                                                        >
+                                                            No Assets Found
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>

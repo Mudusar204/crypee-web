@@ -6,11 +6,13 @@ import useMakeToast from '../../hooks/makeToast';
 import { setUserData } from '../../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import crplogo from '../../images/crplogo.png';
+//
+import AuthCode from 'react-auth-code-input';
 const Verifyotp = () => {
     const navigate = useNavigate();
     const makeToast = useMakeToast();
     const dispatch = useDispatch();
-    const [otp, setOtp] = useState(['', '', '', '', '', '']);
+    const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [persistedData, setPersistedData] = useState(null);
     const storedData = localStorage.getItem('persistMe');
@@ -21,24 +23,13 @@ const Verifyotp = () => {
         }
     }, []);
 
-    const handleOtpChange = (index, value) => {
-        if (/^\d*$/.test(value) && value.length <= 1) {
-            const newOtp = [...otp];
-            newOtp[index] = value;
-            setOtp(newOtp);
-            setError('');
-        } else {
-            setError('Please enter a valid numeric digit.');
-        }
-    };
-
     const handleSubmit = async () => {
         console.log(persistedData?.token, 'persistedData?.token');
         let myHeaders = new Headers();
         myHeaders.append('authorization', persistedData?.token);
 
         let formdata = new FormData();
-        formdata.append('code', otp.join(''));
+        formdata.append('code', otp);
 
         let requestOptions = {
             method: 'POST',
@@ -97,25 +88,14 @@ const Verifyotp = () => {
                 >
                     Verify Otp
                 </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
-                    {otp.map((digit, index) => (
-                        <input
-                            style={{
-                                width: '40px',
-                                height: '40px',
-                                fontSize: '20px',
-                                textAlign: 'center',
-                                marginRight: '10px',
-                                border: '1px solid #ccc',
-                                borderRadius: '5px',
-                            }}
-                            key={index}
-                            type="text"
-                            value={digit}
-                            onChange={(e) => handleOtpChange(index, e.target.value)}
-                            maxLength={1}
-                        />
-                    ))}
+                <Box sx={{ marginBottom: '30px' }}>
+                    <AuthCode
+                        autoFocus={true}
+                        allowedCharacters="numeric"
+                        onChange={(value) => setOtp(value)}
+                        inputClassName="otpCodeInput"
+                        containerClassName="otpCodeContainer"
+                    />
                 </Box>
                 <Button
                     onClick={handleSubmit}

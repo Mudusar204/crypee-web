@@ -132,7 +132,6 @@ const Signup = () => {
         console.log('accesToken', accessToken);
         try {
             const response = await handleRegister({ googleToken: accessToken });
-            
 
             if (response?.data?.status == 'success') {
                 makeToast(response?.data?.message, 'success', 3);
@@ -157,7 +156,7 @@ const Signup = () => {
     const responseFacebook = async (response) => {
         try {
             const resp = await handleRegister({ FbToken: response });
-            
+
             if (resp?.data?.status == 'success') {
                 makeToast(resp?.data?.message, 'success', 3);
                 navigate('/login');
@@ -371,29 +370,21 @@ const Signup = () => {
                                     px={2}
                                     gap={2}
                                     display="flex"
+                                    flexDirection={'column'}
                                     justifyContent="space-between"
                                     flexWrap="wrap"
                                 >
                                     <Button
-                                        variant="btn3"
+                                        variant="btn1"
                                         sx={{
-                                            padding: '0.7rem 1.5rem',
-                                            color: '#0B7BC3',
-                                            border: '2px solid #0B7BC3',
-                                            borderRadius: '6px',
-                                            background: 'white',
-                                            '&:hover': {
-                                                color: 'white',
-                                                background:
-                                                    'radial-gradient(50.09% 50% at 50% 50%, #3D9CDA 0%, #0B6BC3 100%)',
-                                            },
+                                            padding: '0.7rem 2rem',
                                         }}
                                         onClick={() => onSubmit()}
                                     >
                                         Create Account
                                     </Button>
                                     <Button
-                                        variant="btn1"
+                                        variant="btn2"
                                         sx={{ padding: '0.7rem 2rem' }}
                                         onClick={() => navigate('/login')}
                                     >

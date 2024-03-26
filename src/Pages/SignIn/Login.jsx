@@ -431,18 +431,9 @@ const Login = () => {
                                     Login now
                                 </Button>
                                 <Button
-                                    variant="btn3"
+                                    variant="btn2"
                                     sx={{
-                                        padding: '0.7rem 1.5rem',
-                                        color: '#0B7BC3',
-                                        border: '2px solid #0B7BC3',
-                                        borderRadius: '6px',
-                                        background: 'white',
-                                        '&:hover': {
-                                            color: 'white',
-                                            background:
-                                                'radial-gradient(50.09% 50% at 50% 50%, #3D9CDA 0%, #0B6BC3 100%)',
-                                        },
+                                        padding: '0.7rem 2rem',
                                     }}
                                     onClick={() => navigate('/signup')}
                                 >

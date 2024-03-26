@@ -179,7 +179,6 @@ export default function Profile() {
             },
         ],
     };
-    // console.log(asset, 'asset'), assetper, 'assetper';
     return (
         <Box>
             <Stack direction="row" flexWrap="wrap" justifyContent="space-between" gap={3}>
@@ -332,11 +331,11 @@ export default function Profile() {
                 flexWrap="wrap"
                 gap={2}
                 justifyContent="space-between"
-                alignItems="center"
-                ml="auto"
+                // alignItems="center"
+                alignItems="right"
                 mt={5}
             >
-                <Stack direction="row" gap={1} alignItems="center">
+                {/* <Stack direction="row" gap={1} alignItems="center">
                     <Typography
                         sx={{
                             color: '#0B7BC4',
@@ -379,11 +378,12 @@ export default function Profile() {
                     >
                         +39,4676 PKR
                     </Typography>
-                </Stack>
+                </Stack> */}
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
                     gap={1}
                     alignItems={{ xs: 'left', sm: 'center' }}
+                    ml="auto"
                 >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         {profile ? (

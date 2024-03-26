@@ -127,7 +127,7 @@ const Header = () => {
                                 />
                             </StyledLink>
 
-                            <StyledLink to="/dashboard">
+                            {/* <StyledLink to="/dashboard">
                                 <Settings
                                     sx={{
                                         color: `${theme.palette.text.darkblue}`,
@@ -135,7 +135,7 @@ const Header = () => {
                                         mt: '8px',
                                     }}
                                 />
-                            </StyledLink>
+                            </StyledLink> */}
                             {presistLogin && (
                                 <Button
                                     variant="btn2"

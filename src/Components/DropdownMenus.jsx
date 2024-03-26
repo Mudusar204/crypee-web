@@ -1,16 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import {
+    Avatar,
     Box,
     Button,
     Container,
     Dialog,
+    Divider,
     Grid,
     IconButton,
     Input,
     InputBase,
+    ListItemIcon,
     Menu,
     MenuItem,
+    Tooltip,
     Typography,
     useMediaQuery,
 } from '@mui/material';
@@ -18,7 +22,7 @@ import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Search, Close, ArrowBack } from '@mui/icons-material';
+import { Search, Close, ArrowBack, Logout, Settings } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
 import { useNavigate, useLocation } from 'react-router';
@@ -30,6 +34,7 @@ import { toast } from 'react-toastify';
 import { useDropzone } from 'react-dropzone';
 import upload from '../images/AddWallet/upload.png';
 import useMakeToast from '../hooks/makeToast';
+import { logout } from '../redux/slices/userSlice';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -522,7 +527,7 @@ export const AddwalletDropdown = () => {
         </>
     );
 };
-
+// Add wallet dialog
 export const AddWalletDialog = ({ open, setOpen }) => {
     const [openAdd, setOpenAdd] = useState(false);
     const [search, setSearch] = useState('');
@@ -935,6 +940,102 @@ export const AddWalletDialog = ({ open, setOpen }) => {
                     </Dialog>
                 </>
             )}
+        </>
+    );
+};
+
+// Dashboard Header Menu
+
+export const AccountMenu = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const dispatch = useDispatch();
+    const makeToast = useMakeToast();
+    const navigate = useNavigate();
+
+    let storedData = JSON.parse(localStorage.getItem('persistMe'));
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleLogout = () => {
+        localStorage.removeItem('persistMe');
+
+        dispatch(logout());
+        navigate('/');
+
+        makeToast('You have been logged out.');
+    };
+    return (
+        <>
+            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                <Tooltip title="Account settings">
+                    <IconButton
+                        onClick={handleClick}
+                        size="small"
+                        sx={{ ml: 2 }}
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                    >
+                        {storedData?.user?.name} &nbsp;
+                        <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+                    </IconButton>
+                </Tooltip>
+            </Box>
+            <Menu
+                anchorEl={anchorEl}
+                id="account-menu"
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                PaperProps={{
+                    elevation: 0,
+                    sx: {
+                        // pr: { xs: 1, sm: 3, md: 5 },
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: 1.5,
+
+                        '& .MuiAvatar-root': {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                        },
+                        '&::before': {
+                            content: '""',
+                            display: 'block',
+                            position: 'absolute',
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: 'background.paper',
+                            transform: 'translateY(-50%) rotate(45deg)',
+                            zIndex: 0,
+                        },
+                    },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+                <MenuItem onClick={handleClose}>{storedData?.user?.email}</MenuItem>
+                <Divider />
+                <MenuItem onClick={handleClose}>Settings</MenuItem>
+                <Divider />
+                <MenuItem
+                    onClick={() => {
+                        handleLogout();
+                        handleClose();
+                    }}
+                >
+                    Logout
+                </MenuItem>
+            </Menu>
         </>
     );
 };
