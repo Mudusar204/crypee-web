@@ -401,7 +401,6 @@ export default function Walletslist() {
                                             justifyContent: 'space-between',
                                             alignItems: { xs: 'left', sm: 'center' },
                                             gap: { xs: 1, sm: 2, md: 3 },
-                                            h,
                                         }}
                                     >
                                         <Box>
