@@ -32,6 +32,7 @@ import Forgetpassword from '../Pages/Forgtescreens/Forgetpassword';
 import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
 import PersistLogin from '../Components/persistLogin.jsx';
+import Setting from '../Pages/Setting/index.jsx';
 
 export default function Routing() {
     return (
@@ -60,6 +61,7 @@ export default function Routing() {
                 <Route path="/security" element={<Security />} />
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/cointracker" element={<Cointracker />} />
+                <Route path="/settings" element={<Setting />} />
             </Route>
             {/*  simple routes for non-authenticated */}
             <Route path="/" element={<Home />} />

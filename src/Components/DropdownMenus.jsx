@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-
 import {
     Avatar,
     Box,
@@ -9,20 +8,17 @@ import {
     Divider,
     Grid,
     IconButton,
-    Input,
     InputBase,
-    ListItemIcon,
     Menu,
     MenuItem,
-    Tooltip,
+    Switch,
     Typography,
-    useMediaQuery,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Search, Close, ArrowBack, Logout, Settings } from '@mui/icons-material';
+import { Search, Close, ArrowBack } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import { REACT_APP_BASE_URL } from '../config';
 import { useNavigate, useLocation } from 'react-router';
@@ -972,19 +968,19 @@ export const AccountMenu = () => {
     return (
         <>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        {storedData?.user?.name} &nbsp;
-                        <Avatar sx={{ width: 32, height: 32 }}></Avatar>
-                    </IconButton>
-                </Tooltip>
+                {storedData?.user?.name} &nbsp;
+                <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                >
+                    <Avatar sx={{ width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 } }}>
+                        {storedData?.user?.name?.split(' ')?.[0]?.[0]}
+                        {storedData?.user?.name?.split(' ')?.[1]?.[0]}
+                    </Avatar>
+                </IconButton>
             </Box>
             <Menu
                 anchorEl={anchorEl}
@@ -1025,7 +1021,14 @@ export const AccountMenu = () => {
             >
                 <MenuItem onClick={handleClose}>{storedData?.user?.email}</MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose}>Settings</MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        handleClose();
+                        navigate('/settings');
+                    }}
+                >
+                    Settings
+                </MenuItem>
                 <Divider />
                 <MenuItem
                     onClick={() => {
@@ -1039,3 +1042,47 @@ export const AccountMenu = () => {
         </>
     );
 };
+
+// custom Switch
+export const CustomizedSwitch = styled(Switch)(({ theme }) => ({
+    width: 40,
+    height: 24,
+    alignItems: 'center',
+    padding: 0,
+    display: 'flex',
+    '&:active': {
+        '& .MuiSwitch-thumb': {
+            width: 16,
+        },
+        '& .MuiSwitch-switchBase.Mui-checked': {
+            transform: 'translateX(9px)',
+        },
+    },
+    '& .MuiSwitch-switchBase': {
+        padding: 4,
+        '&.Mui-checked': {
+            transform: 'translateX(17px)',
+            color: '#fff',
+            '& + .MuiSwitch-track': {
+                opacity: 1,
+                backgroundColor: theme.palette.mode === 'dark' ? '#0182FF' : '#0182FF',
+            },
+        },
+    },
+    '& .MuiSwitch-thumb': {
+        boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+        width: 15,
+        height: 15,
+        borderRadius: 100,
+        transition: theme.transitions.create(['width'], {
+            duration: 200,
+        }),
+    },
+    '& .MuiSwitch-track': {
+        borderRadius: 100,
+        opacity: 1,
+        backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+        boxSizing: 'border-box',
+    },
+}));
