@@ -24,7 +24,6 @@ const Verifyotp = () => {
     }, []);
 
     const handleSubmit = async () => {
-        console.log(persistedData?.token, 'persistedData?.token');
         let myHeaders = new Headers();
         myHeaders.append('authorization', persistedData?.token);
 
@@ -44,10 +43,7 @@ const Verifyotp = () => {
             const results = JSON.parse(result);
             if (results?.status == true) {
                 dispatch(setUserData(results?.data));
-                localStorage.setItem(
-                    'persistMe',
-                    JSON.stringify({ user: { ...results?.data, token: persistedData?.token } }),
-                );
+                localStorage.setItem('persistMe', JSON.stringify(results?.data));
                 navigate('/dashboard');
                 makeToast(results?.message, 'success', 3);
             } else {

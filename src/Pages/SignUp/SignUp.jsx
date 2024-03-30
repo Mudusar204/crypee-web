@@ -5,12 +5,22 @@ import {
     Checkbox,
     Container,
     Grid,
+    IconButton,
     InputAdornment,
     TextField,
     Typography,
     styled,
 } from '@mui/material';
-import { Check, Email, Facebook, Google, Lock, AccountCircle } from '@mui/icons-material';
+import {
+    Check,
+    Email,
+    Facebook,
+    Google,
+    Lock,
+    AccountCircle,
+    Visibility,
+    VisibilityOff,
+} from '@mui/icons-material';
 import loginbg from '../../images/loginbg.png';
 import crplogo from '../../images/crplogo.png';
 import signinbg from './../../images/signinbg.png';
@@ -30,6 +40,7 @@ const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const makeToast = useMakeToast();
+    const [visible, setVisible] = useState(false);
     const [user, setuser] = useState({
         name: '',
         email: '',
@@ -301,13 +312,26 @@ const Signup = () => {
                                         placeholder={'Password'}
                                         onChange={handlePasswordChange}
                                         required={true}
-                                        type="password"
+                                        type={visible ? 'text' : 'password'}
                                         error={!!validationErrors.password}
                                         helperText={validationErrors.password}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
                                                     <Lock sx={{ color: '#0B7BC3' }} />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={() => setVisible(!visible)}
+                                                    >
+                                                        {visible ? (
+                                                            <Visibility />
+                                                        ) : (
+                                                            <VisibilityOff />
+                                                        )}
+                                                    </IconButton>
                                                 </InputAdornment>
                                             ),
                                         }}

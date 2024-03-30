@@ -6,12 +6,21 @@ import {
     Checkbox,
     Container,
     Grid,
+    IconButton,
     InputAdornment,
     TextField,
     Typography,
     styled,
 } from '@mui/material';
-import { Check, Email, Facebook, Google, Lock } from '@mui/icons-material';
+import {
+    Check,
+    Email,
+    Facebook,
+    Google,
+    Lock,
+    Visibility,
+    VisibilityOff,
+} from '@mui/icons-material';
 import loginbg from '../../images/loginbg.png';
 import signinbg from './../../images/signinbg.png';
 import Header from '../../Components/Header';
@@ -30,6 +39,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const makeToast = useMakeToast();
+    const [visible, setVisible] = useState(false);
     const [data, setData] = useState({
         email: '',
         password: '',
@@ -97,14 +107,23 @@ const Login = () => {
             const results = JSON.parse(result);
             console.log(results, 'response in Login');
 
-            if (results?.status === true && results?.data?.user?.isVerified === true) {
+            if (
+                results?.status === true &&
+                results?.data?.user?.isVerified === true &&
+                results?.data?.user?.twoFactorAuth === false
+            ) {
                 localStorage.setItem('persistMe', JSON.stringify(results?.data));
                 dispatch(setUserData(results?.data));
                 makeToast(results?.message, 'success', 3);
                 setTimeout(() => {
                     navigate('/dashboard');
                 }, 2000);
-            } else if (results?.status && results?.data?.isVerified === false) {
+            } else if (results?.status === true && results?.data?.isVerified === false) {
+                localStorage.setItem('persistMe', JSON.stringify(results?.data));
+                dispatch(setUserData(results?.data));
+                navigate('/verifyotp');
+                makeToast(results?.message, 'success', 3);
+            } else if (results?.status === true && results?.data?.twoFactorAuth === true) {
                 localStorage.setItem('persistMe', JSON.stringify(results?.data));
                 dispatch(setUserData(results?.data));
                 navigate('/verifyotp');
@@ -356,11 +375,18 @@ const Login = () => {
                                     required={true}
                                     error={!!validationErrors.password}
                                     helperText={validationErrors.password}
-                                    type="password"
+                                    type={visible ? 'text' : 'password'}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
                                                 <Lock sx={{ color: '#0B7BC3' }} />
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={() => setVisible(!visible)}>
+                                                    {visible ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
                                             </InputAdornment>
                                         ),
                                     }}

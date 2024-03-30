@@ -244,8 +244,6 @@ export default function Profile() {
                             <Box
                                 sx={{
                                     minWidth: '35px',
-                                    height: '26px',
-                                    width: '62px',
                                     background: '#0B7BC3',
                                     borderRadius: '5px',
                                     color: '#fff',
@@ -256,7 +254,7 @@ export default function Profile() {
                                     alignItems: 'center',
                                 }}
                             >
-                                {+asset > 0 ? (+asset).toFixed(3) : asset} %
+                                {+asset !== 0 && (+asset).toFixed(3)} %
                             </Box>
                         </>
                     ) : (
@@ -270,9 +268,7 @@ export default function Profile() {
                             <Box
                                 sx={{
                                     marginRight: '10px',
-                                    minWidth: '35px',
-                                    height: '35px',
-                                    // background: '#0B7BC3',
+
                                     borderRadius: '5px',
                                     color: '#0B7BC3',
                                     p: 1,
@@ -281,7 +277,7 @@ export default function Profile() {
                                     alignItems: 'center',
                                 }}
                             >
-                                {+assetper > 0 ? (+assetper).toFixed(5) : assetper}
+                                {+assetper !== 0 && (+assetper).toFixed(5)}
                             </Box>
                         </>
                     ) : (
@@ -403,9 +399,9 @@ export default function Profile() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    {+profile?.netProceeds > 0
+                                    {+profile?.netProceeds
                                         ? (+profile?.netProceeds).toFixed(4)
-                                        : profile?.netProceeds}
+                                        : '0.00'}
                                 </Box>
                             </>
                         ) : (
@@ -448,7 +444,9 @@ export default function Profile() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    {profile?.netCost}
+                                    {+profile?.netCost - Math.floor(+profile?.netCost) !== 0
+                                        ? (+profile?.netCost).toFixed(4)
+                                        : +profile?.netCost}
                                 </Box>
                             </>
                         ) : (
