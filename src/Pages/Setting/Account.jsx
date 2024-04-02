@@ -1,11 +1,71 @@
 import { Box, Button, Stack } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeleteDialog from './DeleteDialog';
 import { CustomizedSwitch } from '../../Components/DropdownMenus';
+import { REACT_APP_BASE_URL } from '../../config';
+import useMakeToast from '../../hooks/makeToast';
 
 function Account() {
+    const makeToast = useMakeToast();
     const [openDelete, setOpenDelete] = useState(false);
-    let localData = JSON.parse(localStorage.getItem('persistMe'));
+    const [userData, setUserData] = useState({
+        permissionToViewAccount: false,
+        taxProfessional: false,
+        twoFactorAuth: false,
+    });
+    let localData = localStorage.getItem('persistMe')
+        ? JSON.parse(localStorage.getItem('persistMe'))
+        : null;
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    `${REACT_APP_BASE_URL}/api/user/getUser?id=${localData?.user?.id}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Authorization: localData?.user?.token,
+                        },
+                    },
+                );
+                const result = await response.json();
+                setUserData({
+                    twoFactorAuth: result?.data?.twoFactorAuth,
+                    taxProfessional: result?.data?.taxProfessional,
+                    permissionToViewAccount: result?.data?.permissionToViewAccount,
+                });
+            } catch (error) {
+                console.log('Error fetching User:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const handleChange = async (event) => {
+        try {
+            const { name, checked } = event.target;
+            let response = await fetch(`${REACT_APP_BASE_URL}/api/user/updateUser`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localData?.user?.token,
+                },
+                body: JSON.stringify({
+                    [name]: checked,
+                }),
+            });
+            const result = await response.json();
+            setUserData({
+                twoFactorAuth: result?.data?.twoFactorAuth,
+                taxProfessional: result?.data?.taxProfessional,
+                permissionToViewAccount: result?.data?.permissionToViewAccount,
+            });
+            makeToast(result?.message, 'success', 3);
+        } catch (error) {
+            console.log(error, 'error');
+            makeToast(error?.message, 'error', 3);
+        }
+    };
     return (
         <>
             <DeleteDialog open={openDelete} setOpen={setOpenDelete} />
@@ -83,7 +143,12 @@ function Account() {
                         </Box>
                     </Box>
 
-                    <CustomizedSwitch inputProps={{ 'aria-label': 'ant design' }} />
+                    <CustomizedSwitch
+                        inputProps={{ 'aria-label': 'ant design' }}
+                        checked={userData?.twoFactorAuth}
+                        name="twoFactorAuth"
+                        onChange={(e) => handleChange(e)}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -118,7 +183,12 @@ function Account() {
                         </Box>
                     </Box>
 
-                    <CustomizedSwitch inputProps={{ 'aria-label': 'ant design' }} />
+                    <CustomizedSwitch
+                        inputProps={{ 'aria-label': 'ant design' }}
+                        checked={userData?.permissionToViewAccount}
+                        name="permissionToViewAccount"
+                        onChange={(e) => handleChange(e)}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -139,7 +209,12 @@ function Account() {
                     >
                         I am a tax professional
                     </Box>
-                    <CustomizedSwitch inputProps={{ 'aria-label': 'ant design' }} />
+                    <CustomizedSwitch
+                        inputProps={{ 'aria-label': 'ant design' }}
+                        checked={userData?.taxProfessional}
+                        name="taxProfessional"
+                        onChange={(e) => handleChange(e)}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}

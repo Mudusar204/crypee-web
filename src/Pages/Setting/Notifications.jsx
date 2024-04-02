@@ -1,8 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CustomizedSwitch } from '../../Components/DropdownMenus';
 import { Box, Stack } from '@mui/material';
+import { REACT_APP_BASE_URL } from '../../config';
+import useMakeToast from '../../hooks/makeToast';
 
 function Notifications() {
+    const makeToast = useMakeToast();
+    const [notifications, setNotifications] = useState({
+        ProductUpdatesAndPromotionalEmails: false,
+        ReAuthentication: false,
+        dailyPortfolio: false,
+        dailyPortfolioEmail: false,
+        newTransactions: false,
+        newTransactionsEmail: false,
+    });
+    let localData = localStorage.getItem('persistMe')
+        ? JSON.parse(localStorage.getItem('persistMe'))
+        : null;
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    `${REACT_APP_BASE_URL}/api/user/getUser?id=${localData?.user?.id}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Authorization: localData?.user?.token,
+                        },
+                    },
+                );
+                const result = await response.json();
+                setNotifications(result?.data?.notifications);
+            } catch (error) {
+                console.log('Error fetching User:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const handleChange = async (event) => {
+        try {
+            const { name, checked } = event.target;
+            let response = await fetch(`${REACT_APP_BASE_URL}/api/user/updateUser`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localData?.user?.token,
+                },
+                body: JSON.stringify({
+                    notifications: {
+                        ...notifications,
+                        [name]: checked,
+                    },
+                }),
+            });
+            const result = await response.json();
+            setNotifications(result?.data?.notifications);
+            makeToast(result?.message, 'success', 3);
+        } catch (error) {
+            console.log(error, 'error');
+            makeToast(error?.message, 'error', 3);
+        }
+    };
     return (
         <>
             <Box
@@ -37,7 +96,13 @@ function Notifications() {
                     >
                         New transactions notifications
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.newTransactions}
+                        name="newTransactions"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -58,7 +123,13 @@ function Notifications() {
                     >
                         New transactions email
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.newTransactionsEmail}
+                        name="newTransactionsEmail"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -79,7 +150,13 @@ function Notifications() {
                     >
                         Daily portfolio notifications
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.dailyPortfolio}
+                        name="dailyPortfolio"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -100,7 +177,13 @@ function Notifications() {
                     >
                         Daily portfolio email
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.dailyPortfolioEmail}
+                        name="dailyPortfolioEmail"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -121,7 +204,13 @@ function Notifications() {
                     >
                         Product updates and promotional emails
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.ProductUpdatesAndPromotionalEmails}
+                        name="ProductUpdatesAndPromotionalEmails"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
                 <Stack
                     direction={{ xs: 'column', sm: 'row' }}
@@ -141,7 +230,13 @@ function Notifications() {
                     >
                         Re-authentication notifications for exchange accounts
                     </Box>
-                    <CustomizedSwitch />
+                    <CustomizedSwitch
+                        checked={notifications?.ReAuthentication}
+                        name="ReAuthentication"
+                        onChange={(e) => {
+                            handleChange(e);
+                        }}
+                    />
                 </Stack>
             </Box>
         </>

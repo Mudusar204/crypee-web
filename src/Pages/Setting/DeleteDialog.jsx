@@ -1,21 +1,38 @@
 import { Close } from '@mui/icons-material';
 import { Box, Button, Dialog, Stack } from '@mui/material';
 import React from 'react';
+import useMakeToast from '../../hooks/makeToast';
+import { REACT_APP_BASE_URL } from '../../config';
 
 function DeleteDialog({ open, setOpen }) {
+    const makeToast = useMakeToast();
+    let localData = localStorage.getItem('persistMe')
+        ? JSON.parse(localStorage.getItem('persistMe'))
+        : null;
+    const handleDelete = async () => {
+        let response = await fetch(`${REACT_APP_BASE_URL}/api/user/deleteUser`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: localData?.user?.token,
+            },
+        });
+        const result = await response.json();
+
+        if (result.status) {
+            localStorage.clear();
+            window.location.href = '/';
+            makeToast(result.message, 'success', 3);
+        } else {
+            makeToast(result.message, 'error', 3);
+        }
+    };
     return (
         <>
             <Dialog
                 open={open}
-                // onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 maxWidth="sm"
-                // sx={{
-                //     '& .MuiPaper-root': {
-                //         borderRadius: '10px',
-                //     },
-                // }}
             >
                 <Stack
                     direction="row"
@@ -145,7 +162,7 @@ function DeleteDialog({ open, setOpen }) {
                                 },
                             }}
                             onClick={() => {
-                                console.log('Account Deleted successfully');
+                                handleDelete();
                                 setOpen(false);
                             }}
                         >
