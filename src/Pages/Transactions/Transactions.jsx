@@ -293,7 +293,7 @@ import { useSelector } from 'react-redux';
 // ];
 
 // ===================Transaction===============
-export const addTransaction = async (limit, page, type, currency, wallet, date) => {
+export const addTransaction = async (limit, page, type, currency, wallet, date, sortByFilter) => {
     try {
         const queryString = [
             `limit=${limit}`,
@@ -303,6 +303,7 @@ export const addTransaction = async (limit, page, type, currency, wallet, date) 
             ...currency.map((value) => `currency=${encodeURIComponent(value)}`),
             `from=${encodeURIComponent(date[0]?.from)}`,
             `to=${encodeURIComponent(date[0]?.to)}`,
+            `oldest=${sortByFilter}`,
         ].join('&');
         const localStorageData = JSON.parse(localStorage.getItem('persistMe'));
         const response = await fetch(
@@ -366,6 +367,10 @@ const Transactions = () => {
                 const dateFilters = queryData
                     .filter((filter) => filter.query === 'Date')
                     .map((filter) => ({ from: filter.from, to: filter.to }));
+                const sortByFilter = queryData
+                    .filter((filter) => filter.query === 'SortBy')
+                    .map((filter) => (filter.name === 'Oldest' ? 'true' : 'false'));
+                console.log(sortByFilter, 'sort by filter');
                 const result = await addTransaction(
                     rowsPerPage,
                     page,
@@ -373,6 +378,7 @@ const Transactions = () => {
                     currencyFilters,
                     walletFilters,
                     dateFilters,
+                    sortByFilter,
                 );
                 setTotalPages(result?.data?.numberOfPages);
                 setRecords(result?.data?.transactions);

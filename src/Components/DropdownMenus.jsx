@@ -307,7 +307,11 @@ export const CountryDropdown = ({ countries }) => {
 };
 
 export const SortByNewest = ({ categories }) => {
+    const dispatch = useDispatch();
+
     const [anchorEl, setAnchorEl] = useState(null);
+    const [i, setI] = useState(0);
+    const newValue = i === 0 ? 1 : 0;
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -316,7 +320,9 @@ export const SortByNewest = ({ categories }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    useEffect(() => {
+        dispatch(setFilterQuery({ name: categories[i], query: 'SortBy', checked: false }));
+    }, [i]);
     return (
         <>
             <Button
@@ -329,7 +335,7 @@ export const SortByNewest = ({ categories }) => {
                 endIcon={<ExpandMoreIcon />}
                 onClick={handleClick}
             >
-                Newest
+                {categories[i]}
             </Button>
             <StyledMenu
                 id="menu2"
@@ -340,7 +346,13 @@ export const SortByNewest = ({ categories }) => {
                 {categories?.map((category, i) => {
                     return (
                         <StyledLink key={i}>
-                            <StyledMenuItem onClick={handleClose}>{category}</StyledMenuItem>
+                            <StyledMenuItem
+                                onClick={() => {
+                                    handleClose(), setI(i);
+                                }}
+                            >
+                                {category}
+                            </StyledMenuItem>
                         </StyledLink>
                     );
                 })}
