@@ -31,7 +31,7 @@ import { useDropzone } from 'react-dropzone';
 import upload from '../images/AddWallet/upload.png';
 import useMakeToast from '../hooks/makeToast';
 import { logout } from '../redux/slices/userSlice';
-
+import TimelineIcon from '@mui/icons-material/Timeline';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={0}
@@ -952,6 +952,47 @@ export const AddWalletDialog = ({ open, setOpen }) => {
     );
 };
 
+export const TxYearsDropdown = ({ years }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    return (
+        <>
+            <Button
+                sx={{
+                    textTransform: 'capitalize',
+                }}
+                variant="btn1"
+                startIcon={<TimelineIcon />}
+                endIcon={<ArrowDropDownIcon />}
+                onClick={handleClick}
+            >
+                Tx All Years
+            </Button>
+            <StyledMenu
+                id="menu2"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                {years?.map((yearslist, i) => {
+                    return (
+                        <StyledLink key={i}>
+                            <StyledMenuItem onClick={handleClose}>{yearslist}</StyledMenuItem>
+                        </StyledLink>
+                    );
+                })}
+            </StyledMenu>
+        </>
+    );
+};
 // Dashboard Header Menu
 
 export const AccountMenu = () => {
