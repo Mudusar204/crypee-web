@@ -33,6 +33,7 @@ import Passwordrecheck from '../Pages/Forgtescreens/Passwordrecheck';
 import ForgotPasswordOtp from '../Pages/Verifyotp/ForgotPasswordOtp';
 import PersistLogin from '../Components/persistLogin.jsx';
 import Setting from '../Pages/Setting/index.jsx';
+import Taxprofessionals from '../Pages/Taxes/Taxprofessionals.jsx';
 
 export default function Routing() {
     return (
@@ -43,6 +44,8 @@ export default function Routing() {
                 <Route path="/loss-harvesting" element={<LossHarvesting />} />
                 <Route path="/tax-plans" element={<Plans />} />
                 <Route path="/taxes" element={<Taxes />} />
+                <Route path="/tax-pros" element={<Taxprofessionals />} />
+
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/performance" element={<Performance />} />
                 <Route path="/pastperformance" element={<Pastperformance />} />

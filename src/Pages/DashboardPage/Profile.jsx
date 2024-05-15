@@ -62,6 +62,7 @@ export default function Profile() {
     }, []);
 
     const handleFilter = async (filterType) => {
+        console.log('filterType', filterType);
         let filteredData = [];
         let filteredValue = [];
 
@@ -82,7 +83,7 @@ export default function Profile() {
         switch (filterType) {
             case '1D':
                 let oneDayAgo = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
-                let oneDayAgos = await setDateFormat(oneDayAgo);
+                let oneDayAgos = setDateFormat(oneDayAgo);
                 filteredData = date.filter((dateItem) => new Date(dateItem) >= oneDayAgos);
 
                 filteredValue = combineTimeValue?.filter((item) => {
@@ -95,7 +96,7 @@ export default function Profile() {
             case '1W':
                 // Filter data for last 7 days
                 let oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-                let oneWeekAgos = await setDateFormat(oneWeekAgo);
+                let oneWeekAgos = setDateFormat(oneWeekAgo);
 
                 filteredData = date.filter((dateItem) => new Date(dateItem) >= oneWeekAgos);
 
@@ -103,23 +104,46 @@ export default function Profile() {
             case '1M':
                 // Filter data for last 30 days
                 let oneMonthAgo = new Date(currentDate.getTime() - 30 * 24 * 60 * 60 * 1000);
-                let oneMonthAgos = await setDateFormat(oneMonthAgo);
+                let oneMonthAgos = setDateFormat(oneMonthAgo);
 
                 filteredData = date.filter((dateItem) => new Date(dateItem) >= oneMonthAgos);
                 break;
             case '3M':
                 // Filter data for last 3 months (90 days)
                 let threeMonthsAgo = new Date(currentDate.getTime() - 90 * 24 * 60 * 60 * 1000);
-                let threeMonthsAgos = await setDateFormat(threeMonthsAgo);
+                let threeMonthsAgos = setDateFormat(threeMonthsAgo);
 
                 filteredData = date.filter((dateItem) => new Date(dateItem) >= threeMonthsAgos);
                 break;
             case '1Y':
                 // Filter data for last 1 year (365 days)
                 let oneYearAgo = new Date(currentDate.getTime() - 365 * 24 * 60 * 60 * 1000);
-                let oneYearAgos = await setDateFormat(oneYearAgo);
+                let oneYearAgos = setDateFormat(oneYearAgo);
 
-                filteredData = date.filter((dateItem) => new Date(dateItem) >= oneYearAgos);
+                console.log('date', date);
+                console.log('new Date(date)', new Date(date));
+
+                // let data = new Date(date);
+                // console.log('data', data);
+
+                const today = new Date(); // Current date
+                const oneYearAgofromtoday = new Date(oneYearAgos); // Convert oneYearAgos to a Date object
+
+                const filteredData = date.filter((dateString) => {
+                    const itemDate = new Date(dateString);
+                    return itemDate >= oneYearAgofromtoday && itemDate <= today;
+                });
+
+                console.log(filteredData?.length);
+                console.log(filteredData?.length);
+
+                // filteredData = date.filter((dateItem) => new Date(dateItem) >= oneYearAgos);
+
+                // filteredData = date.filter(
+                //     (dateItem) =>
+                //         new Date(dateItem) >= oneYearAgos && dateItem <= setDateFormat(currentDate),
+                // );
+                // console.log('filteredData', filteredData);
                 break;
             case 'All':
                 filteredData = alldate;
