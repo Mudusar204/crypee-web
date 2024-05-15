@@ -1,61 +1,44 @@
-import { Typography, Button, Stack, ButtonGroup, Box, Grid, Divider } from '@mui/material';
+import {
+    Typography,
+    Button,
+    Stack,
+    ButtonGroup,
+    Box,
+    Grid,
+    Divider,
+    Skeleton,
+} from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import pastdayBg from '../../images/pastday_bg.png';
-import netFiatBg from '../../images/netFiat_bg.png';
-import costBasisBg from '../../images/costBasis_bg.png';
-import returnBg from '../../images/return_bg.png';
+// import pastdayBg from '../../images/pastday_bg.png';
+// import netFiatBg from '../../images/netFiat_bg.png';
+// import costBasisBg from '../../images/costBasis_bg.png';
+// import returnBg from '../../images/return_bg.png';
 // import portfolio from '../../images/portfolio_img.png';
 import { UnrealizedPerformanceDropdown } from '../../Components/DropdownMenus';
 
 import { DateRange, Share } from '@mui/icons-material';
 
-import costbasis from '../../images/costbasis.png';
-import upicon from '../../images/upicon.png';
-import note from '../../images/note.png';
-import dollar from '../../images/dollar.png';
+// import costbasis from '../../images/costbasis.png';
+// import upicon from '../../images/upicon.png';
+// import note from '../../images/note.png';
+// import dollar from '../../images/dollar.png';
 import { useEffect, useState } from 'react';
 import subscribe from '../../images/subscribe.png';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '../../config';
 
-// const balanceDetails = [
-//     {
-//         img: returnBg,
-//         title: 'Unrealized Return',
-//         price: ' 0.00',
-//         icon: upicon,
-//     },
-//     {
-//         img: pastdayBg,
-//         title: 'Past Day',
-//         price: ' 0.00',
-//         icon: note,
-//     },
-//     {
-//         img: costBasisBg,
-//         title: 'Cost Basis',
-//         price: ' 0.00',
-//         icon: costbasis,
-//     },
-//     {
-//         img: netFiatBg,
-//         title: 'Net Fiat Invested',
-//         price: ' 0.00',
-//         icon: dollar,
-//     },
-// ];
-
 const performances = ['Unrealized Performance', 'Total Performance'];
 
 const DateSorting = () => {
     const [time, settime] = useState(0);
-    const [balanceDetails, setBalanceDetails] = useState([]);
+    const [balanceDetails, setBalanceDetails] = useState(null);
     const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
+            setBalanceDetails(null);
             const refreshToken = localStorage.getItem('persistMe')
                 ? JSON.parse(localStorage.getItem('persistMe'))
                 : null;
@@ -64,7 +47,7 @@ const DateSorting = () => {
                     Authorization: refreshToken?.user?.token,
                 },
             });
-            console.log(response.data, 'response.data');
+            console.log(response.data, '🚀 Success: successfully fetched');
             setBalanceDetails([
                 {
                     title: 'Unrealized Return',
@@ -88,7 +71,7 @@ const DateSorting = () => {
                 },
             ]);
         } catch (error) {
-            console.log(error, 'error');
+            console.log(error, '❌Error: in fetchData profile balences');
         }
     };
     useEffect(() => {
@@ -159,47 +142,72 @@ const DateSorting = () => {
                 align="center"
                 justifyContent={'space-evenly'}
             >
-                {balanceDetails?.map((item, i) => {
-                    console.log(item, 'item');
-                    return (
-                        <Grid sx={{ my: '1em' }} key={i} item lg={2.2} md={2.5} sm={6} xs={12}>
-                            <Box
-                                sx={{
-                                    background: 'white',
-                                    border: '1px solid #D8F0FF',
-                                    borderRadius: '15px',
-                                    display: 'flex',
-                                    gap: '15px',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: 'fit-content',
-                                    px: 3,
-                                    py: 2,
-                                }}
-                            >
-                                {/* <img src={item.icon} alt="icon" width="56px"></img> */}
-
-                                <Typography
-                                    fontWeight={500}
-                                    color={'#A3AED0'}
-                                    sx={{ fontSize: { md: '14px', xs: '10px' } }}
-                                    display={'flex'}
-                                    flexDirection={'column'}
-                                    gap="5px"
+                {balanceDetails ? (
+                    balanceDetails?.map((item, i) => {
+                        return (
+                            <Grid sx={{ my: '1em' }} key={i} item lg={2.2} md={2.5} sm={6} xs={12}>
+                                <Box
+                                    sx={{
+                                        background: 'white',
+                                        border: '1px solid #D8F0FF',
+                                        borderRadius: '15px',
+                                        display: 'flex',
+                                        gap: '15px',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 'fit-content',
+                                        px: 3,
+                                        py: 2,
+                                    }}
                                 >
-                                    {item.title}
+                                    {/* <img src={item.icon} alt="icon" width="56px"></img> */}
+
                                     <Typography
-                                        color={'#2B3674'}
-                                        fontSize={'20px'}
-                                        fontWeight={700}
+                                        fontWeight={500}
+                                        color={'#A3AED0'}
+                                        sx={{ fontSize: { md: '14px', xs: '10px' } }}
+                                        display={'flex'}
+                                        flexDirection={'column'}
+                                        gap="5px"
                                     >
-                                        ${item.price}
+                                        {item.title}
+                                        <Typography
+                                            color={'#2B3674'}
+                                            fontSize={'20px'}
+                                            fontWeight={700}
+                                        >
+                                            ${item.price}
+                                        </Typography>
                                     </Typography>
-                                </Typography>
-                            </Box>
-                        </Grid>
-                    );
-                })}
+                                </Box>
+                            </Grid>
+                        );
+                    })
+                ) : (
+                    <>
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <Grid sx={{ my: '1em' }} key={i} item lg={2.2} md={2.5} sm={6} xs={12}>
+                                <Box
+                                    sx={{
+                                        background: 'white',
+                                        border: '1px solid #D8F0FF',
+                                        borderRadius: '15px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 'fit-content',
+                                        px: 3,
+                                        py: 2,
+                                    }}
+                                >
+                                    <Skeleton width={100} height={20} />
+                                    <Skeleton width={70} height={40} />
+                                </Box>
+                            </Grid>
+                        ))}
+                    </>
+                )}
             </Grid>
 
             <Box
