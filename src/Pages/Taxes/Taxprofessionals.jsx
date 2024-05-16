@@ -1,16 +1,23 @@
 import Navigation from '../../Components/Navigation';
 import React, { useEffect, useState } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-// import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete'
 
 import InviteTaxImg from '../../images/Taxes/invite_tax_pro_empty.svg';
 
@@ -26,6 +33,7 @@ const buttonStyle = {
         color: '#0182ff', // Change this to your desired hover color
     },
 };
+
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -62,6 +70,8 @@ function a11yProps(index) {
 export default function Taxprofessionals() {
     const [value, setValue] = React.useState(0);
     const [open, setOpen] = React.useState(false);
+    const [email, setEmail] = React.useState('');
+    const isEmailValid = email.endsWith('.com');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -70,9 +80,30 @@ export default function Taxprofessionals() {
     const handleClickOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+        // Assuming handleResend is a function to handle re-sending the invite
+        const handleResend = (email) => {
+            // Logic to re-send the invite
+        };
+    function createData(email, status, actions) {
+        return { email, status, actions };
+    }
+    const rows = [
+        createData('awais@gmail.com', <span>Invite pending <Button variant="outlined" onClick={handleResend}>  Re-send  </Button>  </span>, <DeleteIcon style={{cursor:'pointer'}} />),
+    ];
+
+    // testing
+    let response = "ali@gmail.com"
+
+
+
     return (
         <Box mx={{ lg: 7, xs: 2, md: 4, sm: 3 }}>
             <Navigation />
@@ -98,7 +129,7 @@ export default function Taxprofessionals() {
                     </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                    <Box
+                   {!response? <Box
                         style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -131,7 +162,32 @@ export default function Taxprofessionals() {
                         <Button sx={buttonStyle} variant="outlined" onClick={handleClickOpen}>
                             Invite Tax Pro
                         </Button>
-                    </Box>
+                    </Box> :
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Tax pro email</TableCell>
+                                    <TableCell align="">Status</TableCell>
+                                    <TableCell align="">Actions</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <TableRow
+                                        key={row.email}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {row.email}
+                                        </TableCell>
+                                        <TableCell align="">{row.status}</TableCell>
+                                        <TableCell align="">{row.actions}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>}
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
                     <Box sx={{ margin: '200px 0px', textAlign: 'center' }}>No invites</Box>
@@ -145,21 +201,46 @@ export default function Taxprofessionals() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">{'Share with tax professional'}</DialogTitle>
-                <hr />
                 <DialogContent>
+                    <hr />
+                    <br />
                     <DialogContentText id="alert-dialog-description">
                         Invite your tax professional and their firm to directly review your
                         CoinTracker account, reconcile transactions, and download your tax reports.
+                    </DialogContentText>
+                    <br />
+                    <DialogContentText id="alert-dialog-description">
                         Note: Only share your account with someone you trust fully with your
                         CoinTracker account
                     </DialogContentText>
+                    <br />
+                    <label>Tax pro's email</label>
+                    <TextField
+                        autoFocus
+                        required
+                        margin="dense"
+                        id="outlined-basic"
+                        name="email"
+                        type="email"
+                        fullWidth
+                        variant="outlined"
+                        value={email}
+                        onChange={handleEmailChange}
+                    />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
+                    <Button variant="outlined" autoFocus onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="contained"
+                        disabled={!isEmailValid}
+                        onClick={handleClose}
+                    >
+                        Invite
                     </Button>
                 </DialogActions>
+                <br />
             </Dialog>
         </Box>
     );
