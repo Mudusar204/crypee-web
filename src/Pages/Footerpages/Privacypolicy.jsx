@@ -6,17 +6,45 @@ import Header from '../../Components/Header';
 
 const terms = [
     {
-        heading: '1. Collection of Personal Information',
-        body: 'a. Information You Provide:<br>We collect the following categories of personal information:<br><br><span>  <b>Identification Information : </b> </span>Your email address and password.Cryptocurrency Information: The public wallet address for each cryptocurrency holding you connect to the Service and the associated transaction history, including dates and amounts. Depending on your Crypee account settings, we may retrieve this history from the blockchain, exchanges (with your permission), or materials you upload through the Service.<br><span><b>Financial Information:</b> </span>Our payment processor(s) collect the financial information necessary to process your payments, such as your payment card number and authentication details. Note that we only store tokenized versions of this information, not the actual payment card data.<br><span><b>Financial Information:</b> </span>Our payment processor(s) collect the financial information necessary to process your payments, such as your payment card number and authentication details. Note that we only store tokenized versions of this information, not the actual payment card data.<br><span><b>Social Media Information:</b> </span>When you interact with us on social media platforms, we may receive personal information based on your profile settings and the information you provide.<br>',
+        heading: 'Article 1 (Purpose of Collection and Use of Personal Information)',
+        body: 'The Company collects personal information for the following purposes. The collected personal information will not be used for any other purposes, and if the purpose of use changes, prior consent will be obtained. <ul><li>Performance of contracts related to service provision and settlement of fees related to service provision</li> <li>Member management: Identity verification, personal identification, prevention of unauthorized and fraudulent use by members, confirmation of the intention to join, age verification, verification of legal guardians consent when processing personal information of children under 14, customer consultation, complaint handling, etc</li> <li>Marketing and advertisement: Development and specialization of new services (products), delivery of advertising information such as events, frequency of access, statistical analysis of member service usage</li> </ul>',
     },
 
     {
-        heading: 'b. Internet Activity Information:',
-        body: 'When you use the Service, the following information may be automatically logged in our systems:<br><br><span> <b> Device Information:  </b> </span> Details like device manufacturer, model, operating system, IP address, unique identifiers, and the browser you use to access the Service. The specific information collected may vary depending on your device type and settings.<br><span> <b>Usage Information: </b> Data related to your Service usage, such as the content you view or interact with, features you use, actions you take, and the timing, frequency, and duration of your activities. We use Google Analytics and Mixpanel for collecting and analyzing usage data. Details about how Google and Mixpanel use this information are available.</span><br><span> <b> Location Information:  </b> </span>A rough estimate of your location may be derived from your IP address when you visit the Site.  Email Open/Click Information: We may employ email pixels to collect your email and IP address, along with the date and time you open an email or click on any links within it.',
+        heading:
+            'Article 2 (Items of Personal Information Collected and Method of Collection) Items of personal information collected:',
+        body: '<ul> <li>Mandatory items: Name, date of birth, login ID, password, mobile phone number, email, access logs, cookies, IP information</li><li>Optional items: Address, payment information (credit card details, bank account information, etc.)</li> <li>Method of collection: Website (during registration), mobile app, fax, telephone, email, event entry, delivery request</li> </ul>',
     },
     {
-        heading: 'c. Technologies for Data Collection:',
-        body: 'To collect Internet Activity Information, we may use the following technologies:<br><br><span> <b> Cookies: </b> </span>Text files stored on your device to uniquely identify your browser or store information/settings for efficient navigation, preference retention, functionality, understanding user activity, pattern analysis, and facilitating online advertising.<br><span> <b> Local Storage Technologies:</b> </span> Technologies like HTML5 that offer cookie-like functionality but can store larger data volumes, including on your device outside your browser, in connection with specific applications.<br><span> <b>Web Beacons:</b> </span>Also known as pixel tags or clear GIFs, these are used to confirm access or opening of webpages or emails, or the viewing or clicking of specific content.',
+        heading: 'Article 3 (Period of Retention and Use of Personal Information)',
+        body: 'The Company retains and processes personal information within the period of retention and use of personal information agreed upon by the user at the time of collection or as prescribed by law. The retention and processing period for each personal information is as follows: <br/> <ul> <li>Records on contract or subscription withdrawal: 5 years</li> <li>Records on payment and supply of goods: 5 years</li> <li>Records on consumer complaints or dispute handling: 3 years</li> <li>Website visit records: 3 months</li>  </ul>',
+    },
+    {
+        heading: 'Article 4 (Provision of Personal Information to Third Parties)',
+        body: 'The Company does not provide users personal information to outside parties in principle. However, personal information may be provided to third parties in exceptional cases with prior consent from users or under special provisions of the law.',
+    },
+
+    {
+        heading: 'Article 5 (Outsourcing of Personal Information Processing)',
+        body: 'The Company may outsource the processing of personal information to external specialists as necessary for smooth personal information processing. When outsourcing personal information processing, the contract specifies strict compliance with instructions related to personal information protection, confidentiality of personal information, prohibition of providing to third parties, and responsibilities in case of incidents, and the contents of the contract are kept in writing or electronically.',
+    },
+
+    {
+        heading:
+            'Article 6 (Rights and Obligations of Data Subjects and Methods of Exercising Rights)',
+        body: 'Users can inquire, modify, or request deletion of their registered personal information at any time, and they may withdraw their consent to the collection and use of personal information. These rights can be exercised by contacting the Companys personal information manager in writing, by phone, or via email.',
+    },
+    {
+        heading: 'Article 7 (Measures for Securing Safety of Personal Information)',
+        body: 'The Company takes the following technical, managerial, and physical measures to ensure safety as per Article 29 of the Personal Information Protection Act: <ul> <li>Minimization and training of personal information handling staff</li> <li>Establishment and implementation of an internal management plan</li> <li>Encryption of personal information</li> <li>Technical measures against hacking</li> <li>Installation of access control systems</li> <li>Use of locking devices for document security</li> <li>Control of access rights to unauthorized persons</li>    </ul> ',
+    },
+    {
+        heading: 'Article 8 (Personal Information Protection Officer)',
+        body: 'The Company has designated the following officer responsible for the overall processing of personal information, who also handles complaints and damage relief related to the processing of personal information. <li>Name: Kyle Choi</li> <li>Contact: hostate247@crypee.io</li> ',
+    },
+    {
+        heading: 'Addendum',
+        body: 'This privacy policy will be implemented starting from May 20, 2024. ',
     },
 ];
 
@@ -37,32 +65,35 @@ const Privacypolicy = () => {
                         textTransform: 'uppercase',
                     }}
                 >
-                    Privacy Policy
+                    Crypee Solutions Corp. Privacy Policy
                     <br></br>
-                    <br></br>
-                    Your Privacy Matters to Us
+                    {/* <br></br>
+                    Your Privacy Matters to Us */}
                 </Typography>
                 <Box width={{ xs: '100%', sm: '100%', md: '900px', lg: '900px' }}>
                     <Typography
+                        // sx={{
+                        //     fontSize: { lg: '14px', sm: '13px', xs: '12px', md: '14px' },
+                        //     fontWeight: 400,
+                        //     fontFamily: 'Gmarket',
+                        //     color: `${theme.palette.text.lightbrown}`,
+                        //     lineHeight: '22.5px',
+                        // }}
                         sx={{
-                            fontSize: { lg: '14px', sm: '13px', xs: '12px', md: '14px' },
-                            fontWeight: 400,
+                            fontSize: { md: '14px', sm: '13px', xs: '12px' },
                             fontFamily: 'Gmarket',
-                            color: `${theme.palette.text.lightbrown}`,
-                            lineHeight: '22.5px',
+                            fontWeight: 500,
+                            color: '#888',
+                            lineHeight: '24px',
                         }}
                     >
-                        Crypee is committed to protecting your privacy. This Privacy Policy is
-                        designed to clarify the personal information we collect, how we use and
-                        share it, and the choices you have regarding our information practices. By
-                        using the Crypee website (the &ldquo;Site&rdquo;) and mobile application
-                        (the &ldquo;App&rdquo;) to track your cryptocurrency portfolio&rsquo;s
-                        performance and calculate related capital gains and losses (the
-                        &ldquo;Service&rdquo;), you consent to the practices outlined in this
-                        Privacy Policy. Please read this Privacy Policy carefully and reach out to
-                        us if you have any questions. If you do not agree to this Privacy Policy,
-                        please do not access the Site or use the Service. This Privacy Policy is an
-                        integral part of our Terms of Service.
+                        Crypee Solutions Corp. (hereafter "the Company") complies with the Personal
+                        Information Protection Act, the Act on Consumer Protection in Electronic
+                        Commerce, the Act on Promotion of Information and Communications Network
+                        Utilization and Information Protection, and other related legislations to
+                        protect user personal information and to address any related grievances
+                        smoothly. If there are any amendments to this Privacy Policy, they will be
+                        announced through the website's notices or by individual notification.
                     </Typography>
                 </Box>
 
@@ -84,11 +115,11 @@ const Privacypolicy = () => {
                         <Box width={{ xs: '100%', sm: '100%', md: '900px', lg: '900px' }}>
                             <Typography
                                 sx={{
-                                    fontSize: { lg: '14px', sm: '13px', xs: '12px', md: '14px' },
-                                    fontWeight: 400,
+                                    fontSize: { md: '14px', sm: '13px', xs: '12px' },
                                     fontFamily: 'Gmarket',
-                                    color: `${theme.palette.text.lightbrown}`,
-                                    lineHeight: '22.5px',
+                                    fontWeight: 500,
+                                    color: '#888',
+                                    lineHeight: '24px',
                                 }}
                                 dangerouslySetInnerHTML={{ __html: item.body }}
                             ></Typography>

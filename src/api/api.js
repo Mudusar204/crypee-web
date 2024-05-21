@@ -12,6 +12,15 @@ export const loginHandle = async (data) => {
     }
 };
 
+export const PortfolioHandle = async (data) => {
+    try {
+        const response = await axios.post(`${REACT_APP_BASE_URL}/user/portfoliofilter`, data);
+        // return response;
+    } catch (err) {
+        return err;
+    }
+};
+
 export const handleRefresh = async () => {
     try {
         const refreshToken = sessionStorage.getItem('refreshToken-dai214');
@@ -27,7 +36,7 @@ export const handleRefresh = async () => {
                 headers: {
                     Authorization: `Bearer ${refreshToken}`,
                 },
-            }
+            },
         );
 
         return response;

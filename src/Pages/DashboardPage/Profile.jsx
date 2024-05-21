@@ -24,6 +24,8 @@ export default function Profile() {
     const [assetper, setProfilePerc] = useState(null);
     const [activeButton, setActiveButton] = useState(null);
 
+    const [nullAlert, setnullAlert] = useState(null);
+
     const [combineTimeValue, setCombineTimeValue] = useState({});
 
     const fetchProfile = async () => {
@@ -117,42 +119,46 @@ export default function Profile() {
                 break;
             case '1Y':
                 // Filter data for last 1 year (365 days)
-                let oneYearAgo = new Date(currentDate.getTime() - 365 * 24 * 60 * 60 * 1000);
+                // let oneYearAgo = new Date(currentDate.getTime() - 10 * 365 * 24 * 60 * 60 * 1000); //! year
+                let oneYearAgo = new Date(currentDate.getTime() - 90 * 24 * 60 * 60 * 1000); //3 month
+
                 let oneYearAgos = setDateFormat(oneYearAgo);
-
-                console.log('date', date);
-                console.log('new Date(date)', new Date(date));
-
-                // let data = new Date(date);
-                // console.log('data', data);
 
                 const today = new Date(); // Current date
                 const oneYearAgofromtoday = new Date(oneYearAgos); // Convert oneYearAgos to a Date object
+                let todayFormatted = setDateFormat(today);
 
-                const filteredData = date.filter((dateString) => {
+                const filteredData1Y = date.filter((dateString) => {
                     const itemDate = new Date(dateString);
                     return itemDate >= oneYearAgofromtoday && itemDate <= today;
                 });
 
-                console.log(filteredData?.length);
-                console.log(filteredData?.length);
+                console.log('filteredData1Y', filteredData1Y);
+                filteredData = filteredData1Y;
+                // console.log('combineTimeValue', combineTimeValue);
+                const filteredVal = combineTimeValue.filter((obj) => {
+                    const objDateFormated = obj?.date?.split('T')[0];
+                    return objDateFormated >= oneYearAgos && objDateFormated <= todayFormatted;
+                });
+                console.log('filteredDataValueBalance1y', filteredVal);
+                // const result = filteredVal?.map((item) => item.date.split('T')[0]);
+                // console.log('result', result);
 
-                // filteredData = date.filter((dateItem) => new Date(dateItem) >= oneYearAgos);
+                const allBalancesAreNull = filteredVal?.every((item) => {
+                    return item.balance === null;
+                });
 
-                // filteredData = date.filter(
-                //     (dateItem) =>
-                //         new Date(dateItem) >= oneYearAgos && dateItem <= setDateFormat(currentDate),
-                // );
-                // console.log('filteredData', filteredData);
+                console.log('allBalancesAreNull', allBalancesAreNull);
+                // if (allBalancesAreNull) {
+                // }
+
                 break;
             case 'All':
                 filteredData = alldate;
                 filteredValue = allvalue;
-
                 break;
             default:
         }
-
         // Update state with filtered data
         setDate(filteredData);
         setValue(filteredValue);
