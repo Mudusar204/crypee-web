@@ -26,7 +26,7 @@ import Capitalgainbg from '../../images/Taxes/capitalgainbg.png';
 import TaxAbleIcome from './TaxAbleIcome';
 import { TxYearsDropdown } from '../../Components/DropdownMenus';
 import { REACT_APP_BASE_URL } from './../../config';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const yearslist = ['2018', '2022', '2019', '2023'];
 
@@ -162,13 +162,15 @@ const Taxes = () => {
                     >
                         <MoreVert sx={{ color: '#000' }} />
                     </Button>
+                    <NavLink to='/tax-pros'>
                     <Button
                         variant="btn1"
                         sx={{ p: { xs: '8px', md: 1.5 }, fontSize: { xs: '9px', md: '16px' } }}
-                    >
+                        >
                         <GroupAdd sx={{ mr: 1 }} />
                         Add tax Professional
                     </Button>
+                        </NavLink>
                 </Box>
             </Box>
             <Grid container sx={{ mt: 2, justifyContent: 'space-between' }}>
