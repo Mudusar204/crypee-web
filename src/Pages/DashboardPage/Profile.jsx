@@ -289,7 +289,7 @@ export default function Profile() {
                         </>
                     ) : (
                         <>
-                            <Skeleton width="50px" height="50px" />
+                            <Skeleton sx={{ width: '60px', height: { xs: '45px', sm: '50px' } }} />
                         </>
                     )}
 
@@ -312,7 +312,7 @@ export default function Profile() {
                         </>
                     ) : (
                         <>
-                            <Skeleton width="60px" height="30px" />
+                            <Skeleton sx={{ width: '60px', height: { xs: '45px', sm: '50px' } }} />
                         </>
                     )}
                 </Stack>
